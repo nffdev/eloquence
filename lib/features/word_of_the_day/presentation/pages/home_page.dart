@@ -5,6 +5,7 @@ import '../widgets/word_display.dart';
 import '../widgets/word_example.dart';
 import '../widgets/action_buttons.dart';
 import '../../../../features/settings/presentation/pages/settings_page.dart';
+import '../../../../features/favorites/presentation/pages/favorites_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -103,7 +104,12 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               IconButton(
                 icon: const Icon(Icons.favorite_border_outlined),
                 onPressed: () {
-                  // TODO :Navigate to favorites
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const FavoritesPage(),
+                    ),
+                  );
                 },
               ),
               IconButton(

@@ -84,9 +84,48 @@ class WordRepository {
   Future<List<Word>> getFavoriteWords() async {
     final prefs = await SharedPreferences.getInstance();
     List<String> favorites = prefs.getStringList('favorites') ?? [];
+    List<Word> favoriteWords = [];
     
-    // TODO : fetch the complete word data for each favorite
+    // Get all saved words from SharedPreferences
+    Map<String, dynamic> allSavedWords = {};
+    prefs.getKeys().forEach((key) {
+      if (key.startsWith('word_')) {
+        try {
+          final wordJson = prefs.getString(key);
+          if (wordJson != null) {
+            final wordData = json.decode(wordJson);
+            final word = Word.fromJson(wordData);
+            if (favorites.contains(word.word)) {
+              favoriteWords.add(word);
+            }
+            allSavedWords[word.word] = word;
+          }
+        } catch (e) {
+          print('Error loading word: $e');
+        }
+      }
+    });
     
-    return _words.where((word) => favorites.contains(word.word)).toList();
+    // If we didn't find all favorites in saved words, look in the predefined list
+    if (favoriteWords.length < favorites.length) {
+      for (final wordName in favorites) {
+        if (!favoriteWords.any((w) => w.word == wordName)) {
+          final matchingWords = _words.where((w) => w.word == wordName).toList();
+          if (matchingWords.isNotEmpty) {
+            final word = matchingWords.first;
+            word.isFavorite = true;
+            favoriteWords.add(word);
+          }
+        }
+      }
+    }
+    
+    return favoriteWords;
+  }
+  
+  Future<bool> isWordFavorite(String word) async {
+    final prefs = await SharedPreferences.getInstance();
+    List<String> favorites = prefs.getStringList('favorites') ?? [];
+    return favorites.contains(word);
   }
 }
