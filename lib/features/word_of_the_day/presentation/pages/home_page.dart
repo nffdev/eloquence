@@ -4,6 +4,7 @@ import '../../application/word_provider.dart';
 import '../widgets/word_display.dart';
 import '../widgets/word_example.dart';
 import '../widgets/action_buttons.dart';
+import '../../../../features/settings/presentation/pages/settings_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -49,10 +50,14 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
       body: Consumer<WordProvider>(
         builder: (context, wordProvider, child) {
           if (wordProvider.isLoading) {
-            return const Center(child: CircularProgressIndicator(color: Colors.white));
+            return const Center(child: CircularProgressIndicator());
           }
           
           return FadeTransition(
@@ -84,7 +89,6 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         },
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.black,
         elevation: 0,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -102,9 +106,14 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 },
               ),
               IconButton(
-                icon: const Icon(Icons.person_outline),
+                icon: const Icon(Icons.settings_outlined),
                 onPressed: () {
-                  // TODO : Navigate to profile
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SettingsPage(),
+                    ),
+                  );
                 },
               ),
             ],

@@ -12,11 +12,16 @@ class ActionButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         IconButton(
-          icon: const Icon(Icons.share_outlined, color: Colors.white70),
+          icon: Icon(
+            Icons.share_outlined,
+            color: isDarkMode ? Colors.white70 : Colors.black54,
+          ),
           onPressed: () {
             // TODO : Share functionality
           },
@@ -25,7 +30,7 @@ class ActionButtons extends StatelessWidget {
         IconButton(
           icon: Icon(
             isFavorite ? Icons.favorite : Icons.favorite_border_outlined,
-            color: isFavorite ? Colors.redAccent : Colors.white70,
+            color: isFavorite ? Colors.redAccent : (isDarkMode ? Colors.white70 : Colors.black54),
           ),
           onPressed: onFavoriteToggle,
         ),

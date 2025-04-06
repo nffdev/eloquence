@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'core/theme/app_theme.dart';
+import 'core/theme/theme_provider.dart';
 import 'features/word_of_the_day/application/word_provider.dart';
 import 'features/splash/splash_page.dart';
 
@@ -13,16 +14,10 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
   
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.black,
-    statusBarIconBrightness: Brightness.light,
-    systemNavigationBarColor: Colors.black,
-    systemNavigationBarIconBrightness: Brightness.light,
-  ));
-  
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => WordProvider()),
+      ChangeNotifierProvider(create: (_) => ThemeProvider()),
     ],
     child: const EloquenceApp(),
   ));
@@ -33,10 +28,19 @@ class EloquenceApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: themeProvider.isDarkMode ? Colors.black : Colors.white,
+      statusBarIconBrightness: themeProvider.isDarkMode ? Brightness.light : Brightness.dark,
+      systemNavigationBarColor: themeProvider.isDarkMode ? Colors.black : Colors.white,
+      systemNavigationBarIconBrightness: themeProvider.isDarkMode ? Brightness.light : Brightness.dark,
+    ));
+    
     return MaterialApp(
       title: 'Éloquence',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.darkTheme,
+      theme: themeProvider.isDarkMode ? AppTheme.darkTheme : AppTheme.lightTheme,
       home: const SplashPage(),
     );
   }
