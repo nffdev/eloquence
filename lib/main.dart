@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'core/theme/app_theme.dart';
 import 'features/word_of_the_day/application/word_provider.dart';
-import 'features/word_of_the_day/presentation/pages/home_page.dart';
+import 'features/splash/splash_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,7 +37,7 @@ class EloquenceApp extends StatelessWidget {
       title: 'Éloquence',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.darkTheme,
-      home: const HomePage(),
+      home: const SplashPage(),
     );
   }
 }
