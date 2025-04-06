@@ -79,6 +79,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                     ActionButtons(
                       isFavorite: wordProvider.isFavorite,
                       onFavoriteToggle: () => wordProvider.toggleFavorite(),
+                      wordToSpeak: wordProvider.currentWord.word,
                     ),
                     const SizedBox(height: 40),
                   ],
