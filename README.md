@@ -52,7 +52,7 @@ lib/
 
 - [x] 🗓️ Faire un système pour afficher **un mot par jour**.
 - [ ] 🔥 Ajouter un **système de streak** pour suivre la régularité de l’utilisateur.
-- [ ] 🔊 Intégrer la **prononciation vocale (TTS)** du mot du jour.
+- [x] 🔊 Intégrer la **prononciation vocale (TTS)** du mot du jour.
 - [ ] ⭐ Permettre à l’utilisateur de **sauvegarder ses mots favoris**.
 - [ ] 📱 Créer un **widget** affichant le mot du jour sur l’écran d’accueil.
 - [x] 🌗 Implémenter un **switcher de thème clair/sombre**.

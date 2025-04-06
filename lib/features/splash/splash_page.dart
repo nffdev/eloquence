@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import '../../core/theme/theme_provider.dart';
 import '../../features/word_of_the_day/presentation/pages/home_page.dart';
 
 class SplashPage extends StatefulWidget {
@@ -70,8 +72,18 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
+    // Get the current theme from the ThemeProvider
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    final isDarkMode = themeProvider.isDarkMode;
+    
+    // Set colors based on the current theme
+    final backgroundColor = isDarkMode ? Colors.black : Colors.white;
+    final primaryTextColor = isDarkMode ? Colors.white : Colors.black;
+    final secondaryTextColor = isDarkMode ? Colors.white70 : Colors.black87;
+    final tertiaryTextColor = isDarkMode ? Colors.white60 : Colors.black54;
+    
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: backgroundColor,
       body: Center(
         child: AnimatedBuilder(
           animation: _animationController,
@@ -88,7 +100,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                       style: GoogleFonts.playfairDisplay(
                         fontSize: 80,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: primaryTextColor,
                         letterSpacing: 1.5,
                       ),
                     ),
@@ -98,7 +110,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                       style: GoogleFonts.playfairDisplay(
                         fontSize: 24,
                         fontWeight: FontWeight.w500,
-                        color: Colors.white70,
+                        color: secondaryTextColor,
                         letterSpacing: 8.0,
                       ),
                     ),
@@ -108,7 +120,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                       style: GoogleFonts.lato(
                         fontSize: 16,
                         fontWeight: FontWeight.w300,
-                        color: Colors.white60,
+                        color: tertiaryTextColor,
                         letterSpacing: 1.2,
                       ),
                     ),
