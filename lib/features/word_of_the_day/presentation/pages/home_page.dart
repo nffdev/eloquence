@@ -6,6 +6,7 @@ import '../widgets/word_example.dart';
 import '../widgets/action_buttons.dart';
 import '../../../../features/settings/presentation/pages/settings_page.dart';
 import '../../../../features/favorites/presentation/pages/favorites_page.dart';
+import '../../../../core/theme/theme_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -51,40 +52,146 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
+      // Removed app bar to eliminate extra space
+      extendBodyBehindAppBar: true,
       body: Consumer<WordProvider>(
         builder: (context, wordProvider, child) {
           if (wordProvider.isLoading) {
             return const Center(child: CircularProgressIndicator());
           }
           
+          final themeProvider = Provider.of<ThemeProvider>(context);
+          final isDarkMode = themeProvider.isDarkMode;
+          final separatorColor = isDarkMode ? Colors.white : Colors.black;
+          
           return FadeTransition(
             opacity: _fadeAnimation,
-            child: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 40),
-                    // Word display section
-                    WordDisplay(word: wordProvider.currentWord),
-                    const Spacer(),
-                    // Example section
-                    WordExample(example: wordProvider.currentWord.example),
-                    const SizedBox(height: 60),
-                    // Action buttons
-                    ActionButtons(
-                      isFavorite: wordProvider.isFavorite,
-                      onFavoriteToggle: () => wordProvider.toggleFavorite(),
-                      wordToSpeak: wordProvider.currentWord.word,
+            child: MediaQuery.removePadding(
+              context: context,
+              removeTop: true,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 5),
+                  Container(
+                    width: double.infinity,
+                    height: 40,
+                    color: Colors.black,
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          child: Container(
+                            width: double.infinity,
+                            height: 1,
+                            color: separatorColor.withOpacity(0.3),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 1),
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        width: 20,
+                                        height: 15,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(color: Colors.white, width: 0.5),
+                                          borderRadius: BorderRadius.circular(2),
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              flex: 1,
+                                              child: Container(color: Colors.blue),
+                                            ),
+                                            Expanded(
+                                              flex: 1,
+                                              child: Container(color: Colors.white),
+                                            ),
+                                            Expanded(
+                                              flex: 1,
+                                              child: Container(color: Colors.red),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      const Text(
+                                        'FR',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.local_fire_department,
+                                        color: Colors.orange,
+                                        size: 18,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Container(
+                                        width: 20,
+                                        height: 20,
+                                        decoration: const BoxDecoration(
+                                          color: Colors.amber,
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: const Center(
+                                          child: Text(
+                                            '1',
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 40),
-                  ],
-                ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 20),
+                          WordDisplay(word: wordProvider.currentWord),
+                          const Spacer(),
+                          WordExample(example: wordProvider.currentWord.example),
+                          const SizedBox(height: 60),
+                          ActionButtons(
+                            isFavorite: wordProvider.isFavorite,
+                            onFavoriteToggle: () => wordProvider.toggleFavorite(),
+                            wordToSpeak: wordProvider.currentWord.word,
+                          ),
+                          const SizedBox(height: 40),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           );
