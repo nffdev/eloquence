@@ -1,4 +1,6 @@
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/intl.dart';
 import '../data/word_repository.dart';
 import '../domain/models/word.dart';
 
@@ -14,6 +16,9 @@ class WordProvider extends ChangeNotifier {
   late Word _currentWord;
   Word get currentWord => _currentWord;
   
+  int _streak = 1;
+  int get streak => _streak;
+  
   Future<void> loadTodaysWord() async {
     _isLoading = true;
     notifyListeners();
@@ -21,6 +26,7 @@ class WordProvider extends ChangeNotifier {
     try {
       _currentWord = await _repository.getTodaysWord();
       _isFavorite = _currentWord.isFavorite;
+      await _updateStreak();
     } catch (e) {
       debugPrint('Error loading today\'s word: $e');
     } finally {
@@ -29,13 +35,37 @@ class WordProvider extends ChangeNotifier {
     }
   }
   
+  Future<void> _updateStreak() async {
+    final prefs = await SharedPreferences.getInstance();
+    final today = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    final lastVisit = prefs.getString('last_visit_date');
+    
+    if (lastVisit == null) {
+      _streak = 1;
+    } else {
+      final lastVisitDate = DateTime.parse(lastVisit);
+      final currentDate = DateTime.parse(today);
+      
+      final difference = currentDate.difference(lastVisitDate).inDays;
+      
+      if (difference == 1) {
+        _streak = (prefs.getInt('streak_count') ?? 1) + 1;
+      } else if (difference > 1) {
+        _streak = 1;
+      } else {
+        _streak = prefs.getInt('streak_count') ?? 1;
+      }
+    }
+    
+    await prefs.setString('last_visit_date', today);
+    await prefs.setInt('streak_count', _streak);
+  }
+  
   void toggleFavorite({Word? word}) async {
     if (word != null) {
-      // Toggle favorite for a specific word (used in favorites page)
       final newStatus = !word.isFavorite;
       try {
         await _repository.saveWordFavoriteStatus(word, newStatus);
-        // If we're toggling the current word, update the UI
         if (word.word == _currentWord.word) {
           _isFavorite = newStatus;
           _currentWord.isFavorite = newStatus;
@@ -45,7 +75,6 @@ class WordProvider extends ChangeNotifier {
         debugPrint('Error toggling favorite for ${word.word}: $e');
       }
     } else {
-      // Toggle favorite for the current word
       _isFavorite = !_isFavorite;
       _currentWord.isFavorite = _isFavorite;
       notifyListeners();

@@ -52,7 +52,6 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Removed app bar to eliminate extra space
       extendBodyBehindAppBar: true,
       body: Consumer<WordProvider>(
         builder: (context, wordProvider, child) {
@@ -72,7 +71,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 5),
+                  const SizedBox(height: 30),
                   Container(
                     width: double.infinity,
                     height: 40,
@@ -149,10 +148,10 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                           color: Colors.amber,
                                           shape: BoxShape.circle,
                                         ),
-                                        child: const Center(
+                                        child: Center(
                                           child: Text(
-                                            '1',
-                                            style: TextStyle(
+                                            '${wordProvider.streak}',
+                                            style: const TextStyle(
                                               color: Colors.black,
                                               fontSize: 12,
                                               fontWeight: FontWeight.bold,
