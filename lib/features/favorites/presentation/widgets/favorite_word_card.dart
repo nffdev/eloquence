@@ -37,6 +37,7 @@ class FavoriteWordCard extends StatelessWidget {
                         word.word,
                         style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.bold,
+                          color: isDarkMode ? Colors.white : Colors.black,
                         ),
                       ),
                       const SizedBox(width: 8),
