@@ -32,7 +32,8 @@ class ActionButtons extends StatelessWidget {
             color: isDarkMode ? Colors.white70 : Colors.black54,
           ),
           onPressed: () {
-            ttsService.speak(wordToSpeak);
+            final languageCode = languageProvider.languageCode;
+            ttsService.speak(wordToSpeak, languageCode: languageCode);
           },
           tooltip: AppTranslations.translate('listen_pronunciation', currentLanguage),
         ),

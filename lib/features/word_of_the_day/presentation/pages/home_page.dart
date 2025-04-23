@@ -150,10 +150,36 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                             word: wordProvider.currentWord.word,
                           ),
                           const SizedBox(height: 60),
-                          ActionButtons(
-                            isFavorite: wordProvider.isFavorite,
-                            onFavoriteToggle: () => wordProvider.toggleFavorite(),
-                            wordToSpeak: wordProvider.currentWord.word,
+                          Consumer<LanguageProvider>(
+                            builder: (context, languageProvider, _) {
+                              String translatedWord = wordProvider.currentWord.word;
+                              
+                              if (languageProvider.currentLanguage == AppLanguage.english) {
+                                switch (wordProvider.currentWord.word) {
+                                  case 'Éthéré':
+                                    translatedWord = 'Ethereal';
+                                    break;
+                                  case 'Sérendipité':
+                                    translatedWord = 'Serendipity';
+                                    break;
+                                  case 'Ineffable':
+                                    translatedWord = 'Ineffable';
+                                    break;
+                                  case 'Acrimonie':
+                                    translatedWord = 'Acrimony';
+                                    break;
+                                  case 'Quintessence':
+                                    translatedWord = 'Quintessence';
+                                    break;
+                                }
+                              }
+                              
+                              return ActionButtons(
+                                isFavorite: wordProvider.isFavorite,
+                                onFavoriteToggle: () => wordProvider.toggleFavorite(),
+                                wordToSpeak: translatedWord,
+                              );
+                            },
                           ),
                           const SizedBox(height: 40),
                         ],

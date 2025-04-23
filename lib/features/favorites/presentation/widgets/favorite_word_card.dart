@@ -127,7 +127,8 @@ class FavoriteWordCard extends StatelessWidget {
                           size: 20,
                         ),
                         onPressed: () {
-                          ttsService.speak(word.word);
+                          final languageCode = languageProvider.languageCode;
+                          ttsService.speak(translatedWord, languageCode: languageCode);
                         },
                         tooltip: AppTranslations.translate('listen_pronunciation', currentLanguage),
                         padding: EdgeInsets.zero,

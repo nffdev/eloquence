@@ -7,6 +7,7 @@ class TTSService {
   FlutterTts? _flutterTts;
   bool _isSpeaking = false;
   bool _isAvailable = false;
+  String _currentLanguage = 'fr-FR';
   
   factory TTSService() {
     return _instance;
@@ -21,13 +22,13 @@ class TTSService {
       if (_isPlatformSupported()) {
         _flutterTts = FlutterTts();
         
-        await _flutterTts!.setLanguage('fr-FR');
+        await _flutterTts!.setLanguage(_currentLanguage);
         await _flutterTts!.setSpeechRate(0.5);
         await _flutterTts!.setVolume(1.0);
         await _flutterTts!.setPitch(1.0);
         
         _isAvailable = true;
-        debugPrint('TTS initialized successfully');
+        debugPrint('TTS initialized successfully with language: $_currentLanguage');
       } else {
         debugPrint('TTS not available on this platform');
       }
@@ -41,11 +42,32 @@ class TTSService {
     return !kIsWeb && (Platform.isAndroid || Platform.isIOS);
   }
 
-  Future<void> speak(String text) async {
+  Future<void> setLanguage(String languageCode) async {
+    if (!_isAvailable) return;
+    
+    String ttsLanguage;
+    if (languageCode == 'en') {
+      ttsLanguage = 'en-US';
+    } else {
+      ttsLanguage = 'fr-FR';
+    }
+    
+    if (_currentLanguage != ttsLanguage) {
+      _currentLanguage = ttsLanguage;
+      await _flutterTts!.setLanguage(_currentLanguage);
+      debugPrint('TTS language changed to: $_currentLanguage');
+    }
+  }
+
+  Future<void> speak(String text, {String? languageCode}) async {
     try {
       if (!_isAvailable) {
         debugPrint('TTS not available, would speak: "$text"');
         return;
+      }
+      
+      if (languageCode != null) {
+        await setLanguage(languageCode);
       }
       
       if (_isSpeaking) {
@@ -53,7 +75,7 @@ class TTSService {
       }
       
       _isSpeaking = true;
-      debugPrint('Speaking: "$text"');
+      debugPrint('Speaking in $_currentLanguage: "$text"');
       await _flutterTts!.speak(text);
       
       await Future.delayed(const Duration(seconds: 2));
