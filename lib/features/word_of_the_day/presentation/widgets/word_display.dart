@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../domain/models/word.dart';
 import '../../../../core/localization/language_provider.dart';
 import '../../../../core/localization/app_translations.dart';
+import '../../../../core/localization/translation_service.dart';
 
 class WordDisplay extends StatelessWidget {
   final Word word;
@@ -19,18 +20,38 @@ class WordDisplay extends StatelessWidget {
     
     final translatedWordType = AppTranslations.translate(word.type.toLowerCase(), currentLanguage);
     
-    String translatedWord = word.word;
-    final wordKey = 'word_${word.word.toLowerCase()}';
-    final translatedWordValue = AppTranslations.translate(wordKey, currentLanguage);
-    if (translatedWordValue != wordKey) {
-      translatedWord = translatedWordValue;
-    }
+    String translatedWord;
+    String translatedDefinition;
     
-    String translatedDefinition = word.definition;
-    final defKey = 'def_${word.word.toLowerCase()}';
-    final translatedDefValue = AppTranslations.translate(defKey, currentLanguage);
-    if (translatedDefValue != defKey) {
-      translatedDefinition = translatedDefValue;
+    if (currentLanguage == AppLanguage.english) {
+      switch (word.word) {
+        case 'Éthéré':
+          translatedWord = 'Ethereal';
+          translatedDefinition = 'Of unearthly delicacy and lightness, almost celestial';
+          break;
+        case 'Sérendipité':
+          translatedWord = 'Serendipity';
+          translatedDefinition = 'The occurrence of finding valuable things not sought for';
+          break;
+        case 'Ineffable':
+          translatedWord = 'Ineffable';
+          translatedDefinition = 'Too great to be expressed in words';
+          break;
+        case 'Acrimonie':
+          translatedWord = 'Acrimony';
+          translatedDefinition = 'Bitterness or ill feeling that is displayed in speech or behavior';
+          break;
+        case 'Quintessence':
+          translatedWord = 'Quintessence';
+          translatedDefinition = 'The most perfect embodiment of something';
+          break;
+        default:
+          translatedWord = word.word;
+          translatedDefinition = word.definition;
+      }
+    } else {
+      translatedWord = word.word;
+      translatedDefinition = word.definition;
     }
     
     return Column(

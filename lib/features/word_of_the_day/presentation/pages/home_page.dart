@@ -145,7 +145,10 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                           const SizedBox(height: 20),
                           WordDisplay(word: wordProvider.currentWord),
                           const Spacer(),
-                          WordExample(example: wordProvider.currentWord.example),
+                          WordExample(
+                            example: wordProvider.currentWord.example,
+                            word: wordProvider.currentWord.word,
+                          ),
                           const SizedBox(height: 60),
                           ActionButtons(
                             isFavorite: wordProvider.isFavorite,

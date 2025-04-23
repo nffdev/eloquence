@@ -105,28 +105,28 @@ class AppTranslations {
     },
     
     // Word translations (sample)
-    'word_etheree': {
+    'word_éthéré': {
       AppLanguage.french: 'Éthéré',
       AppLanguage.english: 'Ethereal',
     },
-    'def_etheree': {
+    'def_éthéré': {
       AppLanguage.french: 'D\'une beauté irréelle, presque céleste',
       AppLanguage.english: 'Of unearthly delicacy and lightness, almost celestial',
     },
-    'example_etheree': {
+    'example_éthéré': {
       AppLanguage.french: 'Son regard était d\'une beauté éthérée, comme s\'il appartenait à un rêve.',
       AppLanguage.english: 'Her gaze had an ethereal beauty, as if it belonged to a dream.',
     },
     
-    'word_serendipity': {
+    'word_sérendipité': {
       AppLanguage.french: 'Sérendipité',
       AppLanguage.english: 'Serendipity',
     },
-    'def_serendipity': {
+    'def_sérendipité': {
       AppLanguage.french: 'Le fait de découvrir quelque chose par hasard alors qu\'on cherchait autre chose',
       AppLanguage.english: 'The occurrence of finding valuable things not sought for',
     },
-    'example_serendipity': {
+    'example_sérendipité': {
       AppLanguage.french: 'C\'est par sérendipité qu\'il a trouvé sa vocation en se perdant dans ce musée.',
       AppLanguage.english: 'It was by serendipity that he found his calling when getting lost in that museum.',
     },
@@ -144,15 +144,15 @@ class AppTranslations {
       AppLanguage.english: 'Facing this magnificent landscape, he felt an ineffable joy.',
     },
     
-    'word_acrimony': {
+    'word_acrimonie': {
       AppLanguage.french: 'Acrimonie',
       AppLanguage.english: 'Acrimony',
     },
-    'def_acrimony': {
+    'def_acrimonie': {
       AppLanguage.french: 'Aigreur, amertume qui se manifeste dans les paroles ou le comportement',
       AppLanguage.english: 'Bitterness or ill feeling that is displayed in speech or behavior',
     },
-    'example_acrimony': {
+    'example_acrimonie': {
       AppLanguage.french: 'Il a répondu avec acrimonie aux critiques formulées contre son projet.',
       AppLanguage.english: 'He responded with acrimony to the criticisms made against his project.',
     },

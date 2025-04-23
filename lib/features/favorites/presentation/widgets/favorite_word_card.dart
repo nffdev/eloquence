@@ -4,6 +4,7 @@ import '../../../word_of_the_day/domain/models/word.dart';
 import '../../../../core/services/tts_service.dart';
 import '../../../../core/localization/language_provider.dart';
 import '../../../../core/localization/app_translations.dart';
+import '../../../../core/localization/translation_service.dart';
 
 class FavoriteWordCard extends StatelessWidget {
   final Word word;
@@ -24,25 +25,46 @@ class FavoriteWordCard extends StatelessWidget {
     
     final translatedWordType = AppTranslations.translate(word.type.toLowerCase(), currentLanguage);
     
-    String translatedWord = word.word;
-    final wordKey = 'word_${word.word.toLowerCase()}';
-    final translatedWordValue = AppTranslations.translate(wordKey, currentLanguage);
-    if (translatedWordValue != wordKey) {
-      translatedWord = translatedWordValue;
-    }
+    String translatedWord;
+    String translatedDefinition;
+    String translatedExample;
     
-    String translatedDefinition = word.definition;
-    final defKey = 'def_${word.word.toLowerCase()}';
-    final translatedDefValue = AppTranslations.translate(defKey, currentLanguage);
-    if (translatedDefValue != defKey) {
-      translatedDefinition = translatedDefValue;
-    }
-    
-    String translatedExample = word.example;
-    final exampleKey = 'example_${word.word.toLowerCase()}';
-    final translatedExampleValue = AppTranslations.translate(exampleKey, currentLanguage);
-    if (translatedExampleValue != exampleKey) {
-      translatedExample = translatedExampleValue;
+    if (currentLanguage == AppLanguage.english) {
+      switch (word.word) {
+        case 'Éthéré':
+          translatedWord = 'Ethereal';
+          translatedDefinition = 'Of unearthly delicacy and lightness, almost celestial';
+          translatedExample = 'Her gaze had an ethereal beauty, as if it belonged to a dream.';
+          break;
+        case 'Sérendipité':
+          translatedWord = 'Serendipity';
+          translatedDefinition = 'The occurrence of finding valuable things not sought for';
+          translatedExample = 'It was by serendipity that he found his calling when getting lost in that museum.';
+          break;
+        case 'Ineffable':
+          translatedWord = 'Ineffable';
+          translatedDefinition = 'Too great to be expressed in words';
+          translatedExample = 'Facing this magnificent landscape, he felt an ineffable joy.';
+          break;
+        case 'Acrimonie':
+          translatedWord = 'Acrimony';
+          translatedDefinition = 'Bitterness or ill feeling that is displayed in speech or behavior';
+          translatedExample = 'He responded with acrimony to the criticisms made against his project.';
+          break;
+        case 'Quintessence':
+          translatedWord = 'Quintessence';
+          translatedDefinition = 'The most perfect embodiment of something';
+          translatedExample = 'This dish represents the quintessence of traditional French cuisine.';
+          break;
+        default:
+          translatedWord = word.word;
+          translatedDefinition = word.definition;
+          translatedExample = word.example;
+      }
+    } else {
+      translatedWord = word.word;
+      translatedDefinition = word.definition;
+      translatedExample = word.example;
     }
 
     return Card(

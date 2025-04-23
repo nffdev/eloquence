@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/localization/language_provider.dart';
 import '../../../../core/localization/app_translations.dart';
+import '../../../../core/localization/translation_service.dart';
 
 class WordExample extends StatelessWidget {
   final String example;
+  final String word;
 
   const WordExample({
     super.key,
     required this.example,
+    required this.word,
   });
 
   @override
@@ -18,14 +21,30 @@ class WordExample extends StatelessWidget {
     
     final exampleTitle = currentLanguage == AppLanguage.french ? 'Exemple :' : 'Example :';
     
-    String translatedExample = example;
+    String translatedExample;
     
-    final firstWord = example.split(' ')[0].toLowerCase();
-    final exampleKey = 'example_$firstWord';
-    final translatedExampleValue = AppTranslations.translate(exampleKey, currentLanguage);
-    
-    if (translatedExampleValue != exampleKey) {
-      translatedExample = translatedExampleValue;
+    if (currentLanguage == AppLanguage.english) {
+      switch (word) {
+        case 'Éthéré':
+          translatedExample = 'Her gaze had an ethereal beauty, as if it belonged to a dream.';
+          break;
+        case 'Sérendipité':
+          translatedExample = 'It was by serendipity that he found his calling when getting lost in that museum.';
+          break;
+        case 'Ineffable':
+          translatedExample = 'Facing this magnificent landscape, he felt an ineffable joy.';
+          break;
+        case 'Acrimonie':
+          translatedExample = 'He responded with acrimony to the criticisms made against his project.';
+          break;
+        case 'Quintessence':
+          translatedExample = 'This dish represents the quintessence of traditional French cuisine.';
+          break;
+        default:
+          translatedExample = example;
+      }
+    } else {
+      translatedExample = example;
     }
     
     return Column(
