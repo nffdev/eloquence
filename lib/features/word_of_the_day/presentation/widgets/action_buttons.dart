@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../../core/services/tts_service.dart';
+import '../../../../core/localization/language_provider.dart';
+import '../../../../core/localization/app_translations.dart';
 
 class ActionButtons extends StatelessWidget {
   final bool isFavorite;
@@ -17,6 +20,8 @@ class ActionButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final ttsService = TTSService();
+    final languageProvider = Provider.of<LanguageProvider>(context);
+    final currentLanguage = languageProvider.currentLanguage;
     
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -29,7 +34,7 @@ class ActionButtons extends StatelessWidget {
           onPressed: () {
             ttsService.speak(wordToSpeak);
           },
-          tooltip: 'Écouter la prononciation',
+          tooltip: AppTranslations.translate('listen_pronunciation', currentLanguage),
         ),
         const SizedBox(width: 30),
         IconButton(
@@ -40,7 +45,7 @@ class ActionButtons extends StatelessWidget {
           onPressed: () {
             // TODO : Share functionality
           },
-          tooltip: 'Partager',
+          tooltip: currentLanguage == AppLanguage.french ? 'Partager' : 'Share',
         ),
         const SizedBox(width: 30),
         IconButton(
@@ -49,7 +54,9 @@ class ActionButtons extends StatelessWidget {
             color: isFavorite ? Colors.redAccent : (isDarkMode ? Colors.white70 : Colors.black54),
           ),
           onPressed: onFavoriteToggle,
-          tooltip: isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris',
+          tooltip: isFavorite 
+              ? AppTranslations.translate('remove_from_favorites', currentLanguage) 
+              : (currentLanguage == AppLanguage.french ? 'Ajouter aux favoris' : 'Add to favorites'),
         ),
       ],
     );

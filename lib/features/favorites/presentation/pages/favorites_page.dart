@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/theme/theme_provider.dart';
+import '../../../../core/localization/language_provider.dart';
+import '../../../../core/localization/app_translations.dart';
 import '../../../word_of_the_day/application/word_provider.dart';
 import '../../../word_of_the_day/domain/models/word.dart';
 import '../widgets/favorite_word_card.dart';
@@ -33,7 +35,13 @@ class _FavoritesPageState extends State<FavoritesPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Mots favoris'),
+        title: Consumer<LanguageProvider>(
+          builder: (context, languageProvider, _) {
+            return Text(
+              AppTranslations.translate('favorite_words', languageProvider.currentLanguage)
+            );
+          },
+        ),
         elevation: 0,
         backgroundColor: Colors.transparent,
         leading: IconButton(
@@ -48,11 +56,15 @@ class _FavoritesPageState extends State<FavoritesPage> {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(
-              child: Text(
-                'Erreur lors du chargement des favoris',
-                style: TextStyle(
-                  color: isDarkMode ? Colors.white70 : Colors.black54,
-                ),
+              child: Consumer<LanguageProvider>(
+                builder: (context, languageProvider, _) {
+                  return Text(
+                    AppTranslations.translate('error_loading_favorites', languageProvider.currentLanguage),
+                    style: TextStyle(
+                      color: isDarkMode ? Colors.white70 : Colors.black54,
+                    ),
+                  );
+                },
               ),
             );
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
@@ -66,22 +78,30 @@ class _FavoritesPageState extends State<FavoritesPage> {
                     color: isDarkMode ? Colors.white30 : Colors.black26,
                   ),
                   const SizedBox(height: 16),
-                  Text(
-                    'Aucun mot favori',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                      color: isDarkMode ? Colors.white70 : Colors.black54,
-                    ),
+                  Consumer<LanguageProvider>(
+                    builder: (context, languageProvider, _) {
+                      return Text(
+                        AppTranslations.translate('no_favorites', languageProvider.currentLanguage),
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          color: isDarkMode ? Colors.white70 : Colors.black54,
+                        ),
+                      );
+                    },
                   ),
                   const SizedBox(height: 8),
-                  Text(
-                    'Ajoutez des mots à vos favoris pour les retrouver ici',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: isDarkMode ? Colors.white54 : Colors.black45,
-                    ),
+                  Consumer<LanguageProvider>(
+                    builder: (context, languageProvider, _) {
+                      return Text(
+                        AppTranslations.translate('add_favorites_hint', languageProvider.currentLanguage),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: isDarkMode ? Colors.white54 : Colors.black45,
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),

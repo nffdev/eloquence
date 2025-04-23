@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../word_of_the_day/domain/models/word.dart';
 import '../../../../core/services/tts_service.dart';
+import '../../../../core/localization/language_provider.dart';
+import '../../../../core/localization/app_translations.dart';
 
 class FavoriteWordCard extends StatelessWidget {
   final Word word;
@@ -16,6 +19,31 @@ class FavoriteWordCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final ttsService = TTSService();
+    final languageProvider = Provider.of<LanguageProvider>(context);
+    final currentLanguage = languageProvider.currentLanguage;
+    
+    final translatedWordType = AppTranslations.translate(word.type.toLowerCase(), currentLanguage);
+    
+    String translatedWord = word.word;
+    final wordKey = 'word_${word.word.toLowerCase()}';
+    final translatedWordValue = AppTranslations.translate(wordKey, currentLanguage);
+    if (translatedWordValue != wordKey) {
+      translatedWord = translatedWordValue;
+    }
+    
+    String translatedDefinition = word.definition;
+    final defKey = 'def_${word.word.toLowerCase()}';
+    final translatedDefValue = AppTranslations.translate(defKey, currentLanguage);
+    if (translatedDefValue != defKey) {
+      translatedDefinition = translatedDefValue;
+    }
+    
+    String translatedExample = word.example;
+    final exampleKey = 'example_${word.word.toLowerCase()}';
+    final translatedExampleValue = AppTranslations.translate(exampleKey, currentLanguage);
+    if (translatedExampleValue != exampleKey) {
+      translatedExample = translatedExampleValue;
+    }
 
     return Card(
       elevation: 2,
@@ -34,7 +62,7 @@ class FavoriteWordCard extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        word.word,
+                        translatedWord,
                         style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: isDarkMode ? Colors.white : Colors.black,
@@ -48,7 +76,7 @@ class FavoriteWordCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Text(
-                          word.type,
+                          translatedWordType,
                           style: TextStyle(
                             fontSize: 12,
                             color: isDarkMode ? Colors.white70 : Colors.black54,
@@ -64,7 +92,7 @@ class FavoriteWordCard extends StatelessWidget {
                         onPressed: () {
                           ttsService.speak(word.word);
                         },
-                        tooltip: 'Écouter la prononciation',
+                        tooltip: AppTranslations.translate('listen_pronunciation', currentLanguage),
                         padding: EdgeInsets.zero,
                         constraints: const BoxConstraints(),
                       ),
@@ -74,13 +102,13 @@ class FavoriteWordCard extends StatelessWidget {
                 IconButton(
                   icon: const Icon(Icons.favorite, color: Colors.redAccent),
                   onPressed: onRemove,
-                  tooltip: 'Retirer des favoris',
+                  tooltip: AppTranslations.translate('remove_from_favorites', currentLanguage),
                 ),
               ],
             ),
             const SizedBox(height: 8),
             Text(
-              word.definition,
+              translatedDefinition,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 12),
@@ -95,7 +123,7 @@ class FavoriteWordCard extends StatelessWidget {
                 ),
               ),
               child: Text(
-                word.example,
+                translatedExample,
                 style: TextStyle(
                   fontStyle: FontStyle.italic,
                   fontSize: 14,

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'core/theme/app_theme.dart';
 import 'core/theme/theme_provider.dart';
+import 'core/localization/language_provider.dart';
 import 'features/word_of_the_day/application/word_provider.dart';
 import 'features/splash/splash_page.dart';
 
@@ -18,6 +19,7 @@ void main() async {
     providers: [
       ChangeNotifierProvider(create: (_) => WordProvider()),
       ChangeNotifierProvider(create: (_) => ThemeProvider()),
+      ChangeNotifierProvider(create: (_) => LanguageProvider()),
     ],
     child: const EloquenceApp(),
   ));

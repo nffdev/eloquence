@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/theme/theme_provider.dart';
+import '../../../../core/localization/language_provider.dart';
+import '../../../../core/localization/app_translations.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -9,7 +11,13 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Paramètres'),
+        title: Consumer<LanguageProvider>(
+          builder: (context, languageProvider, _) {
+            return Text(
+              AppTranslations.translate('settings', languageProvider.currentLanguage)
+            );
+          },
+        ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
@@ -22,9 +30,13 @@ class SettingsPage extends StatelessWidget {
           // Theme section
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Text(
-              'Apparence',
-              style: Theme.of(context).textTheme.displayMedium,
+            child: Consumer<LanguageProvider>(
+              builder: (context, languageProvider, _) {
+                return Text(
+                  AppTranslations.translate('appearance', languageProvider.currentLanguage),
+                  style: Theme.of(context).textTheme.displayMedium,
+                );
+              },
             ),
           ),
           
@@ -32,15 +44,23 @@ class SettingsPage extends StatelessWidget {
           Consumer<ThemeProvider>(
             builder: (context, themeProvider, _) {
               return SwitchListTile(
-                title: Text(
-                  'Thème sombre',
-                  style: Theme.of(context).textTheme.bodyLarge,
+                title: Consumer<LanguageProvider>(
+                  builder: (context, languageProvider, _) {
+                    return Text(
+                      AppTranslations.translate('dark_theme', languageProvider.currentLanguage),
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    );
+                  },
                 ),
-                subtitle: Text(
-                  themeProvider.isDarkMode 
-                      ? 'Activé' 
-                      : 'Désactivé',
-                  style: Theme.of(context).textTheme.bodyMedium,
+                subtitle: Consumer<LanguageProvider>(
+                  builder: (context, languageProvider, _) {
+                    return Text(
+                      themeProvider.isDarkMode 
+                          ? AppTranslations.translate('enabled', languageProvider.currentLanguage) 
+                          : AppTranslations.translate('disabled', languageProvider.currentLanguage),
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    );
+                  },
                 ),
                 value: themeProvider.isDarkMode,
                 onChanged: (_) {
@@ -57,19 +77,130 @@ class SettingsPage extends StatelessWidget {
           
           const Divider(),
           
+          // Language section
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Consumer<LanguageProvider>(
+              builder: (context, languageProvider, _) {
+                return Text(
+                  AppTranslations.translate('language', languageProvider.currentLanguage),
+                  style: Theme.of(context).textTheme.displayMedium,
+                );
+              },
+            ),
+          ),
+          
+          // Language selector
+          Consumer<LanguageProvider>(
+            builder: (context, languageProvider, _) {
+              return ListTile(
+                title: Text(
+                  languageProvider.currentLanguage == AppLanguage.french ? 'Français' : 'English (US)',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                subtitle: Text(
+                  languageProvider.currentLanguage == AppLanguage.french ? 'FR' : 'EN-US',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                trailing: PopupMenuButton<AppLanguage>(
+                  icon: const Icon(Icons.arrow_drop_down),
+                  onSelected: (AppLanguage language) {
+                    languageProvider.setLanguage(language);
+                  },
+                  itemBuilder: (BuildContext context) => <PopupMenuEntry<AppLanguage>>[
+                    PopupMenuItem<AppLanguage>(
+                      value: AppLanguage.french,
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 20,
+                            height: 15,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey, width: 0.5),
+                              borderRadius: BorderRadius.circular(2),
+                            ),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(color: const Color(0xFF0055A4)),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(color: Colors.white),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(color: const Color(0xFFEF4135)),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          const Text('Français'),
+                          if (languageProvider.currentLanguage == AppLanguage.french)
+                            const Padding(
+                              padding: EdgeInsets.only(left: 10),
+                              child: Icon(Icons.check, size: 16),
+                            ),
+                        ],
+                      ),
+                    ),
+                    PopupMenuItem<AppLanguage>(
+                      value: AppLanguage.english,
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 20,
+                            height: 15,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey, width: 0.5),
+                              borderRadius: BorderRadius.circular(2),
+                              image: const DecorationImage(
+                                image: AssetImage('assets/images/us_flag.png'),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          const Text('English (US)'),
+                          if (languageProvider.currentLanguage == AppLanguage.english)
+                            const Padding(
+                              padding: EdgeInsets.only(left: 10),
+                              child: Icon(Icons.check, size: 16),
+                            ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+          
+          const Divider(),
+          
           // App info section
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Text(
-              'À propos',
-              style: Theme.of(context).textTheme.displayMedium,
+            child: Consumer<LanguageProvider>(
+              builder: (context, languageProvider, _) {
+                return Text(
+                  AppTranslations.translate('about', languageProvider.currentLanguage),
+                  style: Theme.of(context).textTheme.displayMedium,
+                );
+              },
             ),
           ),
           
           ListTile(
-            title: Text(
-              'Version',
-              style: Theme.of(context).textTheme.bodyLarge,
+            title: Consumer<LanguageProvider>(
+              builder: (context, languageProvider, _) {
+                return Text(
+                  AppTranslations.translate('version', languageProvider.currentLanguage),
+                  style: Theme.of(context).textTheme.bodyLarge,
+                );
+              },
             ),
             subtitle: Text(
               '1.0.0',
@@ -79,9 +210,13 @@ class SettingsPage extends StatelessWidget {
           ),
           
           ListTile(
-            title: Text(
-              'Développeur',
-              style: Theme.of(context).textTheme.bodyLarge,
+            title: Consumer<LanguageProvider>(
+              builder: (context, languageProvider, _) {
+                return Text(
+                  AppTranslations.translate('developer', languageProvider.currentLanguage),
+                  style: Theme.of(context).textTheme.bodyLarge,
+                );
+              },
             ),
             subtitle: Text(
               'nffdev',

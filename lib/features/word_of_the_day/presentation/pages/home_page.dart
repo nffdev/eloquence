@@ -7,6 +7,10 @@ import '../widgets/action_buttons.dart';
 import '../../../../features/settings/presentation/pages/settings_page.dart';
 import '../../../../features/favorites/presentation/pages/favorites_page.dart';
 import '../../../../core/theme/theme_provider.dart';
+import '../../../../core/localization/language_provider.dart';
+import '../../../../core/localization/widgets/language_selector.dart';
+import '../../../../core/localization/translation_service.dart';
+import '../../../../core/localization/app_translations.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -37,7 +41,6 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     
     _animationController.forward();
     
-    // Load today's word
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<WordProvider>(context, listen: false).loadTodaysWord();
     });
@@ -96,43 +99,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Row(
-                                    children: [
-                                      Container(
-                                        width: 20,
-                                        height: 15,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(color: Colors.white, width: 0.5),
-                                          borderRadius: BorderRadius.circular(2),
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                              flex: 1,
-                                              child: Container(color: Colors.blue),
-                                            ),
-                                            Expanded(
-                                              flex: 1,
-                                              child: Container(color: Colors.white),
-                                            ),
-                                            Expanded(
-                                              flex: 1,
-                                              child: Container(color: Colors.red),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      const SizedBox(width: 8),
-                                      const Text(
-                                        'FR',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  const LanguageSelector(),
                                   Row(
                                     children: [
                                       const Icon(
@@ -196,42 +163,55 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           );
         },
       ),
-      bottomNavigationBar: BottomAppBar(
-        elevation: 0,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              IconButton(
-                icon: const Icon(Icons.home_outlined),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: const Icon(Icons.favorite_border_outlined),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const FavoritesPage(),
+      bottomNavigationBar: Consumer<LanguageProvider>(
+        builder: (context, languageProvider, _) {
+          return BottomAppBar(
+            elevation: 0,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Tooltip(
+                    message: AppTranslations.translate('home', languageProvider.currentLanguage),
+                    child: IconButton(
+                      icon: const Icon(Icons.home_outlined),
+                      onPressed: () {},
                     ),
-                  );
-                },
-              ),
-              IconButton(
-                icon: const Icon(Icons.settings_outlined),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const SettingsPage(),
+                  ),
+                  Tooltip(
+                    message: AppTranslations.translate('favorites', languageProvider.currentLanguage),
+                    child: IconButton(
+                      icon: const Icon(Icons.favorite_border_outlined),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const FavoritesPage(),
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
+                  ),
+                  Tooltip(
+                    message: AppTranslations.translate('settings', languageProvider.currentLanguage),
+                    child: IconButton(
+                      icon: const Icon(Icons.settings_outlined),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SettingsPage(),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
