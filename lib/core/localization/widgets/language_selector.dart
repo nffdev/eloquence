@@ -37,15 +37,15 @@ class LanguageSelector extends StatelessWidget {
               const SizedBox(width: 4),
               Text(
                 languageProvider.languageDisplayName,
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const Icon(
+              Icon(
                 Icons.arrow_drop_down,
-                color: Colors.white,
+                color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
                 size: 16,
               ),
             ],
@@ -89,34 +89,34 @@ class LanguageSelector extends StatelessWidget {
   }
 
   Widget _buildFlag(String countryCode) {
-    return Container(
-      width: 20,
-      height: 15,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.white70, width: 0.5),
-        borderRadius: BorderRadius.circular(2),
-      ),
-      child: _getFlagContent(countryCode),
+    return Builder(
+      builder: (context) {
+        final borderColor = Theme.of(context).brightness == Brightness.dark 
+            ? Colors.white70 
+            : Colors.black45;
+        
+        return Container(
+          width: 20,
+          height: 15,
+          decoration: BoxDecoration(
+            border: Border.all(color: borderColor, width: 0.5),
+            borderRadius: BorderRadius.circular(2),
+          ),
+          child: _getFlagContent(countryCode),
+        );
+      },
     );
   }
 
   Widget _getFlagContent(String countryCode) {
     if (countryCode == 'FR') {
-      return Row(
-        children: [
-          Expanded(
-            flex: 1,
-            child: Container(color: const Color(0xFF0055A4)),
+      return Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/fr_flag.png'),
+            fit: BoxFit.cover,
           ),
-          Expanded(
-            flex: 1,
-            child: Container(color: Colors.white),
-          ),
-          Expanded(
-            flex: 1,
-            child: Container(color: const Color(0xFFEF4135)),
-          ),
-        ],
+        ),
       );
     } else if (countryCode == 'US') {
       return Container(
