@@ -75,7 +75,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                   Container(
                     width: double.infinity,
                     height: 40,
-                    color: Colors.black,
+                    color: isDarkMode ? Colors.black : Colors.white,
                     child: Stack(
                       children: [
                         Positioned(
