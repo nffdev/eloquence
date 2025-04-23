@@ -23,7 +23,22 @@ class FavoriteWordCard extends StatelessWidget {
     final languageProvider = Provider.of<LanguageProvider>(context);
     final currentLanguage = languageProvider.currentLanguage;
     
-    final translatedWordType = AppTranslations.translate(word.type.toLowerCase(), currentLanguage);
+    String translatedWordType;
+    
+    String wordType = word.type.toLowerCase();
+    
+    String typeKey;
+    if (wordType == 'nom') {
+      typeKey = 'noun';
+    } else if (wordType == 'adj') {
+      typeKey = 'adj';
+    } else if (wordType == 'verbe') {
+      typeKey = 'verb';
+    } else {
+      typeKey = wordType;
+    }
+    
+    translatedWordType = AppTranslations.translate(typeKey, currentLanguage);
     
     String translatedWord;
     String translatedDefinition;

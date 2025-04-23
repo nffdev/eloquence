@@ -86,7 +86,6 @@ class WordRepository {
     List<String> favorites = prefs.getStringList('favorites') ?? [];
     List<Word> favoriteWords = [];
     
-    // Get all saved words from SharedPreferences
     Map<String, dynamic> allSavedWords = {};
     prefs.getKeys().forEach((key) {
       if (key.startsWith('word_')) {
@@ -106,7 +105,6 @@ class WordRepository {
       }
     });
     
-    // If we didn't find all favorites in saved words, look in the predefined list
     if (favoriteWords.length < favorites.length) {
       for (final wordName in favorites) {
         if (!favoriteWords.any((w) => w.word == wordName)) {
