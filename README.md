@@ -51,13 +51,13 @@ lib/
 ## 🚧 À venir
 
 - [x] 🗓️ Faire un système pour afficher **un mot par jour**.
-- [ ] 🔥 Ajouter un **système de streak** pour suivre la régularité de l’utilisateur.
+- [x] 🔥 Ajouter un **système de streak** pour suivre la régularité de l’utilisateur.
 - [x] 🔊 Intégrer la **prononciation vocale (TTS)** du mot du jour.
 - [x] ⭐ Permettre à l’utilisateur de **sauvegarder ses mots favoris**.
 - [ ] 📱 Créer un **widget** affichant le mot du jour sur l’écran d’accueil.
 - [x] 🌗 Implémenter un **switcher de thème clair/sombre**.
 - [x] 🚀 Ajouter un **splash screen personnalisé**.
-- [ ] 🌍 Intégrer un **système de traduction** multilingue.
+- [x] 🌍 Intégrer un **système de traduction** multilingue.
 - [ ] 🌐 Utiliser une **API externe** pour récupérer les mots, définitions et exemples.
 
 ---
