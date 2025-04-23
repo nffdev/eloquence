@@ -97,12 +97,14 @@ class _FavoritesPageState extends State<FavoritesPage> {
                   padding: const EdgeInsets.only(bottom: 16),
                   child: FavoriteWordCard(
                     word: word,
-                    onRemove: () {
+                    onRemove: () async {
                       final wordProvider = Provider.of<WordProvider>(context, listen: false);
-                      wordProvider.toggleFavorite(word: word);
-                      setState(() {
-                        _loadFavorites();
-                      });
+                      await wordProvider.toggleFavorite(word: word);
+                      if (mounted) {
+                        setState(() {
+                          _loadFavorites();
+                        });
+                      }
                     },
                   ),
                 );

@@ -61,16 +61,18 @@ class WordProvider extends ChangeNotifier {
     await prefs.setInt('streak_count', _streak);
   }
   
-  void toggleFavorite({Word? word}) async {
+  Future<void> toggleFavorite({Word? word}) async {
     if (word != null) {
       final newStatus = !word.isFavorite;
       try {
         await _repository.saveWordFavoriteStatus(word, newStatus);
-        if (word.word == _currentWord.word) {
+        
+        if (_currentWord != null && word.word == _currentWord.word) {
           _isFavorite = newStatus;
           _currentWord.isFavorite = newStatus;
-          notifyListeners();
         }
+        
+        notifyListeners();
       } catch (e) {
         debugPrint('Error toggling favorite for ${word.word}: $e');
       }
