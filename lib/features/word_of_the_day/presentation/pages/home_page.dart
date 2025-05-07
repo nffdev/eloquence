@@ -178,6 +178,9 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                 isFavorite: wordProvider.isFavorite,
                                 onFavoriteToggle: () => wordProvider.toggleFavorite(),
                                 wordToSpeak: translatedWord,
+                                definition: wordProvider.currentWord.definition,
+                                example: wordProvider.currentWord.example,
+                                wordType: wordProvider.currentWord.type,
                               );
                             },
                           ),
