@@ -74,10 +74,10 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 50),
                   Container(
                     width: double.infinity,
-                    height: 40,
+                    height: 50,
                     color: isDarkMode ? Colors.black : Colors.white,
                     child: Stack(
                       children: [
@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(bottom: 1),
+                          padding: const EdgeInsets.only(bottom: 1, top: 8), // Ajout d'un padding supérieur
                           child: Center(
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 16.0),
