@@ -3,277 +3,282 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Éloquence - Enrichissez votre vocabulaire français</title>
+    <title>Eloquence - Élargissez votre vocabulaire</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="light-theme">
     <header>
-        <nav>
-            <div class="logo">
-                <h1>Éloquence</h1>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#features">Fonctionnalités</a></li>
-                <li><a href="#screenshots">Captures</a></li>
-                <li><a href="#download">Télécharger</a></li>
-            </ul>
-            <button class="theme-toggle">
-                <i class="fas fa-moon"></i>
-                <i class="fas fa-sun"></i>
-            </button>
-        </nav>
-        <div class="hero">
-            <div class="hero-content">
-                <h1>Enrichissez votre vocabulaire français</h1>
-                <h2>Un mot à la fois, chaque jour</h2>
-                <p>Éloquence vous propose un nouveau mot français chaque jour, avec sa définition, un exemple et sa prononciation.</p>
-                <div class="cta-buttons">
-                    <a href="#download" class="btn btn-primary">Télécharger l'app</a>
-                    <a href="#features" class="btn btn-secondary">Découvrir</a>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <h1>📖 Eloquence</h1>
                 </div>
-            </div>
-            <div class="hero-image">
-                <div class="phone-mockup">
-                    <div class="phone-screen">
-                        <div class="app-preview">
-                            <div class="app-header">
-                                <div class="language-indicator">FR</div>
-                                <div class="streak-counter">
-                                    <i class="fas fa-fire"></i>
-                                    <span>7</span>
-                                </div>
-                            </div>
-                            <div class="word-card">
-                                <h3>Sérendipité</h3>
-                                <p class="word-type">Nom</p>
-                                <p class="word-definition">Le fait de découvrir quelque chose par hasard alors qu'on cherchait autre chose</p>
-                                <div class="word-example">
-                                    <p>"C'est par sérendipité qu'il a trouvé sa vocation en se perdant dans ce musée."</p>
-                                </div>
-                            </div>
-                            <div class="action-buttons">
-                                <button class="action-btn"><i class="fas fa-volume-up"></i></button>
-                                <button class="action-btn"><i class="fas fa-star"></i></button>
-                                <button class="action-btn"><i class="fas fa-language"></i></button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="nav-links">
+                    <a href="#fonctionnalites">Fonctionnalités</a>
+                    <a href="#architecture">Architecture</a>
+                    <a href="#roadmap">Roadmap</a>
+                    <a href="#installation">Installation</a>
+                    <button id="theme-toggle" aria-label="Changer de thème">
+                        <span class="light-icon">🌙</span>
+                        <span class="dark-icon">☀️</span>
+                    </button>
                 </div>
-            </div>
+            </nav>
         </div>
     </header>
 
-    <section id="features" class="features">
-        <h2 class="section-title">Fonctionnalités</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-calendar-day"></i>
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Élargissez votre vocabulaire</h1>
+                <p>Une application élégante pour enrichir votre vocabulaire, un mot à la fois.</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn primary">Télécharger</a>
+                    <a href="#fonctionnalites" class="btn secondary">En savoir plus</a>
                 </div>
-                <h3>Mot du jour</h3>
-                <p>Un nouveau mot français chaque jour avec sa définition et un exemple contextualisé.</p>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-volume-up"></i>
+            <div class="word-of-day-card">
+                <div class="card-header">
+                    <h3>Mot du jour</h3>
+                    <span class="streak">🔥 3</span>
                 </div>
-                <h3>Prononciation TTS</h3>
-                <p>Écoutez la prononciation correcte du mot pour améliorer votre diction.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-star"></i>
+                <div class="word-content">
+                    <h2>Sérendipité</h2>
+                    <p class="phonetic">/se.ʁɑ̃.di.pi.te/</p>
+                    <button class="pronunciation-btn">🔊 Écouter</button>
+                    <div class="definition">
+                        <p><span class="definition-type">nom féminin</span></p>
+                        <p>Capacité, art de faire une découverte, scientifique notamment, par hasard.</p>
+                    </div>
+                    <div class="example">
+                        <p><em>"La découverte de la pénicilline par Fleming est un exemple de sérendipité."</em></p>
+                    </div>
+                    <div class="card-actions">
+                        <button class="favorite-btn">⭐ Favoris</button>
+                        <button class="translate-btn">🌍 Traduire</button>
+                    </div>
                 </div>
-                <h3>Favoris</h3>
-                <p>Enregistrez vos mots préférés pour les retrouver facilement plus tard.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-fire"></i>
-                </div>
-                <h3>Système de streak</h3>
-                <p>Gardez la motivation avec un compteur de jours consécutifs d'utilisation.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-moon"></i>
-                </div>
-                <h3>Thème clair/sombre</h3>
-                <p>Interface élégante en noir et blanc, adaptée à vos préférences visuelles.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-language"></i>
-                </div>
-                <h3>Traduction</h3>
-                <p>Traduisez le mot dans d'autres langues pour enrichir votre apprentissage.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-mobile-alt"></i>
-                </div>
-                <h3>Widget</h3>
-                <p>Affichez le mot du jour directement sur votre écran d'accueil.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-bolt"></i>
-                </div>
-                <h3>Splash screen</h3>
-                <p>Démarrage fluide et stylé pour une expérience utilisateur optimale.</p>
             </div>
         </div>
     </section>
 
-    <section id="screenshots" class="screenshots">
-        <h2 class="section-title">Captures d'écran</h2>
-        <div class="screenshots-carousel">
-            <div class="screenshot">
-                <div class="phone-mockup">
-                    <div class="phone-screen dark-mode">
-                        <div class="app-preview">
-                            <div class="app-header">
-                                <div class="language-indicator">FR</div>
-                                <div class="streak-counter">
-                                    <i class="fas fa-fire"></i>
-                                    <span>7</span>
-                                </div>
-                            </div>
-                            <div class="word-card">
-                                <h3>Ineffable</h3>
-                                <p class="word-type">Adj</p>
-                                <p class="word-definition">Qui ne peut être exprimé par des paroles tant c'est intense</p>
-                                <div class="word-example">
-                                    <p>"Face à ce paysage grandiose, il ressentit une joie ineffable."</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <section id="fonctionnalites" class="features">
+        <div class="container">
+            <h2>✨ Fonctionnalités</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🗓️</div>
+                    <h3>Mot du jour</h3>
+                    <p>Un mot nouveau chaque jour avec sa définition et un exemple.</p>
                 </div>
-                <p class="screenshot-caption">Mode sombre</p>
-            </div>
-            <div class="screenshot">
-                <div class="phone-mockup">
-                    <div class="phone-screen">
-                        <div class="app-preview favorites-screen">
-                            <div class="app-header">
-                                <h3>Mes favoris</h3>
-                            </div>
-                            <div class="favorites-list">
-                                <div class="favorite-item">
-                                    <div>
-                                        <h4>Éthéré</h4>
-                                        <p>D'une beauté irréelle, presque céleste</p>
-                                    </div>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <div class="favorite-item">
-                                    <div>
-                                        <h4>Sérendipité</h4>
-                                        <p>Le fait de découvrir quelque chose par hasard</p>
-                                    </div>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <div class="favorite-item">
-                                    <div>
-                                        <h4>Quintessence</h4>
-                                        <p>Ce qu'il y a de plus raffiné, de plus pur</p>
-                                    </div>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔊</div>
+                    <h3>Prononciation TTS</h3>
+                    <p>Écoutez la prononciation correcte du mot.</p>
                 </div>
-                <p class="screenshot-caption">Liste des favoris</p>
-            </div>
-            <div class="screenshot">
-                <div class="phone-mockup">
-                    <div class="phone-screen">
-                        <div class="app-preview widget-preview">
-                            <div class="home-widget">
-                                <h3>Mot du jour</h3>
-                                <h4>Acrimonie</h4>
-                                <p class="word-type">Nom</p>
-                                <p class="word-definition">Aigreur, amertume qui se manifeste dans les paroles ou le comportement</p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⭐</div>
+                    <h3>Favoris</h3>
+                    <p>Enregistrez vos mots préférés pour les retrouver facilement.</p>
                 </div>
-                <p class="screenshot-caption">Widget d'écran d'accueil</p>
+                <div class="feature-card">
+                    <div class="feature-icon">🔥</div>
+                    <h3>Système de streak</h3>
+                    <p>Gardez la motivation avec un système de jours consécutifs.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌓</div>
+                    <h3>Thème clair/sombre</h3>
+                    <p>Interface en noir et blanc, switch de thème disponible.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Traduction</h3>
+                    <p>Traduisez le mot dans d'autres langues.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Widget</h3>
+                    <p>Affichez le mot du jour directement sur votre écran d'accueil.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Splash screen</h3>
+                    <p>Démarrage fluide et stylé.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="download" class="download">
-        <h2 class="section-title">Télécharger Éloquence</h2>
-        <p class="download-description">Disponible sur Android et iOS. Enrichissez votre vocabulaire français dès aujourd'hui !</p>
-        <div class="download-buttons">
-            <a href="#" class="download-btn">
-                <i class="fab fa-google-play"></i>
-                <div>
-                    <span>Télécharger sur</span>
-                    <strong>Google Play</strong>
+    <section id="architecture" class="architecture">
+        <div class="container">
+            <h2>🧱 Architecture</h2>
+            <div class="architecture-content">
+                <pre class="code-block">
+lib/
+├── core/                # Fonctions/utilitaires communs
+│   ├── constants/
+│   ├── theme/
+│   ├── localization/
+│   ├── widgets/         # Widgets réutilisables
+│   └── utils/
+│
+├── features/
+│   ├── word_of_the_day/
+│   │   ├── data/        # Appels API, fichiers locaux
+│   │   ├── domain/      # Entités, usecases
+│   │   ├── presentation/
+│   │   │   ├── pages/
+│   │   │   └── widgets/
+│   │   └── application/ # Gestion d'état (Controller/ViewModel)
+│   │
+│   ├── streak/
+│   ├── favorites/
+│   ├── tts/
+│   ├── translation/
+│   └── widget_module/   # Pour le widget home screen
+│
+└── main.dart</pre>
+            </div>
+        </div>
+    </section>
+
+    <section id="roadmap" class="roadmap">
+        <div class="container">
+            <h2>🚧 À venir</h2>
+            <div class="roadmap-list">
+                <div class="roadmap-item completed">
+                    <span class="status">✅</span>
+                    <p>🗓️ Faire un système pour afficher <strong>un mot par jour</strong>.</p>
                 </div>
-            </a>
-            <a href="#" class="download-btn">
-                <i class="fab fa-apple"></i>
-                <div>
-                    <span>Télécharger sur</span>
-                    <strong>App Store</strong>
+                <div class="roadmap-item completed">
+                    <span class="status">✅</span>
+                    <p>🔥 Ajouter un <strong>système de streak</strong> pour suivre la régularité de l'utilisateur.</p>
                 </div>
-            </a>
+                <div class="roadmap-item completed">
+                    <span class="status">✅</span>
+                    <p>🔊 Intégrer la <strong>prononciation vocale (TTS)</strong> du mot du jour.</p>
+                </div>
+                <div class="roadmap-item completed">
+                    <span class="status">✅</span>
+                    <p>⭐ Permettre à l'utilisateur de <strong>sauvegarder ses mots favoris</strong>.</p>
+                </div>
+                <div class="roadmap-item">
+                    <span class="status">⏳</span>
+                    <p>📱 Créer un <strong>widget</strong> affichant le mot du jour sur l'écran d'accueil.</p>
+                </div>
+                <div class="roadmap-item completed">
+                    <span class="status">✅</span>
+                    <p>🌗 Implémenter un <strong>switcher de thème clair/sombre</strong>.</p>
+                </div>
+                <div class="roadmap-item completed">
+                    <span class="status">✅</span>
+                    <p>🚀 Ajouter un <strong>splash screen personnalisé</strong>.</p>
+                </div>
+                <div class="roadmap-item completed">
+                    <span class="status">✅</span>
+                    <p>🌍 Intégrer un <strong>système de traduction</strong> multilingue.</p>
+                </div>
+                <div class="roadmap-item">
+                    <span class="status">⏳</span>
+                    <p>🌐 Utiliser une <strong>API externe</strong> pour récupérer les mots, définitions et exemples.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="installation" class="installation">
+        <div class="container">
+            <h2>🛠️ Lancer le projet</h2>
+            <div class="installation-steps">
+                <pre class="code-block">
+git clone https://github.com/nffdev/eloquence.git
+cd eloquence/app
+flutter pub get
+flutter run</pre>
+            </div>
         </div>
     </section>
 
     <footer>
-        <div class="footer-content">
-            <div class="footer-logo">
-                <h2>Éloquence</h2>
-                <p>Enrichissez votre vocabulaire français, un mot à la fois.</p>
-            </div>
-            <div class="footer-links">
-                <div class="footer-column">
-                    <h3>Liens</h3>
-                    <ul>
-                        <li><a href="#features">Fonctionnalités</a></li>
-                        <li><a href="#screenshots">Captures</a></li>
-                        <li><a href="#download">Télécharger</a></li>
-                    </ul>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>📖 Eloquence</h2>
+                    <p>Élargissez votre vocabulaire français, un mot à la fois.</p>
                 </div>
-                <div class="footer-column">
-                    <h3>Légal</h3>
-                    <ul>
-                        <li><a href="#">Politique de confidentialité</a></li>
-                        <li><a href="#">Conditions d'utilisation</a></li>
-                        <li><a href="#">Licence MIT</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Contact</h3>
-                    <ul>
-                        <li><a href="mailto:contact@eloquence-app.com">Email</a></li>
-                        <li><a href="https://github.com/nffdev/eloquence">GitHub</a></li>
-                        <li><a href="#">Twitter</a></li>
-                    </ul>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h3>Navigation</h3>
+                        <a href="#fonctionnalites">Fonctionnalités</a>
+                        <a href="#architecture">Architecture</a>
+                        <a href="#roadmap">Roadmap</a>
+                        <a href="#installation">Installation</a>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Ressources</h3>
+                        <a href="https://github.com/nffdev/eloquence">Documentation</a>
+                        <a href="https://github.com/nffdev/eloquence">GitHub</a>
+                        <a href="https://github.com/nffdev/eloquence">Contribuer</a>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Contact</h3>
+                        <a href="mailto:contact@eloquence.app">Email</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 Éloquence. Tous droits réservés.</p>
+            <div class="copyright">
+                <p>© 2025 Eloquence. Ce projet est sous licence MIT.</p>
+            </div>
         </div>
     </footer>
 
     <script>
-        const themeToggle = document.querySelector('.theme-toggle');
+        const themeToggle = document.getElementById('theme-toggle');
         const body = document.body;
 
         themeToggle.addEventListener('click', () => {
             body.classList.toggle('dark-theme');
+            body.classList.toggle('light-theme');
+        });
+
+        const pronunciationBtn = document.querySelector('.pronunciation-btn');
+        pronunciationBtn.addEventListener('click', () => {
+            pronunciationBtn.textContent = '🔊 Lecture...';
+            setTimeout(() => {
+                pronunciationBtn.textContent = '🔊 Écouter';
+            }, 2000);
+        });
+
+        const favoriteBtn = document.querySelector('.favorite-btn');
+        favoriteBtn.addEventListener('click', () => {
+            if (favoriteBtn.textContent.includes('⭐')) {
+                favoriteBtn.textContent = '★ Favori';
+                favoriteBtn.classList.add('active');
+            } else {
+                favoriteBtn.textContent = '⭐ Favoris';
+                favoriteBtn.classList.remove('active');
+            }
+        });
+
+        const translateBtn = document.querySelector('.translate-btn');
+        translateBtn.addEventListener('click', () => {
+            const wordContent = document.querySelector('.word-content');
+            
+            if (translateBtn.textContent.includes('Traduire')) {
+                translateBtn.textContent = '🇫🇷 Français';
+                document.querySelector('.word-content h2').textContent = 'Serendipity';
+                document.querySelector('.definition p:nth-child(2)').textContent = 'The occurrence and development of events by chance in a happy or beneficial way.';
+                document.querySelector('.example p').innerHTML = '<em>"The discovery of penicillin by Fleming is an example of serendipity."</em>';
+            } else {
+                translateBtn.textContent = '🌍 Traduire';
+                document.querySelector('.word-content h2').textContent = 'Sérendipité';
+                document.querySelector('.definition p:nth-child(2)').textContent = 'Capacité, art de faire une découverte, scientifique notamment, par hasard.';
+                document.querySelector('.example p').innerHTML = '<em>"La découverte de la pénicilline par Fleming est un exemple de sérendipité."</em>';
+            }
         });
     </script>
 </body>
