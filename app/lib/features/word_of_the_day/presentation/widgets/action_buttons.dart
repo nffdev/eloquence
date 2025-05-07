@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import '../../../../core/services/tts_service.dart';
 import '../../../../core/localization/language_provider.dart';
 import '../../../../core/localization/app_translations.dart';
@@ -8,13 +9,39 @@ class ActionButtons extends StatelessWidget {
   final bool isFavorite;
   final VoidCallback onFavoriteToggle;
   final String wordToSpeak;
+  final String definition;
+  final String example;
+  final String wordType;
 
   const ActionButtons({
     super.key,
     required this.isFavorite,
     required this.onFavoriteToggle,
     required this.wordToSpeak,
+    required this.definition,
+    required this.example,
+    required this.wordType,
   });
+
+  void _shareWord(BuildContext context, AppLanguage language) {
+    final isEnglish = language == AppLanguage.english;
+    final title = isEnglish ? 'Word of the Day' : 'Mot du Jour';
+    final typeLabel = isEnglish ? 'Type' : 'Type';
+    final definitionLabel = isEnglish ? 'Definition' : 'Définition';
+    final exampleLabel = isEnglish ? 'Example' : 'Exemple';
+    final appName = isEnglish ? 'Eloquence App' : 'Application Eloquence';
+    
+    final shareText = '''
+$title: $wordToSpeak
+$typeLabel: $wordType
+$definitionLabel: $definition
+$exampleLabel: "$example"
+
+$appName
+''';
+    
+    Share.share(shareText);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +71,7 @@ class ActionButtons extends StatelessWidget {
             color: isDarkMode ? Colors.white70 : Colors.black54,
           ),
           onPressed: () {
-            // TODO : Share functionality
+            _shareWord(context, currentLanguage);
           },
           tooltip: currentLanguage == AppLanguage.french ? 'Partager' : 'Share',
         ),
