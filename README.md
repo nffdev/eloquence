@@ -5,3 +5,5 @@ Une application élégante pour élargir votre vocabulaire français, un mot à 
 ---
 
 SOON ...
+
+---
