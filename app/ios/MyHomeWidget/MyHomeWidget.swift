@@ -86,39 +86,42 @@ struct MyHomeWidgetEntryView : View {
     @Environment(\.widgetFamily) var widgetFamily
 
     var body: some View {
-        ZStack {
-            Color.white
-                .edgesIgnoringSafeArea(.all)
-            
-            VStack(alignment: .center, spacing: 8) {
-                Spacer()
+        GeometryReader { geometry in
+            ZStack {
+                Color.black
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+                    .edgesIgnoringSafeArea(.all)
                 
-                Text(entry.wordOfTheDay.word)
-                    .font(widgetFamily == .systemSmall ? .title2 : .title)
-                    .fontWeight(.bold)
-                    .foregroundColor(.black)
-                    .lineLimit(1)
-                    .multilineTextAlignment(.center)
-                
-                Text(getShortType(entry.wordOfTheDay.type))
-                    .font(.caption)
-                    .foregroundColor(.black)
-                    .lineLimit(1)
-                
-                if widgetFamily != .systemSmall {
-                    Spacer().frame(height: 10)
+                VStack(alignment: .center, spacing: 8) {
+                    Spacer()
+                    
+                    Text(entry.wordOfTheDay.word)
+                        .font(widgetFamily == .systemSmall ? .title2 : .title)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .lineLimit(1)
+                        .multilineTextAlignment(.center)
+                    
+                    Text(getShortType(entry.wordOfTheDay.type))
+                        .font(.caption)
+                        .foregroundColor(.white)
+                        .lineLimit(1)
+                    
+                    if widgetFamily != .systemSmall {
+                        Spacer().frame(height: 10)
+                    }
+                    
+                    Text(entry.wordOfTheDay.definition)
+                        .font(widgetFamily == .systemSmall ? .caption : .body)
+                        .foregroundColor(.white)
+                        .lineLimit(widgetFamily == .systemSmall ? 3 : 5)
+                        .multilineTextAlignment(.center)
+                        .fixedSize(horizontal: false, vertical: true)
+                    
+                    Spacer()
                 }
-                
-                Text(entry.wordOfTheDay.definition)
-                    .font(widgetFamily == .systemSmall ? .caption : .body)
-                    .foregroundColor(.black)
-                    .lineLimit(widgetFamily == .systemSmall ? 3 : 5)
-                    .multilineTextAlignment(.center)
-                    .fixedSize(horizontal: false, vertical: true)
-                
-                Spacer()
+                .padding(widgetFamily == .systemSmall ? 8 : 12)
             }
-            .padding(12)
         }
     }
     
@@ -143,7 +146,9 @@ struct MyHomeWidget: Widget {
     var body: some WidgetConfiguration {
         AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
             MyHomeWidgetEntryView(entry: entry)
-                .containerBackground(.fill.tertiary, for: .widget)
+                .containerBackground(for: .widget) {
+                    Color.black
+                }
         }
     }
 }
