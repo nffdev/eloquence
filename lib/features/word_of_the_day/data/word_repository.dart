@@ -82,8 +82,35 @@ class WordRepository {
           .timeout(Duration(seconds: ApiConstants.apiTimeoutSeconds));
       
       if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        return Word.fromJson(data);
+        try {
+          if (response.body.isEmpty) {
+            debugPrint('API returned empty response');
+            return null;
+          }
+          
+          final jsonResponse = json.decode(response.body);
+          debugPrint('API response received: $jsonResponse');
+          
+          Map<String, dynamic> wordData;
+          if (jsonResponse is Map && jsonResponse.containsKey('data')) {
+            wordData = jsonResponse['data'];
+          } else {
+            wordData = jsonResponse;
+          }
+          
+          if (wordData['word'] == null || 
+              wordData['type'] == null || 
+              wordData['definition'] == null) {
+            debugPrint('API response missing required fields in data structure');
+            return null;
+          }
+          
+          debugPrint('Successfully parsed word: ${wordData['word']}');
+          return Word.fromJson(wordData);
+        } catch (parseError) {
+          debugPrint('Error parsing API response: $parseError');
+          return null;
+        }
       } else {
         debugPrint('API error: ${response.statusCode}');
         return null;
