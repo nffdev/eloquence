@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import '../domain/models/word.dart';
+import '../../../core/constants/api_constants.dart';
 
 class WordRepository {
   final List<Word> _words = [
@@ -56,20 +57,20 @@ class WordRepository {
         return apiWord;
       }
     } catch (e) {
-      print('Error retrieving word of the day from API: $e');
+      debugPrint('Error retrieving word of the day from API: $e');
     }
     
     final savedWordJson = prefs.getString('word_$today');
     
     if (savedWordJson != null) {
       final wordData = json.decode(savedWordJson);
-      print('Word of the day retrieved: ${wordData['word']}');
+      debugPrint('Word of the day retrieved: ${wordData['word']}');
       return Word.fromJson(wordData);
     } else {
       final random = DateTime.now().day % _words.length;
       final todaysWord = _words[random];
       
-      print('Word of the day generated locally: ${todaysWord.word}');
+      debugPrint('Word of the day generated locally: ${todaysWord.word}');
       await prefs.setString('word_$today', json.encode(todaysWord.toJson()));
       return todaysWord;
     }
@@ -77,18 +78,18 @@ class WordRepository {
   
   Future<Word?> _fetchWordFromApi() async {
     try {
-      final response = await http.get(Uri.parse('http://127.0.0.1:8080/word-of-the-day'))
-          .timeout(const Duration(seconds: 5));
+      final response = await http.get(Uri.parse(ApiConstants.wordOfTheDayUrl))
+          .timeout(Duration(seconds: ApiConstants.apiTimeoutSeconds));
       
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         return Word.fromJson(data);
       } else {
-        print('API error: ${response.statusCode}');
+        debugPrint('API error: ${response.statusCode}');
         return null;
       }
     } catch (e) {
-      print('Execution failed: $e');
+      debugPrint('Execution failed: $e');
       return null;
     }
   }
