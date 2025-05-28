@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
 import '../domain/models/word.dart';
 
 class WordRepository {
@@ -46,17 +48,48 @@ class WordRepository {
     final prefs = await SharedPreferences.getInstance();
     final today = DateFormat('yyyy-MM-dd').format(DateTime.now());
     
+    try {
+      final apiWord = await _fetchWordFromApi();
+      if (apiWord != null) {
+        debugPrint('Word of the day retrieved from API: ${apiWord.word}');
+        await prefs.setString('word_$today', json.encode(apiWord.toJson()));
+        return apiWord;
+      }
+    } catch (e) {
+      print('Error retrieving word of the day from API: $e');
+    }
+    
     final savedWordJson = prefs.getString('word_$today');
     
     if (savedWordJson != null) {
       final wordData = json.decode(savedWordJson);
+      print('Word of the day retrieved: ${wordData['word']}');
       return Word.fromJson(wordData);
     } else {
       final random = DateTime.now().day % _words.length;
       final todaysWord = _words[random];
       
+      print('Word of the day generated locally: ${todaysWord.word}');
       await prefs.setString('word_$today', json.encode(todaysWord.toJson()));
       return todaysWord;
+    }
+  }
+  
+  Future<Word?> _fetchWordFromApi() async {
+    try {
+      final response = await http.get(Uri.parse('http://127.0.0.1:8080/word-of-the-day'))
+          .timeout(const Duration(seconds: 5));
+      
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        return Word.fromJson(data);
+      } else {
+        print('API error: ${response.statusCode}');
+        return null;
+      }
+    } catch (e) {
+      print('Execution failed: $e');
+      return null;
     }
   }
 
@@ -100,7 +133,7 @@ class WordRepository {
             allSavedWords[word.word] = word;
           }
         } catch (e) {
-          print('Error loading word: $e');
+          debugPrint('Error loading word: $e');
         }
       }
     });
