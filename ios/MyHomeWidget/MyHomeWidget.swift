@@ -87,66 +87,53 @@ struct MyHomeWidgetEntryView : View {
 
     var body: some View {
         ZStack {
-            Color(red: 0.95, green: 0.95, blue: 0.97)
+            Color.white
                 .edgesIgnoringSafeArea(.all)
             
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .center, spacing: 8) {
+                Spacer()
+                
                 Text(entry.wordOfTheDay.word)
                     .font(widgetFamily == .systemSmall ? .title2 : .title)
                     .fontWeight(.bold)
-                    .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.6))
+                    .foregroundColor(.black)
                     .lineLimit(1)
+                    .multilineTextAlignment(.center)
                 
-                Text(entry.wordOfTheDay.type)
+                Text(getShortType(entry.wordOfTheDay.type))
                     .font(.caption)
-                    .foregroundColor(.gray)
+                    .foregroundColor(.black)
                     .lineLimit(1)
                 
                 if widgetFamily != .systemSmall {
-                    Divider()
+                    Spacer().frame(height: 10)
                 }
                 
                 Text(entry.wordOfTheDay.definition)
                     .font(widgetFamily == .systemSmall ? .caption : .body)
                     .foregroundColor(.black)
-                    .lineLimit(widgetFamily == .systemSmall ? 2 : 4)
+                    .lineLimit(widgetFamily == .systemSmall ? 3 : 5)
+                    .multilineTextAlignment(.center)
                     .fixedSize(horizontal: false, vertical: true)
                 
-                if widgetFamily == .systemLarge {
-                    Text("Exemple:")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                        .padding(.top, 4)
-                    
-                    Text(entry.wordOfTheDay.example)
-                        .font(.caption)
-                        .foregroundColor(.black)
-                        .italic()
-                        .lineLimit(2)
-                }
-                
                 Spacer()
-                
-                HStack {
-                    Text("Eloquence")
-                        .font(.caption2)
-                        .foregroundColor(.gray)
-                    
-                    Spacer()
-                    
-                    Text(formatDate(entry.date))
-                        .font(.caption2)
-                        .foregroundColor(.gray)
-                }
             }
             .padding(12)
         }
     }
     
-    private func formatDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yyyy"
-        return formatter.string(from: date)
+    private func getShortType(_ type: String) -> String {
+        switch type.lowercased() {
+        case "adjectif": return "adj"
+        case "nom", "nom commun", "nom propre": return "nom"
+        case "verbe": return "v"
+        case "adverbe": return "adv"
+        case "pronom": return "pron"
+        case "conjonction": return "conj"
+        case "préposition": return "prép"
+        case "interjection": return "interj"
+        default: return type
+        }
     }
 }
 
