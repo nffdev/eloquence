@@ -96,14 +96,13 @@ struct MyHomeWidgetEntryView : View {
                     Spacer()
                     
                     Text(entry.wordOfTheDay.word)
-                        .font(widgetFamily == .systemSmall ? .title2 : .title)
-                        .fontWeight(.bold)
+                        .font(.system(size: widgetFamily == .systemSmall ? 24 : 28, weight: .bold, design: .serif))
                         .foregroundColor(.white)
                         .lineLimit(1)
                         .multilineTextAlignment(.center)
                     
                     Text(getShortType(entry.wordOfTheDay.type))
-                        .font(.caption)
+                        .font(.system(size: 12, weight: .regular, design: .serif))
                         .foregroundColor(.white)
                         .lineLimit(1)
                     
@@ -112,7 +111,7 @@ struct MyHomeWidgetEntryView : View {
                     }
                     
                     Text(entry.wordOfTheDay.definition)
-                        .font(widgetFamily == .systemSmall ? .caption : .body)
+                        .font(.system(size: widgetFamily == .systemSmall ? 12 : 16, weight: .regular, design: .default))
                         .foregroundColor(.white)
                         .lineLimit(widgetFamily == .systemSmall ? 3 : 5)
                         .multilineTextAlignment(.center)
