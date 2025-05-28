@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 import '../data/word_repository.dart';
 import '../domain/models/word.dart';
+import 'widget_service.dart';
 
 class WordProvider extends ChangeNotifier {
   final WordRepository _repository = WordRepository();
@@ -27,6 +28,8 @@ class WordProvider extends ChangeNotifier {
       _currentWord = await _repository.getTodaysWord();
       _isFavorite = _currentWord.isFavorite;
       await _updateStreak();
+      
+      await WidgetService.updateWordOfTheDay(_currentWord);
     } catch (e) {
       debugPrint('Error loading today\'s word: $e');
     } finally {

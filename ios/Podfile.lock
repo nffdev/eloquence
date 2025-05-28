@@ -2,6 +2,8 @@ PODS:
   - Flutter (1.0.0)
   - flutter_tts (0.0.1):
     - Flutter
+  - home_widget (0.0.1):
+    - Flutter
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -14,6 +16,7 @@ PODS:
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_tts (from `.symlinks/plugins/flutter_tts/ios`)
+  - home_widget (from `.symlinks/plugins/home_widget/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - share_plus (from `.symlinks/plugins/share_plus/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
@@ -23,6 +26,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_tts:
     :path: ".symlinks/plugins/flutter_tts/ios"
+  home_widget:
+    :path: ".symlinks/plugins/home_widget/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
   share_plus:
@@ -33,6 +38,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_tts: b88dbc8655d3dc961bc4a796e4e16a4cc1795833
+  home_widget: f169fc41fd807b4d46ab6615dc44d62adbf9f64f
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
   share_plus: 50da8cb520a8f0f65671c6c6a99b3617ed10a58a
   shared_preferences_foundation: 9e1978ff2562383bd5676f64ec4e9aa8fa06a6f7
