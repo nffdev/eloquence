@@ -22,10 +22,49 @@ class TTSService {
       if (_isPlatformSupported()) {
         _flutterTts = FlutterTts();
         
-        await _flutterTts!.setLanguage(_currentLanguage);
-        await _flutterTts!.setSpeechRate(0.5);
+        if (Platform.isIOS) {
+          await _flutterTts!.setSharedInstance(true);
+          await _flutterTts!.setIosAudioCategory(
+            IosTextToSpeechAudioCategory.playback,
+            [IosTextToSpeechAudioCategoryOptions.allowBluetooth]
+          );
+        }
+        
+        final availableLanguages = await _flutterTts!.getLanguages;
+        debugPrint('TTS available languages: $availableLanguages');
+        
+        String languageToUse = _currentLanguage;
+        if (Platform.isIOS) {
+          const iosFrenchOptions = ['fr-FR', 'fr_FR', 'fra-FRA', 'fr_CA', 'fra']; 
+          for (final lang in iosFrenchOptions) {
+            if (availableLanguages.contains(lang)) {
+              languageToUse = lang;
+              break;
+            }
+          }
+        }
+        
+        await _flutterTts!.setLanguage(languageToUse);
+        _currentLanguage = languageToUse;
+        
+        await _flutterTts!.setSpeechRate(Platform.isIOS ? 0.4 : 0.5);
         await _flutterTts!.setVolume(1.0);
         await _flutterTts!.setPitch(1.0);
+        
+        _flutterTts!.setStartHandler(() {
+          debugPrint('TTS started');
+          _isSpeaking = true;
+        });
+        
+        _flutterTts!.setCompletionHandler(() {
+          debugPrint('TTS completed');
+          _isSpeaking = false;
+        });
+        
+        _flutterTts!.setErrorHandler((error) {
+          debugPrint('TTS error: $error');
+          _isSpeaking = false;
+        });
         
         _isAvailable = true;
         debugPrint('TTS initialized successfully with language: $_currentLanguage');
@@ -47,15 +86,34 @@ class TTSService {
     
     String ttsLanguage;
     if (languageCode == 'en') {
-      ttsLanguage = 'en-US';
+      ttsLanguage = Platform.isIOS ? 'en-US' : 'en-US';
     } else {
-      ttsLanguage = 'fr-FR';
+      ttsLanguage = Platform.isIOS ? 'fr-FR' : 'fr-FR';
     }
     
     if (_currentLanguage != ttsLanguage) {
-      _currentLanguage = ttsLanguage;
-      await _flutterTts!.setLanguage(_currentLanguage);
-      debugPrint('TTS language changed to: $_currentLanguage');
+      try {
+        final availableLanguages = await _flutterTts!.getLanguages;
+        
+        if (Platform.isIOS && !availableLanguages.contains(ttsLanguage)) {
+          final options = languageCode == 'en' 
+              ? ['en-US', 'en_US', 'en-GB', 'en_GB', 'eng']
+              : ['fr-FR', 'fr_FR', 'fra-FRA', 'fr_CA', 'fra'];
+          
+          for (final lang in options) {
+            if (availableLanguages.contains(lang)) {
+              ttsLanguage = lang;
+              break;
+            }
+          }
+        }
+        
+        _currentLanguage = ttsLanguage;
+        await _flutterTts!.setLanguage(_currentLanguage);
+        debugPrint('TTS language changed to: $_currentLanguage');
+      } catch (e) {
+        debugPrint('Error setting TTS language: $e');
+      }
     }
   }
 
@@ -72,14 +130,37 @@ class TTSService {
       
       if (_isSpeaking) {
         await stop();
+        await Future.delayed(const Duration(milliseconds: 300));
       }
       
-      _isSpeaking = true;
-      debugPrint('Speaking in $_currentLanguage: "$text"');
-      await _flutterTts!.speak(text);
+      String textToSpeak = text;
+      if (Platform.isIOS) {
+        textToSpeak = text
+            .replaceAll('"', '')
+            .replaceAll('\n', ' ')
+            .trim();
+      }
       
-      await Future.delayed(const Duration(seconds: 2));
-      _isSpeaking = false;
+      debugPrint('Speaking in $_currentLanguage: "$textToSpeak"');
+      
+      _flutterTts!.setStartHandler(() {
+        debugPrint('TTS started');
+        _isSpeaking = true;
+      });
+      
+      _flutterTts!.setCompletionHandler(() {
+        debugPrint('TTS completed');
+        _isSpeaking = false;
+      });
+      
+      _flutterTts!.setErrorHandler((error) {
+        debugPrint('TTS error: $error');
+        _isSpeaking = false;
+      });
+      
+      _isSpeaking = true;
+      await _flutterTts!.speak(textToSpeak);
+      
     } catch (e) {
       debugPrint('Error speaking text: $e');
       _isSpeaking = false;
