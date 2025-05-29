@@ -38,8 +38,8 @@ function animateCounter(element, target, suffix = '', duration = 2000) {
 }
 
 const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
+    threshold: 0.01, 
+    rootMargin: '0px 0px -10px 0px' 
 };
 
 const observer = new IntersectionObserver((entries) => {
