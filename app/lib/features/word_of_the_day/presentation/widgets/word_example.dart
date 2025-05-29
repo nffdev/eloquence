@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/localization/language_provider.dart';
-import '../../../../core/localization/app_translations.dart';
-import '../../../../core/localization/translation_service.dart';
 
 class WordExample extends StatelessWidget {
   final String example;

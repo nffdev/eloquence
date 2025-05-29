@@ -9,7 +9,6 @@ import '../../../../features/favorites/presentation/pages/favorites_page.dart';
 import '../../../../core/theme/theme_provider.dart';
 import '../../../../core/localization/language_provider.dart';
 import '../../../../core/localization/widgets/language_selector.dart';
-import '../../../../core/localization/translation_service.dart';
 import '../../../../core/localization/app_translations.dart';
 
 class HomePage extends StatefulWidget {
