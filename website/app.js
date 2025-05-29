@@ -60,6 +60,25 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
+function updateLanguage(lang) {
+    if (!translations[lang]) return;
+    
+    document.documentElement.lang = lang;
+    localStorage.setItem('language', lang);
+    
+    const elements = document.querySelectorAll('[data-i18n]');
+    elements.forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang][key]) {
+            if (translations[lang][key].includes('<')) {
+                el.innerHTML = translations[lang][key];
+            } else {
+                el.textContent = translations[lang][key];
+            }
+        }
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const animatedElements = document.querySelectorAll('.animate-fade-in-up, .animate-zoom-in, .stat-item');
     
@@ -67,6 +86,17 @@ document.addEventListener('DOMContentLoaded', () => {
         el.style.animationPlayState = 'paused';
         observer.observe(el);
     });
+    
+    const savedLanguage = localStorage.getItem('language') || 'fr';
+    const langSelector = document.getElementById('langSelector');
+    if (langSelector) {
+        langSelector.value = savedLanguage;
+        updateLanguage(savedLanguage);
+        
+        langSelector.addEventListener('change', () => {
+            updateLanguage(langSelector.value);
+        });
+    }
 });
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {

@@ -34,16 +34,24 @@
     <nav class="navbar">
         <div class="container">
             <div class="nav-content">
-                <div class="logo">Eloquence</div>
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                    <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="5"/>
-                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-                    </svg>
-                    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-                    </svg>
-                </button>
+                <div class="logo" data-i18n="app-name">Eloquence</div>
+                <div class="nav-controls">
+                    <div class="lang-selector">
+                        <select id="langSelector" aria-label="Select language">
+                            <option value="fr">FR</option>
+                            <option value="en">EN</option>
+                        </select>
+                    </div>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                        <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"/>
+                            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                        </svg>
+                        <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
@@ -51,15 +59,15 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <div class="badge animate-fade-in-up" style="animation-delay: 0ms;">
+                <div class="badge animate-fade-in-up" style="animation-delay: 0ms;" data-i18n="new-version">
                     ✨ Nouvelle version disponible
                 </div>
 
-                <h1 class="hero-title animate-fade-in-up" style="animation-delay: 200ms;">
+                <h1 class="hero-title animate-fade-in-up" style="animation-delay: 200ms;" data-i18n="hero-title">
                     ENRICHISSEZ<br>VOTRE ESPRIT
                 </h1>
 
-                <p class="hero-subtitle animate-fade-in-up" style="animation-delay: 500ms;">
+                <p class="hero-subtitle animate-fade-in-up" style="animation-delay: 500ms;" data-i18n="hero-subtitle">
                     L'application d'apprentissage de vocabulaire qui transforme votre routine quotidienne en aventure linguistique
                 </p>
 
@@ -68,13 +76,13 @@
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
                         </svg>
-                        Télécharger pour iOS
+                        <span data-i18n="download-ios">Télécharger pour iOS</span>
                     </button>
                     <button class="btn btn-outline">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polygon points="5,3 19,12 5,21 5,3"/>
                         </svg>
-                        Télécharger pour Android
+                        <span data-i18n="download-android">Télécharger pour Android</span>
                     </button>
                 </div>
 
@@ -98,7 +106,7 @@
                         </svg>
                     </div>
                     <div class="stat-value" data-target="10" data-suffix="+">0+</div>
-                    <div class="stat-label">Utilisateurs actifs</div>
+                    <div class="stat-label" data-i18n="active-users">Utilisateurs actifs</div>
                 </div>
                 <div class="stat-item animate-fade-in-up" style="animation-delay: 1200ms;">
                     <div class="stat-icon">
@@ -108,7 +116,7 @@
                         </svg>
                     </div>
                     <div class="stat-value" data-target="100" data-suffix="+">0+</div>
-                    <div class="stat-label">Mots disponibles</div>
+                    <div class="stat-label" data-i18n="available-words">Mots disponibles</div>
                 </div>
                 <div class="stat-item animate-fade-in-up" style="animation-delay: 1400ms;">
                     <div class="stat-icon">
@@ -117,7 +125,7 @@
                         </svg>
                     </div>
                     <div class="stat-value" data-target="" data-suffix="/5">0/5</div>
-                    <div class="stat-label">Note moyenne</div>
+                    <div class="stat-label" data-i18n="average-rating">Note moyenne</div>
                 </div>
             </div>
         </div>
@@ -126,11 +134,11 @@
     <section class="features" id="features">
         <div class="container">
             <div class="features-header">
-                <h2 class="features-title animate-fade-in-up">
+                <h2 class="features-title animate-fade-in-up" data-i18n="features-title">
                     Fonctionnalités<br>
                     <span>exceptionnelles</span>
                 </h2>
-                <p class="features-subtitle animate-fade-in-up" style="animation-delay: 200ms;">
+                <p class="features-subtitle animate-fade-in-up" style="animation-delay: 200ms;" data-i18n="features-subtitle">
                     Une expérience d'apprentissage complète avec des outils modernes pour enrichir votre vocabulaire au quotidien
                 </p>
             </div>
@@ -145,8 +153,8 @@
                             <line x1="3" y1="10" x2="21" y2="10"/>
                         </svg>
                     </div>
-                    <h3 class="feature-title">Mot du jour</h3>
-                    <p class="feature-description">Un nouveau mot chaque jour avec sa définition et un exemple contextualisé</p>
+                    <h3 class="feature-title" data-i18n="word-of-day">Mot du jour</h3>
+                    <p class="feature-description" data-i18n="word-of-day-desc">Un nouveau mot chaque jour avec sa définition et un exemple contextualisé</p>
                 </div>
 
                 <div class="feature-card animate-fade-in-up" style="animation-delay: 500ms;">
@@ -156,8 +164,8 @@
                             <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
                         </svg>
                     </div>
-                    <h3 class="feature-title">Prononciation TTS</h3>
-                    <p class="feature-description">Écoutez la prononciation correcte du mot pour améliorer votre diction</p>
+                    <h3 class="feature-title" data-i18n="tts-pronunciation">Prononciation TTS</h3>
+                    <p class="feature-description" data-i18n="tts-pronunciation-desc">Écoutez la prononciation correcte du mot pour améliorer votre diction</p>
                 </div>
 
                 <div class="feature-card animate-fade-in-up" style="animation-delay: 600ms;">
@@ -166,8 +174,8 @@
                             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                         </svg>
                     </div>
-                    <h3 class="feature-title">Favoris</h3>
-                    <p class="feature-description">Enregistrez vos mots préférés pour créer votre dictionnaire personnel</p>
+                    <h3 class="feature-title" data-i18n="favorites">Favoris</h3>
+                    <p class="feature-description" data-i18n="favorites-desc">Enregistrez vos mots préférés pour créer votre dictionnaire personnel</p>
                 </div>
 
                 <div class="feature-card animate-fade-in-up" style="animation-delay: 700ms;">
@@ -176,8 +184,8 @@
                             <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
                         </svg>
                     </div>
-                    <h3 class="feature-title">Système de streak</h3>
-                    <p class="feature-description">Gardez la motivation avec un suivi des jours consécutifs d'apprentissage</p>
+                    <h3 class="feature-title" data-i18n="streak-system">Système de streak</h3>
+                    <p class="feature-description" data-i18n="streak-system-desc">Gardez la motivation avec un suivi des jours consécutifs d'apprentissage</p>
                 </div>
 
                 <div class="feature-card animate-fade-in-up" style="animation-delay: 800ms;">
@@ -186,8 +194,8 @@
                             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
                         </svg>
                     </div>
-                    <h3 class="feature-title">Thème adaptatif</h3>
-                    <p class="feature-description">Interface claire ou sombre pour un confort visuel optimal</p>
+                    <h3 class="feature-title" data-i18n="adaptive-theme">Thème adaptatif</h3>
+                    <p class="feature-description" data-i18n="adaptive-theme-desc">Interface claire ou sombre pour un confort visuel optimal</p>
                 </div>
 
                 <div class="feature-card animate-fade-in-up" style="animation-delay: 900ms;">
@@ -198,8 +206,8 @@
                             <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
                         </svg>
                     </div>
-                    <h3 class="feature-title">Multilingue</h3>
-                    <p class="feature-description">Support du français et anglais avec possibilité d'extension</p>
+                    <h3 class="feature-title" data-i18n="multilingual">Multilingue</h3>
+                    <p class="feature-description" data-i18n="multilingual-desc">Support du français et anglais avec possibilité d'extension</p>
                 </div>
 
                 <div class="feature-card animate-fade-in-up" style="animation-delay: 1000ms;">
@@ -210,8 +218,8 @@
                             <line x1="12" y1="17" x2="12" y2="21"/>
                         </svg>
                     </div>
-                    <h3 class="feature-title">Widget intégré</h3>
-                    <p class="feature-description">Affichez le mot du jour directement sur votre écran d'accueil</p>
+                    <h3 class="feature-title" data-i18n="widget">Widget intégré</h3>
+                    <p class="feature-description" data-i18n="widget-desc">Affichez le mot du jour directement sur votre écran d'accueil</p>
                 </div>
 
                 <div class="feature-card animate-fade-in-up" style="animation-delay: 1100ms;">
@@ -222,8 +230,8 @@
                             <line x1="12" y1="17" x2="12" y2="21"/>
                         </svg>
                     </div>
-                    <h3 class="feature-title">API robuste</h3>
-                    <p class="feature-description">Backend performant pour la gestion des mots et définitions</p>
+                    <h3 class="feature-title" data-i18n="api">API robuste</h3>
+                    <p class="feature-description" data-i18n="api-desc">Backend performant pour la gestion des mots et définitions</p>
                 </div>
             </div>
         </div>
@@ -234,11 +242,11 @@
             <div class="cta-content animate-fade-in-up">
                 <div class="cta-background"></div>
                 <div class="cta-inner">
-                    <h2 class="cta-title">
+                    <h2 class="cta-title" data-i18n="cta-title">
                         Commencez dès<br>
                         <span>maintenant</span>
                     </h2>
-                    <p class="cta-subtitle">
+                    <p class="cta-subtitle" data-i18n="cta-subtitle">
                         Rejoignez des centaines d'utilisateurs qui enrichissent leur vocabulaire chaque jour
                     </p>
                     <div class="cta-buttons">
@@ -248,10 +256,10 @@
                                 <polyline points="7,10 12,15 17,10"/>
                                 <line x1="12" y1="15" x2="12" y2="3"/>
                             </svg>
-                            Télécharger maintenant
+                            <span data-i18n="download-now">Télécharger maintenant</span>
                         </a>
                         <a href="#features" class="btn btn-outline">
-                            Découvrir les fonctionnalités
+                            <span data-i18n="discover-features">Découvrir les fonctionnalités</span>
                         </a>
                     </div>
                 </div>
@@ -262,17 +270,18 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-logo">Eloquence</div>
-                <p class="footer-copyright">© 2025 Eloquence. Tous droits réservés.</p>
+                <div class="footer-logo" data-i18n="app-name">Eloquence</div>
+                <p class="footer-copyright" data-i18n="copyright">© 2025 Eloquence. Tous droits réservés.</p>
                 <div class="footer-links">
-                    <a href="#">Politique de confidentialité</a>
-                    <a href="#">Conditions d'utilisation</a>
-                    <a href="https://github.com/nffdev/eloquence" target="_blank">Github (Support)</a>
+                    <a href="#" data-i18n="privacy">Politique de confidentialité</a>
+                    <a href="#" data-i18n="terms">Conditions d'utilisation</a>
+                    <a href="https://github.com/nffdev/eloquence" target="_blank" data-i18n="github">Github (Support)</a>
                 </div>
             </div>
         </div>
     </footer>
 
+    <script src="translations.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
