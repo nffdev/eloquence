@@ -1,105 +1,159 @@
 const themeToggle = document.getElementById('themeToggle');
-const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+const body = document.body;
 
-function initTheme() {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark' || (!savedTheme && prefersDarkScheme.matches)) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-    } else {
-        document.documentElement.setAttribute('data-theme', 'light');
-    }
-}
+const currentTheme = localStorage.getItem('theme') || 'light';
+body.setAttribute('data-theme', currentTheme);
 
-function toggleTheme() {
-    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+themeToggle.addEventListener('click', () => {
+    const currentTheme = body.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
     
-    document.documentElement.setAttribute('data-theme', newTheme);
+    body.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
-}
+});
 
-initTheme();
-themeToggle.addEventListener('click', toggleTheme);
-
-document.addEventListener('DOMContentLoaded', () => {
-    const statValues = document.querySelectorAll('.stat-value');
+function animateCounter(element, target, suffix = '', duration = 2000) {
+    const start = 0;
+    const startTime = performance.now();
     
-    const animateCounter = (element, target, suffix) => {
-        const duration = 2000;
-        const startTime = performance.now();
-        const startValue = 0;
+    function updateCounter(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
         
-        function updateCounter(currentTime) {
-            const elapsedTime = currentTime - startTime;
-            const progress = Math.min(elapsedTime / duration, 1);
-            
-            const easing = t => t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
-            
-            const easedProgress = easing(progress);
-            
-            if (target % 1 !== 0) {
-                const value = (easedProgress * target).toFixed(1);
-                element.textContent = value + suffix;
-            } else {
-                const value = Math.floor(easedProgress * target);
-                element.textContent = value + suffix;
-            }
-            
-            if (progress < 1) {
-                requestAnimationFrame(updateCounter);
-            }
+        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+        const current = start + (target - start) * easeOutQuart;
+        
+        if (target % 1 !== 0) {
+            element.textContent = current.toFixed(1) + suffix;
+        } else {
+            element.textContent = Math.floor(current).toLocaleString() + suffix;
         }
         
-        requestAnimationFrame(updateCounter);
-    };
+        if (progress < 1) {
+            requestAnimationFrame(updateCounter);
+        }
+    }
     
-    const animatedElements = document.querySelectorAll('.animate-fade-in-up, .animate-zoom-in');
-    
-    const isElementInViewport = el => {
-        const rect = el.getBoundingClientRect();
-        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-        
-        return (
-            rect.top <= windowHeight * 0.7 &&
-            rect.bottom >= 0 &&
-            rect.left >= 0 &&
-            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-        );
-    };
+    requestAnimationFrame(updateCounter);
+}
+
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.animationPlayState = 'running';
+            
+            if (entry.target.classList.contains('stat-item')) {
+                const valueElement = entry.target.querySelector('.stat-value');
+                const target = parseFloat(valueElement.getAttribute('data-target'));
+                const suffix = valueElement.getAttribute('data-suffix') || '';
+                
+                animateCounter(valueElement, target, suffix);
+            }
+            
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+document.addEventListener('DOMContentLoaded', () => {
+    const animatedElements = document.querySelectorAll('.animate-fade-in-up, .animate-zoom-in, .stat-item');
     
     animatedElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.animation = 'none';
+        el.style.animationPlayState = 'paused';
+        observer.observe(el);
+    });
+});
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+document.querySelectorAll('.btn').forEach(button => {
+    button.addEventListener('mouseenter', function() {
+        this.style.transform = 'scale(1.05)';
     });
     
-    const checkVisibility = () => {
-        statValues.forEach(el => {
-            if (isElementInViewport(el) && !el.classList.contains('animated')) {
-                el.classList.add('animated');
-                const target = parseFloat(el.getAttribute('data-target'));
-                const suffix = el.getAttribute('data-suffix');
-                animateCounter(el, target, suffix);
-            }
-        });
-        
-        animatedElements.forEach(el => {
-            if (isElementInViewport(el) && !el.classList.contains('animated-scroll')) {
-                el.classList.add('animated-scroll');
-                el.style.opacity = '';
-                el.style.animation = '';
-                
-                void el.offsetWidth;
-                
-                if (el.classList.contains('animate-fade-in-up')) {
-                    el.style.animation = 'fadeInUp 0.8s ease-out forwards';
-                } else if (el.classList.contains('animate-zoom-in')) {
-                    el.style.animation = 'zoomIn 0.8s ease-out forwards';
-                }
-            }
-        });
-    };
-    
-    setTimeout(checkVisibility, 100);
-    window.addEventListener('scroll', checkVisibility);
-    window.addEventListener('resize', checkVisibility);
+    button.addEventListener('mouseleave', function() {
+        this.style.transform = 'scale(1)';
+    });
 });
+
+window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    const parallax = document.querySelector('.app-mockup');
+    const speed = 0.5;
+    
+    if (parallax) {
+        parallax.style.transform = `translateY(${scrolled * speed}px)`;
+    }
+});
+
+window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+});
+
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+const optimizedScrollHandler = debounce(() => {
+    const scrolled = window.pageYOffset;
+    const parallax = document.querySelector('.app-mockup');
+    const speed = 0.5;
+    
+    if (parallax) {
+        parallax.style.transform = `translateY(${scrolled * speed}px)`;
+    }
+}, 10);
+
+window.addEventListener('scroll', optimizedScrollHandler);
+
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('btn')) {
+        e.target.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            e.target.style.transform = '';
+        }, 150);
+    }
+});
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab') {
+        document.body.classList.add('keyboard-navigation');
+    }
+});
+
+document.addEventListener('mousedown', () => {
+    document.body.classList.remove('keyboard-navigation');
+});
+
+const style = document.createElement('style');
+style.textContent = `
+    .keyboard-navigation *:focus {
+        outline: 2px solid var(--text-color);
+        outline-offset: 2px;
+    }
+`;
+document.head.appendChild(style);

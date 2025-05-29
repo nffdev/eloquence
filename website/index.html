@@ -69,36 +69,33 @@
             <div class="stats-grid">
                 <div class="stat-item animate-fade-in-up" style="animation-delay: 1200ms;">
                     <div class="stat-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                    </div>
-                    <div class="stat-value" data-target="" data-suffix="">0</div>
-                    <div class="stat-label">Note moyenne</div>
-                </div>
-
-                <div class="stat-item animate-fade-in-up" style="animation-delay: 1400ms;">
-                    <div class="stat-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="9" cy="7" r="4"></circle>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
                         </svg>
                     </div>
                     <div class="stat-value" data-target="10" data-suffix="+">0+</div>
                     <div class="stat-label">Utilisateurs actifs</div>
                 </div>
-
-                <div class="stat-item animate-fade-in-up" style="animation-delay: 1600ms;">
+                <div class="stat-item animate-fade-in-up" style="animation-delay: 1400ms;">
                     <div class="stat-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
                         </svg>
                     </div>
                     <div class="stat-value" data-target="100" data-suffix="+">0+</div>
                     <div class="stat-label">Mots disponibles</div>
+                </div>
+                <div class="stat-item animate-fade-in-up" style="animation-delay: 1600ms;">
+                    <div class="stat-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+                        </svg>
+                    </div>
+                    <div class="stat-value" data-target="" data-suffix="/5">0/5</div>
+                    <div class="stat-label">Note moyenne</div>
                 </div>
             </div>
         </div>
@@ -111,7 +108,7 @@
                     Fonctionnalités<br>
                     <span>exceptionnelles</span>
                 </h2>
-                <p class="features-subtitle animate-fade-in-up">
+                <p class="features-subtitle animate-fade-in-up" style="animation-delay: 200ms;">
                     Une expérience d'apprentissage complète avec des outils modernes pour enrichir votre vocabulaire au quotidien
                 </p>
             </div>
@@ -120,9 +117,10 @@
                 <div class="feature-card animate-fade-in-up" style="animation-delay: 400ms;">
                     <div class="feature-icon">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="12" y1="8" x2="12" y2="12"></line>
-                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/>
+                            <line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
                         </svg>
                     </div>
                     <h3 class="feature-title">Mot du jour</h3>
@@ -132,15 +130,25 @@
                 <div class="feature-card animate-fade-in-up" style="animation-delay: 500ms;">
                     <div class="feature-icon">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="8" r="7"></circle>
-                            <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                            <polygon points="11 5,6 9,2 9,2 15,6 15,11 19,11 5"/>
+                            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Prononciation TTS</h3>
+                    <p class="feature-description">Écoutez la prononciation correcte du mot pour améliorer votre diction</p>
+                </div>
+
+                <div class="feature-card animate-fade-in-up" style="animation-delay: 600ms;">
+                    <div class="feature-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                         </svg>
                     </div>
                     <h3 class="feature-title">Favoris</h3>
                     <p class="feature-description">Enregistrez vos mots préférés pour créer votre dictionnaire personnel</p>
                 </div>
 
-                <div class="feature-card animate-fade-in-up" style="animation-delay: 600ms;">
+                <div class="feature-card animate-fade-in-up" style="animation-delay: 700ms;">
                     <div class="feature-icon">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
@@ -150,7 +158,7 @@
                     <p class="feature-description">Gardez la motivation avec un suivi des jours consécutifs d'apprentissage</p>
                 </div>
 
-                <div class="feature-card animate-fade-in-up" style="animation-delay: 700ms;">
+                <div class="feature-card animate-fade-in-up" style="animation-delay: 800ms;">
                     <div class="feature-icon">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
@@ -158,16 +166,6 @@
                     </div>
                     <h3 class="feature-title">Thème adaptatif</h3>
                     <p class="feature-description">Interface claire ou sombre pour un confort visuel optimal</p>
-                </div>
-
-                <div class="feature-card animate-fade-in-up" style="animation-delay: 800ms;">
-                    <div class="feature-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-                        </svg>
-                    </div>
-                    <h3 class="feature-title">Statistiques</h3>
-                    <p class="feature-description">Suivez votre progression et visualisez vos performances</p>
                 </div>
 
                 <div class="feature-card animate-fade-in-up" style="animation-delay: 900ms;">
