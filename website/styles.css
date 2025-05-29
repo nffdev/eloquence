@@ -425,3 +425,57 @@ html {
         grid-template-columns: repeat(4, 1fr);
     }
 }
+
+.cta {
+    padding: 5rem 0;
+}
+
+.cta-content {
+    position: relative;
+    background-color: var(--bg-color);
+    border-radius: 3rem;
+    padding: 3rem;
+    box-shadow: 0 25px 50px var(--shadow-color);
+    border: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.cta-background {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--border-color), transparent);
+    border-radius: 3rem;
+}
+
+.cta-inner {
+    position: relative;
+}
+
+.cta-title {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+}
+
+.cta-subtitle {
+    font-size: 1.25rem;
+    opacity: 0.7;
+    margin-bottom: 2rem;
+    max-width: 32rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+}
+
+@media (min-width: 640px) {
+    .cta-buttons {
+        flex-direction: row;
+    }
+}
