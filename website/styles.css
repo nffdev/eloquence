@@ -83,6 +83,7 @@ body {
     padding: 0.3rem 0.6rem;
     border-radius: 0.3rem;
     font-size: 0.875rem;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
     appearance: none;
@@ -92,6 +93,18 @@ body {
     background-repeat: no-repeat;
     background-position: right 0.5rem center;
     padding-right: 2rem;
+}
+
+[data-theme="dark"] .lang-selector select {
+    background-color: #2a2a2a;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+[data-theme="dark"] .lang-selector select option {
+    background-color: #2a2a2a;
+    color: white;
 }
 
 .lang-selector select:focus {
