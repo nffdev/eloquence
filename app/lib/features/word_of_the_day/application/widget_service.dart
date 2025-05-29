@@ -10,6 +10,8 @@ class WidgetService {
 
   static Future<bool> updateWordOfTheDay(Word word) async {
     try {
+      await HomeWidget.setAppGroupId(appGroupId);
+      
       final wordJson = jsonEncode(word.toJson());
       await HomeWidget.saveWidgetData<String>(wordOfTheDayKey, wordJson);
       
