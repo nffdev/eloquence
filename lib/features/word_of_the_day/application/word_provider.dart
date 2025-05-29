@@ -20,12 +20,22 @@ class WordProvider extends ChangeNotifier {
   int _streak = 1;
   int get streak => _streak;
   
+  String _currentLanguage = 'fr';
+  String get currentLanguage => _currentLanguage;
+  
+  void setLanguage(String languageCode) {
+    if (_currentLanguage != languageCode) {
+      _currentLanguage = languageCode;
+      loadTodaysWord();
+    }
+  }
+  
   Future<void> loadTodaysWord() async {
     _isLoading = true;
     notifyListeners();
     
     try {
-      _currentWord = await _repository.getTodaysWord();
+      _currentWord = await _repository.getTodaysWord(language: _currentLanguage);
       _isFavorite = _currentWord.isFavorite;
       await _updateStreak();
       

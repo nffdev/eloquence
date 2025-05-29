@@ -9,40 +9,67 @@ import '../../../core/constants/word_constants.dart';
 
 class WordRepository {
 
-  Future<Word> getTodaysWord() async {
+  Future<Word> getTodaysWord({String language = 'fr'}) async {
     final prefs = await SharedPreferences.getInstance();
     final today = DateFormat('yyyy-MM-dd').format(DateTime.now());
     
     try {
-      final apiWord = await _fetchWordFromApi();
+      final apiWord = await _fetchWordFromApi(language: language);
       if (apiWord != null) {
-        debugPrint('Word of the day retrieved from API: ${apiWord.word}');
-        await prefs.setString('word_$today', json.encode(apiWord.toJson()));
+        debugPrint('Word of the day retrieved from API: ${apiWord.word} (language: ${apiWord.language})');
+        await prefs.setString('word_${today}_$language', json.encode(apiWord.toJson()));
         return apiWord;
       }
     } catch (e) {
       debugPrint('Error retrieving word of the day from API: $e');
     }
     
-    final savedWordJson = prefs.getString('word_$today');
+    final savedWordJson = prefs.getString('word_${today}_$language');
     
     if (savedWordJson != null) {
       final wordData = json.decode(savedWordJson);
-      debugPrint('Word of the day retrieved: ${wordData['word']}');
+      debugPrint('Word of the day retrieved for language $language: ${wordData['word']}');
       return Word.fromJson(wordData);
-    } else {
-      final random = DateTime.now().day % WordConstants.fallbackWords.length;
-      final todaysWord = WordConstants.fallbackWords[random];
-      
-      debugPrint('Word of the day generated locally: ${todaysWord.word}');
-      await prefs.setString('word_$today', json.encode(todaysWord.toJson()));
-      return todaysWord;
     }
+    
+    final legacySavedWordJson = prefs.getString('word_$today');
+    if (legacySavedWordJson != null) {
+      final wordData = json.decode(legacySavedWordJson);
+      debugPrint('Legacy word of the day retrieved: ${wordData['word']}');
+      final word = Word.fromJson(wordData);
+      await prefs.setString('word_${today}_${word.language}', json.encode(word.toJson()));
+      
+      if (word.language == language) {
+        return word;
+      }
+    }
+    
+    final filteredWords = WordConstants.fallbackWords.where((w) => w.language == language).toList();
+    
+    if (filteredWords.isEmpty && language != 'fr') {
+      debugPrint('No fallback words found for language $language, using French instead');
+      return getTodaysWord(language: 'fr');
+    }
+    
+    if (filteredWords.isEmpty) {
+      final randomWord = WordConstants.fallbackWords.first;
+      debugPrint('Using generic fallback word: ${randomWord.word}');
+      await prefs.setString('word_${today}_${randomWord.language}', json.encode(randomWord.toJson()));
+      return randomWord;
+    }
+    
+    final random = DateTime.now().day % filteredWords.length;
+    final todaysWord = filteredWords[random];
+    
+    debugPrint('Word of the day generated locally for language $language: ${todaysWord.word}');
+    await prefs.setString('word_${today}_$language', json.encode(todaysWord.toJson()));
+    return todaysWord;
   }
   
-  Future<Word?> _fetchWordFromApi() async {
+  Future<Word?> _fetchWordFromApi({String language = 'fr'}) async {
     try {
-      final response = await http.get(Uri.parse(ApiConstants.wordOfTheDayUrl))
+      final url = '${ApiConstants.wordOfTheDayUrl}?lang=$language';
+      final response = await http.get(Uri.parse(url))
           .timeout(Duration(seconds: ApiConstants.apiTimeoutSeconds));
       
       if (response.statusCode == 200) {

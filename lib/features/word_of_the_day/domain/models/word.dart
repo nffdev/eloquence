@@ -5,6 +5,7 @@ class Word {
   final String example;
   final String date;
   bool isFavorite;
+  final String language;
 
   Word({
     required this.word,
@@ -13,6 +14,7 @@ class Word {
     required this.example,
     required this.date,
     this.isFavorite = false,
+    this.language = 'fr',
   });
 
   factory Word.fromJson(Map<String, dynamic> json) {
@@ -23,6 +25,7 @@ class Word {
       example: json['example'],
       date: json['date'],
       isFavorite: json['isFavorite'] ?? false,
+      language: json['language'] ?? 'fr',
     );
   }
 
@@ -34,6 +37,7 @@ class Word {
       'example': example,
       'date': date,
       'isFavorite': isFavorite,
+      'language': language,
     };
   }
 }
