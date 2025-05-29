@@ -225,10 +225,13 @@ body {
 
 .mockup-image {
     position: relative;
-    width: 100%;
+    width: 350%;   
+    max-width: 84rem; 
     height: auto;
+    margin-left: -125%; 
     filter: drop-shadow(0 25px 50px var(--shadow-color));
     transition: transform 0.5s ease;
+    object-fit: cover;
 }
 
 .mockup-image:hover {
