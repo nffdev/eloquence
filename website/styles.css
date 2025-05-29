@@ -32,28 +32,6 @@ body {
     padding: 0 1rem;
 }
 
-/* html {
-    scroll-behavior: smooth;
-}
-
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--bg-color);
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--border-color);
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--text-color);
-    opacity: 0.4;
-} */
-
 .navbar {
     position: fixed;
     top: 0;
