@@ -133,14 +133,20 @@ body {
 
 .badge {
     display: inline-block;
-    padding: 0.5rem 1.5rem;
-    background-color: var(--border-color);
-    color: var(--text-color);
-    border: 1px solid var(--border-color);
-    border-radius: 2rem;
     font-size: 0.875rem;
     font-weight: 500;
-    margin-bottom: 2rem;
+    padding: 0.5rem 1rem;
+    border-radius: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border-color);
+}
+
+@media (max-width: 768px) {
+    .badge {
+        margin-top: 4rem;
+    }
 }
 
 .hero-title {
