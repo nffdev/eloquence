@@ -12,10 +12,13 @@ const wordController = {
    */
   getAllWords: (req, res) => {
     try {
-      const words = wordRepository.getAllWords();
+      const language = req.query.lang;
+      
+      const words = wordRepository.getAllWords(language);
       res.status(200).json({
         success: true,
         count: words.length,
+        language: language || 'all',
         data: words
       });
     } catch (error) {
@@ -33,9 +36,12 @@ const wordController = {
    */
   getWordOfTheDay: (req, res) => {
     try {
-      const word = wordRepository.getWordOfTheDay();
+      const language = req.query.lang || 'fr';
+      
+      const word = wordRepository.getWordOfTheDay(language);
       res.status(200).json({
         success: true,
+        language: word.language,
         data: word
       });
     } catch (error) {
@@ -54,17 +60,24 @@ const wordController = {
   getWordByName: (req, res) => {
     try {
       const { name } = req.params;
-      const word = wordRepository.getWordByName(name);
+      const language = req.query.lang;
+      
+      const word = wordRepository.getWordByName(name, language);
       
       if (!word) {
+        const errorMsg = language 
+          ? `Word '${name}' not found in ${language} language` 
+          : `Word '${name}' not found`;
+        
         return res.status(404).json({
           success: false,
-          error: `Word '${name}' not found`
+          error: errorMsg
         });
       }
 
       res.status(200).json({
         success: true,
+        language: word.language,
         data: word
       });
     } catch (error) {
@@ -82,7 +95,7 @@ const wordController = {
    */
   createWord: (req, res) => {
     try {
-      const { word, type, definition, example } = req.body;
+      const { word, type, definition, example, language = 'fr' } = req.body;
       
       // Validation
       if (!word || !type || !definition) {
@@ -92,22 +105,23 @@ const wordController = {
         });
       }
 
-      // Check if word already exists
-      const existingWord = wordRepository.getWordByName(word);
+      // Check if word already exists in the specified language
+      const existingWord = wordRepository.getWordByName(word, language);
       if (existingWord) {
         return res.status(400).json({
           success: false,
-          error: `Word '${word}' already exists`
+          error: `Word '${word}' already exists in ${language} language`
         });
       }
 
       const date = new Date().toISOString().split('T')[0];
-      const newWord = new Word(word, type, definition, example || '', date);
+      const newWord = new Word(word, type, definition, example || '', date, false, language);
       
       const addedWord = wordRepository.addWord(newWord);
       
       res.status(201).json({
         success: true,
+        language: addedWord.language,
         data: addedWord
       });
     } catch (error) {
@@ -126,9 +140,26 @@ const wordController = {
   updateWord: (req, res) => {
     try {
       const { name } = req.params;
-      const { type, definition, example } = req.body;
+      const { type, definition, example, language } = req.body;
       
-      const updatedWord = wordRepository.updateWord(name, { type, definition, example });
+      if (language) {
+        const existingWord = wordRepository.getWordByName(name, language);
+        
+        if (!existingWord) {
+          return res.status(404).json({
+            success: false,
+            error: `Word '${name}' not found in ${language} language`
+          });
+        }
+      }
+      
+      const updateData = {};
+      if (type) updateData.type = type;
+      if (definition) updateData.definition = definition;
+      if (example) updateData.example = example;
+      if (language) updateData.language = language;
+      
+      const updatedWord = wordRepository.updateWord(name, updateData);
       
       if (!updatedWord) {
         return res.status(404).json({
@@ -139,6 +170,7 @@ const wordController = {
 
       res.status(200).json({
         success: true,
+        language: updatedWord.language,
         data: updatedWord
       });
     } catch (error) {

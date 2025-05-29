@@ -1,15 +1,16 @@
 /**
  * Word model
- * Represents a word with its definition, type, example and date
+ * Represents a word with its definition, type, example, date and language
  */
 class Word {
-  constructor(word, type, definition, example, date, isFavorite = false) {
+  constructor(word, type, definition, example, date, isFavorite = false, language = 'fr') {
     this.word = word;
     this.type = type;
     this.definition = definition;
     this.example = example;
     this.date = date;
     this.isFavorite = isFavorite;
+    this.language = language;
   }
 
   toJSON() {
@@ -19,7 +20,8 @@ class Word {
       definition: this.definition,
       example: this.example,
       date: this.date,
-      isFavorite: this.isFavorite
+      isFavorite: this.isFavorite,
+      language: this.language
     };
   }
 
@@ -30,7 +32,8 @@ class Word {
       json.definition,
       json.example,
       json.date,
-      json.isFavorite || false
+      json.isFavorite || false,
+      json.language || 'fr'
     );
   }
 }
