@@ -145,9 +145,9 @@ class WordRepository {
   Future<List<Word>> getFavoriteWords() async {
     final prefs = await SharedPreferences.getInstance();
     List<String> favorites = prefs.getStringList('favorites') ?? [];
-    List<Word> favoriteWords = [];
     
-    Map<String, dynamic> allSavedWords = {};
+    Map<String, Word> favoriteWordsMap = {};
+    
     prefs.getKeys().forEach((key) {
       if (key.startsWith('word_')) {
         try {
@@ -156,9 +156,8 @@ class WordRepository {
             final wordData = json.decode(wordJson);
             final word = Word.fromJson(wordData);
             if (favorites.contains(word.word)) {
-              favoriteWords.add(word);
+              favoriteWordsMap[word.word] = word;
             }
-            allSavedWords[word.word] = word;
           }
         } catch (e) {
           debugPrint('Error loading word: $e');
@@ -166,20 +165,18 @@ class WordRepository {
       }
     });
     
-    if (favoriteWords.length < favorites.length) {
-      for (final wordName in favorites) {
-        if (!favoriteWords.any((w) => w.word == wordName)) {
-          final matchingWords = _words.where((w) => w.word == wordName).toList();
-          if (matchingWords.isNotEmpty) {
-            final word = matchingWords.first;
-            word.isFavorite = true;
-            favoriteWords.add(word);
-          }
+    for (final wordName in favorites) {
+      if (!favoriteWordsMap.containsKey(wordName)) {
+        final matchingWords = _words.where((w) => w.word == wordName).toList();
+        if (matchingWords.isNotEmpty) {
+          final word = matchingWords.first;
+          word.isFavorite = true;
+          favoriteWordsMap[wordName] = word;
         }
       }
     }
     
-    return favoriteWords;
+    return favoriteWordsMap.values.toList();
   }
   
   Future<bool> isWordFavorite(String word) async {
