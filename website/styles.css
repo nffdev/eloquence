@@ -253,10 +253,24 @@ html {
 
 .animate-fade-in-up {
     animation: fadeInUp 0.8s ease-out both;
+    will-change: opacity, transform;
 }
 
 .animate-zoom-in {
     animation: zoomIn 0.8s ease-out both;
+    will-change: opacity, transform;
+}
+
+.animated-scroll {
+    opacity: 1 !important;
+}
+
+.feature-card,
+.stat-item,
+.cta-content,
+.hero-content > * {
+    backface-visibility: hidden;
+    transform: translateZ(0);
 }
 
 .app-mockup {

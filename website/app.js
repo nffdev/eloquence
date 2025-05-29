@@ -53,15 +53,24 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(updateCounter);
     };
     
+    const animatedElements = document.querySelectorAll('.animate-fade-in-up, .animate-zoom-in');
+    
     const isElementInViewport = el => {
         const rect = el.getBoundingClientRect();
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+        
         return (
-            rect.top >= 0 &&
+            rect.top <= windowHeight * 0.7 &&
+            rect.bottom >= 0 &&
             rect.left >= 0 &&
-            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
             rect.right <= (window.innerWidth || document.documentElement.clientWidth)
         );
     };
+    
+    animatedElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.animation = 'none';
+    });
     
     const checkVisibility = () => {
         statValues.forEach(el => {
@@ -72,8 +81,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 animateCounter(el, target, suffix);
             }
         });
+        
+        animatedElements.forEach(el => {
+            if (isElementInViewport(el) && !el.classList.contains('animated-scroll')) {
+                el.classList.add('animated-scroll');
+                el.style.opacity = '';
+                el.style.animation = '';
+                
+                void el.offsetWidth;
+                
+                if (el.classList.contains('animate-fade-in-up')) {
+                    el.style.animation = 'fadeInUp 0.8s ease-out forwards';
+                } else if (el.classList.contains('animate-zoom-in')) {
+                    el.style.animation = 'zoomIn 0.8s ease-out forwards';
+                }
+            }
+        });
     };
     
-    checkVisibility();
+    setTimeout(checkVisibility, 100);
     window.addEventListener('scroll', checkVisibility);
+    window.addEventListener('resize', checkVisibility);
 });
