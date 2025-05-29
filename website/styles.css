@@ -288,3 +288,57 @@ html {
 .mockup-image:hover {
     transform: scale(1.05);
 }
+
+.stats {
+    padding: 2rem 0 5rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    text-align: center;
+}
+
+.stat-item {
+    background-color: var(--bg-color);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 10px 30px var(--shadow-color);
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+.stat-item:hover {
+    transform: translateY(-10px);
+}
+
+.stat-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    background-color: var(--text-color);
+    color: var(--bg-color);
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.stat-value {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 1rem;
+    opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+}
