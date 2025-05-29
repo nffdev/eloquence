@@ -5,45 +5,9 @@ import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import '../domain/models/word.dart';
 import '../../../core/constants/api_constants.dart';
+import '../../../core/constants/word_constants.dart';
 
 class WordRepository {
-  final List<Word> _words = [
-    Word(
-      word: 'Éthéré',
-      type: 'Adj',
-      definition: 'D\'une beauté irréelle, presque céleste',
-      example: 'Son regard était d\'une beauté éthérée, comme s\'il appartenait à un rêve.',
-      date: '2023-04-06',
-    ),
-    Word(
-      word: 'Sérendipité',
-      type: 'Nom',
-      definition: 'Le fait de découvrir quelque chose par hasard alors qu\'on cherchait autre chose',
-      example: 'C\'est par sérendipité qu\'il a trouvé sa vocation en se perdant dans ce musée.',
-      date: '2023-04-07',
-    ),
-    Word(
-      word: 'Ineffable',
-      type: 'Adj',
-      definition: 'Qui ne peut être exprimé par des paroles tant c\'est intense',
-      example: 'Face à ce paysage grandiose, il ressentit une joie ineffable.',
-      date: '2023-04-08',
-    ),
-    Word(
-      word: 'Acrimonie',
-      type: 'Nom',
-      definition: 'Aigreur, amertume qui se manifeste dans les paroles ou le comportement',
-      example: 'Il a répondu avec acrimonie aux critiques formulées contre son projet.',
-      date: '2023-04-09',
-    ),
-    Word(
-      word: 'Quintessence',
-      type: 'Nom',
-      definition: 'Ce qu\'il y a de plus raffiné, de plus pur, l\'essence parfaite d\'une chose',
-      example: 'Ce plat représente la quintessence de la cuisine française traditionnelle.',
-      date: '2023-04-10',
-    ),
-  ];
 
   Future<Word> getTodaysWord() async {
     final prefs = await SharedPreferences.getInstance();
@@ -67,8 +31,8 @@ class WordRepository {
       debugPrint('Word of the day retrieved: ${wordData['word']}');
       return Word.fromJson(wordData);
     } else {
-      final random = DateTime.now().day % _words.length;
-      final todaysWord = _words[random];
+      final random = DateTime.now().day % WordConstants.fallbackWords.length;
+      final todaysWord = WordConstants.fallbackWords[random];
       
       debugPrint('Word of the day generated locally: ${todaysWord.word}');
       await prefs.setString('word_$today', json.encode(todaysWord.toJson()));
@@ -167,7 +131,7 @@ class WordRepository {
     
     for (final wordName in favorites) {
       if (!favoriteWordsMap.containsKey(wordName)) {
-        final matchingWords = _words.where((w) => w.word == wordName).toList();
+        final matchingWords = WordConstants.fallbackWords.where((w) => w.word == wordName).toList();
         if (matchingWords.isNotEmpty) {
           final word = matchingWords.first;
           word.isFavorite = true;
