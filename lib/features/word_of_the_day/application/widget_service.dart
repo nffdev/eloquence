@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../domain/models/word.dart';
 import 'package:home_widget/home_widget.dart';
 

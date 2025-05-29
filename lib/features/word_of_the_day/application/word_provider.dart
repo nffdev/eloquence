@@ -70,7 +70,7 @@ class WordProvider extends ChangeNotifier {
       try {
         await _repository.saveWordFavoriteStatus(word, newStatus);
         
-        if (_currentWord != null && word.word == _currentWord.word) {
+        if (_currentWord.word == word.word) {
           _isFavorite = newStatus;
           _currentWord.isFavorite = newStatus;
         }
