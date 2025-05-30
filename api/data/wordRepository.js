@@ -51,6 +51,51 @@ class WordRepository {
         false,
         'fr'
       ),
+      new Word(
+        'Pérégrin',
+        'Adj',
+        'Qui voyage, qui vient de loin, étranger ou voyageur',
+        'Cet oiseau pérégrin avait parcouru des milliers de kilomètres avant d\'arriver sur nos côtes.',
+        '2023-04-11',
+        false,
+        'fr'
+      ),
+      new Word(
+        'Sibyllin',
+        'Adj',
+        'Obscur, énigmatique, difficile à comprendre mais semblant cacher un sens profond',
+        'Ses réponses sibyllines ne m\'ont pas permis de comprendre ses véritables intentions.',
+        '2023-04-12',
+        false,
+        'fr'
+      ),
+      new Word(
+        'Palimpseste',
+        'Nom',
+        'Manuscrit dont on a effacé le texte primitif pour y écrire un nouveau texte; par extension, œuvre qui se superpose à une autre en la laissant transparaître',
+        'Sa dernière œuvre est un palimpseste littéraire où l\'on reconnaît l\'influence de plusieurs auteurs classiques.',
+        '2023-04-13',
+        false,
+        'fr'
+      ),
+      new Word(
+        'Apophtegme',
+        'Nom',
+        'Parole mémorable ayant valeur de maxime, sentence exprimant une vérité générale',
+        'Il terminait toujours ses discours par un apophtegme qui résumait parfaitement sa pensée.',
+        '2023-04-14',
+        false,
+        'fr'
+      ),
+      new Word(
+        'Conciliabule',
+        'Nom',
+        'Entretien secret entre plusieurs personnes, généralement pour préparer un complot ou une action commune',
+        'Après une heure de conciliabule dans le bureau du directeur, la décision fut annoncée à l\'ensemble du personnel.',
+        '2023-04-15',
+        false,
+        'fr'
+      ),
       
       new Word(
         'Ethereal',
@@ -94,6 +139,51 @@ class WordRepository {
         'The most perfect or typical example of a quality or class',
         'This dish is the quintessence of traditional Italian cooking.',
         '2023-04-10',
+        false,
+        'en'
+      ),
+      new Word(
+        'Peregrination',
+        'Noun',
+        'A journey, especially a long or meandering one',
+        'His peregrination across Europe lasted three months and took him through twelve different countries.',
+        '2023-04-11',
+        false,
+        'en'
+      ),
+      new Word(
+        'Perspicacious',
+        'Adj',
+        'Having a ready insight into and understanding of things',
+        'Her perspicacious comments during the meeting revealed she had already anticipated the problem.',
+        '2023-04-12',
+        false,
+        'en'
+      ),
+      new Word(
+        'Mellifluous',
+        'Adj',
+        'Sweet or musical; pleasant to hear',
+        'The speaker\'s mellifluous voice made even the most mundane topic seem fascinating.',
+        '2023-04-13',
+        false,
+        'en'
+      ),
+      new Word(
+        'Obfuscate',
+        'Verb',
+        'To make obscure, unclear, or unintelligible',
+        'The politician tried to obfuscate the issue by using complex technical jargon.',
+        '2023-04-14',
+        false,
+        'en'
+      ),
+      new Word(
+        'Supercilious',
+        'Adj',
+        'Behaving or looking as though one is superior to others',
+        'The supercilious waiter looked down his nose at customers who didn\'t know about wine.',
+        '2023-04-15',
         false,
         'en'
       )
