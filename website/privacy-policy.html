@@ -4,125 +4,165 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eloquence - Politique de Confidentialité</title>
+    <meta name="description" content="Politique de confidentialité d'Eloquence - L'application qui respecte totalement votre vie privée">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="img/favicon.ico">
+    
+    <meta name="author" content="Eloquence">
+    <meta name="robots" content="index, follow">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://eloquence.social/privacy-policy.html">
+    <meta property="og:title" content="Eloquence - Politique de Confidentialité">
+    <meta property="og:description" content="Politique de confidentialité d'Eloquence - L'application qui respecte totalement votre vie privée">
+    <meta property="og:image" content="https://eloquence.social/img/logo-dark.png">
+    
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://eloquence.social/privacy-policy.html">
+    <meta property="twitter:title" content="Eloquence - Politique de Confidentialité">
+    <meta property="twitter:description" content="Politique de confidentialité d'Eloquence - L'application qui respecte totalement votre vie privée">
+    <meta property="twitter:image" content="https://eloquence.social/img/logo-dark.png">
+    
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+    
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
+    <nav class="navbar">
         <div class="container">
-            <a href="index.html" class="logo">Eloquence</a>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Accueil</a></li>
-                    <li><a href="index.html#features">Fonctionnalités</a></li>
-                    <li><a href="index.html#download">Télécharger</a></li>
-                    <li><a href="privacy-policy.html" class="active">Confidentialité</a></li>
-                </ul>
-            </nav>
+            <div class="nav-content">
+                <div class="logo" data-i18n="app-name">Eloquence</div>
+                <div class="nav-controls">
+                    <div class="lang-selector">
+                        <select id="langSelector" aria-label="Select language">
+                            <option value="fr">FR</option>
+                            <option value="en">EN</option>
+                        </select>
+                    </div>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                        <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"/>
+                            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                        </svg>
+                        <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
         </div>
-    </header>
+    </nav>
 
     <section class="privacy-policy">
         <div class="container">
-            <h1>Politique de Confidentialité</h1>
-            <p class="last-updated">Dernière mise à jour : 30 mai 2025</p>
-
-            <div class="policy-section">
-                <h2>Introduction</h2>
-                <p>Bienvenue dans la politique de confidentialité de l'application Eloquence. Nous tenons à vous informer que nous ne collectons <strong>aucune donnée personnelle</strong> de nos utilisateurs.</p>
-                <p>Nous nous engageons pleinement à respecter votre vie privée. Notre application fonctionne localement sur votre appareil sans transmettre vos informations à nos serveurs ou à des tiers.</p>
+            <div class="privacy-header">
+                <h1 class="privacy-title" data-i18n="privacy-title">Politique de Confidentialité</h1>
+                <p class="last-updated" data-i18n="last-updated">Dernière mise à jour : 30 mai 2025</p>
             </div>
 
             <div class="policy-section">
-                <h2>Absence de collecte de données</h2>
-                <p>Contrairement à de nombreuses applications, Eloquence ne collecte <strong>aucune</strong> des informations suivantes :</p>
+                <h2 data-i18n="intro-title">Introduction</h2>
+                <p data-i18n="intro-text-1">Bienvenue dans la politique de confidentialité de l'application Eloquence. Nous tenons à vous informer que nous ne collectons <strong>aucune donnée personnelle</strong> de nos utilisateurs.</p>
+                <p data-i18n="intro-text-2">Nous nous engageons pleinement à respecter votre vie privée. Notre application fonctionne localement sur votre appareil sans transmettre vos informations à nos serveurs ou à des tiers.</p>
+            </div>
+
+            <div class="policy-section">
+                <h2 data-i18n="no-collection-title">Absence de collecte de données</h2>
+                <p data-i18n="no-collection-intro">Contrairement à de nombreuses applications, Eloquence ne collecte <strong>aucune</strong> des informations suivantes :</p>
                 <ul>
-                    <li>Informations personnelles (nom, email, identifiants)</li>
-                    <li>Données de localisation</li>
-                    <li>Informations sur votre appareil</li>
-                    <li>Habitudes d'utilisation ou statistiques</li>
-                    <li>Tout autre type de données personnelles</li>
+                    <li data-i18n="no-collection-1">Informations personnelles (nom, email, identifiants)</li>
+                    <li data-i18n="no-collection-2">Données de localisation</li>
+                    <li data-i18n="no-collection-3">Informations sur votre appareil</li>
+                    <li data-i18n="no-collection-4">Habitudes d'utilisation ou statistiques</li>
+                    <li data-i18n="no-collection-5">Tout autre type de données personnelles</li>
                 </ul>
-                <p>Toutes les préférences et contenus que vous créez dans l'application sont stockés uniquement sur votre appareil et ne sont jamais transmis à nos serveurs.</p>
+                <p data-i18n="local-storage-only">Toutes les préférences et contenus que vous créez dans l'application sont stockés uniquement sur votre appareil et ne sont jamais transmis à nos serveurs.</p>
             </div>
 
             <div class="policy-section">
-                <h2>Fonctionnement local de l'application</h2>
-                <p>Eloquence fonctionne entièrement sur votre appareil :</p>
+                <h2 data-i18n="local-app-title">Fonctionnement local de l'application</h2>
+                <p data-i18n="local-app-intro">Eloquence fonctionne entièrement sur votre appareil :</p>
                 <ul>
-                    <li>Toutes les données sont stockées localement</li>
-                    <li>Les mots du jour et définitions sont téléchargés de manière anonyme</li>
-                    <li>Aucune information n'est envoyée à nos serveurs pour analyse</li>
-                    <li>Nous n'utilisons pas d'outils d'analyse pour suivre votre comportement</li>
-                </ul>
-            </div>
-
-            <div class="policy-section">
-                <h2>Notifications</h2>
-                <p>Notre application peut envoyer des notifications locales sur votre appareil pour vous informer des nouveaux mots du jour ou des rappels d'apprentissage. Ces notifications sont générées localement sur votre appareil et ne nécessitent pas l'envoi de vos données à des serveurs distants. Vous pouvez à tout moment désactiver ces notifications dans les paramètres de votre appareil ou de l'application.</p>
-            </div>
-
-            <div class="policy-section">
-                <h2>Absence de partage de données</h2>
-                <p>Puisque nous ne collectons aucune information personnelle :</p>
-                <ul>
-                    <li>Nous n'avons aucune donnée à partager avec des tiers</li>
-                    <li>Nous n'utilisons pas de services tiers nécessitant vos données</li>
-                    <li>Nous ne pouvons pas et ne vendrons jamais vos informations</li>
-                    <li>Même en cas de changement de propriétaire, aucune donnée utilisateur ne serait impliquée</li>
+                    <li data-i18n="local-app-1">Toutes les données sont stockées localement</li>
+                    <li data-i18n="local-app-2">Les mots du jour et définitions sont téléchargés de manière anonyme</li>
+                    <li data-i18n="local-app-3">Aucune information n'est envoyée à nos serveurs pour analyse</li>
+                    <li data-i18n="local-app-4">Nous n'utilisons pas d'outils d'analyse pour suivre votre comportement</li>
                 </ul>
             </div>
 
             <div class="policy-section">
-                <h2>Sécurité et confidentialité</h2>
-                <p>Bien que nous ne collections pas vos données, nous prenons la sécurité au sérieux. Notre application est conçue dans une optique de confidentialité dès la conception ("privacy by design"). Puisque toutes les données restent sur votre appareil, vous gardez un contrôle total sur vos informations.</p>
+                <h2 data-i18n="notifications-title">Notifications</h2>
+                <p data-i18n="notifications-text">Notre application peut envoyer des notifications locales sur votre appareil pour vous informer des nouveaux mots du jour ou des rappels d'apprentissage. Ces notifications sont générées localement sur votre appareil et ne nécessitent pas l'envoi de vos données à des serveurs distants. Vous pouvez à tout moment désactiver ces notifications dans les paramètres de votre appareil ou de l'application.</p>
             </div>
 
             <div class="policy-section">
-                <h2>Stockage local des données</h2>
-                <p>Toutes les données générées par votre utilisation de l'application sont stockées uniquement sur votre appareil. Si vous désinstallez l'application, toutes ces données seront supprimées. Vous pouvez également effacer les données de l'application via les paramètres de votre appareil à tout moment.</p>
-            </div>
-
-            <div class="policy-section">
-                <h2>Vos droits</h2>
-                <p>Étant donné que nous ne collectons aucune donnée personnelle, les droits traditionnels concernant l'accès, la rectification ou la suppression des données ne s'appliquent pas dans notre cas. Cependant, nous respectons pleinement :</p>
+                <h2 data-i18n="no-sharing-title">Absence de partage de données</h2>
+                <p data-i18n="no-sharing-intro">Puisque nous ne collectons aucune information personnelle :</p>
                 <ul>
-                    <li>Votre droit à la vie privée</li>
-                    <li>Votre droit à utiliser notre service sans surveillance</li>
-                    <li>Votre droit à comprendre comment fonctionne notre application</li>
+                    <li data-i18n="no-sharing-1">Nous n'avons aucune donnée à partager avec des tiers</li>
+                    <li data-i18n="no-sharing-2">Nous n'utilisons pas de services tiers nécessitant vos données</li>
+                    <li data-i18n="no-sharing-3">Nous ne pouvons pas et ne vendrons jamais vos informations</li>
+                    <li data-i18n="no-sharing-4">Même en cas de changement de propriétaire, aucune donnée utilisateur ne serait impliquée</li>
                 </ul>
-                <p>Si vous avez des questions sur notre approche de la confidentialité, n'hésitez pas à nous contacter.</p>
             </div>
 
             <div class="policy-section">
-                <h2>Enfants</h2>
-                <p>Notre application n'est pas destinée aux enfants de moins de 4 ans, et nous ne collectons pas sciemment des informations personnelles d'enfants de moins de 4 ans. Si vous êtes un parent ou un tuteur et que vous pensez que votre enfant nous a fourni des informations personnelles, veuillez nous contacter afin que nous puissions prendre les mesures appropriées.</p>
+                <h2 data-i18n="security-title">Sécurité et confidentialité</h2>
+                <p data-i18n="security-text">Bien que nous ne collections pas vos données, nous prenons la sécurité au sérieux. Notre application est conçue dans une optique de confidentialité dès la conception ("privacy by design"). Puisque toutes les données restent sur votre appareil, vous gardez un contrôle total sur vos informations.</p>
             </div>
 
             <div class="policy-section">
-                <h2>Modifications de cette politique</h2>
-                <p>Nous pouvons mettre à jour cette politique de confidentialité de temps à autre. Nous vous informerons de tout changement important en publiant la nouvelle politique de confidentialité sur cette page et en vous informant via l'application ou par e-mail. Nous vous encourageons à consulter régulièrement cette politique pour rester informé.</p>
+                <h2 data-i18n="local-storage-title">Stockage local des données</h2>
+                <p data-i18n="local-storage-text">Toutes les données générées par votre utilisation de l'application sont stockées uniquement sur votre appareil. Si vous désinstallez l'application, toutes ces données seront supprimées. Vous pouvez également effacer les données de l'application via les paramètres de votre appareil à tout moment.</p>
             </div>
 
             <div class="policy-section">
-                <h2>Contact</h2>
-                <p>Si vous avez des questions ou des préoccupations concernant cette politique de confidentialité ou nos pratiques en matière de données, veuillez nous contacter à :</p>
-                <p>Email : contact@eloquence.social</p>
+                <h2 data-i18n="rights-title">Vos droits</h2>
+                <p data-i18n="rights-intro">Étant donné que nous ne collectons aucune donnée personnelle, les droits traditionnels concernant l'accès, la rectification ou la suppression des données ne s'appliquent pas dans notre cas. Cependant, nous respectons pleinement :</p>
+                <ul>
+                    <li data-i18n="rights-1">Votre droit à la vie privée</li>
+                    <li data-i18n="rights-2">Votre droit à utiliser notre service sans surveillance</li>
+                    <li data-i18n="rights-3">Votre droit à comprendre comment fonctionne notre application</li>
+                </ul>
+                <p data-i18n="rights-contact">Si vous avez des questions sur notre approche de la confidentialité, n'hésitez pas à nous contacter.</p>
+            </div>
+
+            <div class="policy-section">
+                <h2 data-i18n="children-title">Enfants</h2>
+                <p data-i18n="children-text">Notre application n'est pas destinée aux enfants de moins de 4 ans, et nous ne collectons pas sciemment des informations personnelles d'enfants de moins de 4 ans. Si vous êtes un parent ou un tuteur et que vous pensez que votre enfant nous a fourni des informations personnelles, veuillez nous contacter afin que nous puissions prendre les mesures appropriées.</p>
+            </div>
+
+            <div class="policy-section">
+                <h2 data-i18n="changes-title">Modifications de cette politique</h2>
+                <p data-i18n="changes-text">Nous pouvons mettre à jour cette politique de confidentialité de temps à autre. Nous vous informerons de tout changement important en publiant la nouvelle politique de confidentialité sur cette page et en vous informant via l'application. Nous vous encourageons à consulter régulièrement cette politique pour rester informé.</p>
+            </div>
+
+            <div class="policy-section">
+                <h2 data-i18n="contact-title">Contact</h2>
+                <p data-i18n="contact-text">Si vous avez des questions ou des préoccupations concernant cette politique de confidentialité ou nos pratiques en matière de données, veuillez nous contacter à :</p>
+                <p data-i18n="contact-email">Email : contact@eloquence.social</p>
             </div>
         </div>
     </section>
 
-    <footer>
+    <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Eloquence. Tous droits réservés.</p>
-            <div class="footer-links">
-                <a href="index.html">Accueil</a>
-                <a href="#" data-i18n="terms">Conditions d'utilisation</a>
-                <a href="https://github.com/nffdev/eloquence" target="_blank" data-i18n="github">Github (Support)</a>
+            <div class="footer-content">
+                <div class="footer-logo" data-i18n="app-name">Eloquence</div>
+                <p class="footer-copyright" data-i18n="copyright">&copy; 2025 Eloquence. Tous droits réservés.</p>
+                <div class="footer-links">
+                    <a href="index.html" data-i18n="home">Accueil</a>
+                    <a href="privacy-policy.html" data-i18n="privacy" class="active">Politique de confidentialité</a>
+                    <a href="#" data-i18n="terms">Conditions d'utilisation</a>
+                    <a href="https://github.com/nffdev/eloquence" target="_blank" data-i18n="github">Github (Support)</a>
+                </div>
             </div>
         </div>
     </footer>
 
+    <script src="translations.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
