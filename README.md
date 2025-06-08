@@ -71,7 +71,7 @@ api/
 
 - Flutter SDK 3.19.0 ou supérieur
 - Node.js 18.x ou supérieur
-- npm 9.x ou supérieur
+- npm 8.x ou supérieur
 
 ### Configuration de l'application Flutter
 
