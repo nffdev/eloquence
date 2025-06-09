@@ -40,7 +40,7 @@ class EloquenceApp extends StatelessWidget {
     ));
     
     return MaterialApp(
-      title: 'Éloquence',
+      title: 'Eloquence',
       debugShowCheckedModeBanner: false,
       theme: themeProvider.isDarkMode ? AppTheme.darkTheme : AppTheme.lightTheme,
       home: const SplashPage(),
