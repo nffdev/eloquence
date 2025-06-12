@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../features/word_of_the_day/application/widget_service.dart';
 
 class ThemeProvider extends ChangeNotifier {
   static const String _themePreferenceKey = 'theme_preference';
@@ -15,6 +16,7 @@ class ThemeProvider extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     _isDarkMode = prefs.getBool(_themePreferenceKey) ?? true; // Default to dark mode
     notifyListeners();
+    await WidgetService.updateTheme(_isDarkMode);
   }
   
   Future<void> toggleTheme() async {
@@ -23,5 +25,7 @@ class ThemeProvider extends ChangeNotifier {
     
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(_themePreferenceKey, _isDarkMode);
+    
+    await WidgetService.updateTheme(_isDarkMode);
   }
 }

@@ -55,7 +55,7 @@ struct Provider: AppIntentTimelineProvider {
     }
     
     private func getWordOfTheDay() -> WordOfTheDay? {
-        let sharedDefaults = UserDefaults(suiteName: "group.com.eloquence.app")
+        let sharedDefaults = UserDefaults(suiteName: "group.com.eloquence.widget")
         guard let data = sharedDefaults?.data(forKey: "word_of_the_day") else {
             return nil
         }
@@ -84,11 +84,16 @@ struct SimpleEntry: TimelineEntry {
 struct MyHomeWidgetEntryView : View {
     var entry: Provider.Entry
     @Environment(\.widgetFamily) var widgetFamily
+    
+    private var isDarkMode: Bool {
+        let sharedDefaults = UserDefaults(suiteName: "group.com.eloquence.widget")
+        return sharedDefaults?.bool(forKey: "theme_preference") ?? true
+    }
 
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                Color.black
+                backgroundColor
                     .frame(width: geometry.size.width, height: geometry.size.height)
                     .edgesIgnoringSafeArea(.all)
                 
@@ -96,14 +101,14 @@ struct MyHomeWidgetEntryView : View {
                     Spacer()
                     
                     Text(entry.wordOfTheDay.word)
-                        .font(.system(size: widgetFamily == .systemSmall ? 24 : 28, weight: .bold, design: .serif))
-                        .foregroundColor(.white)
+                        .font(.custom("PlayfairDisplay-Bold", size: widgetFamily == .systemSmall ? 24 : 28))
+                        .foregroundColor(primaryTextColor)
                         .lineLimit(1)
                         .multilineTextAlignment(.center)
                     
                     Text(getShortType(entry.wordOfTheDay.type))
-                        .font(.system(size: 12, weight: .regular, design: .serif))
-                        .foregroundColor(.white)
+                        .font(.custom("PlayfairDisplay-Regular", size: 12))
+                        .foregroundColor(secondaryTextColor)
                         .lineLimit(1)
                     
                     if widgetFamily != .systemSmall {
@@ -111,8 +116,8 @@ struct MyHomeWidgetEntryView : View {
                     }
                     
                     Text(entry.wordOfTheDay.definition)
-                        .font(.system(size: widgetFamily == .systemSmall ? 12 : 16, weight: .regular, design: .default))
-                        .foregroundColor(.white)
+                        .font(.custom("Lato-Regular", size: widgetFamily == .systemSmall ? 12 : 16))
+                        .foregroundColor(bodyTextColor)
                         .lineLimit(widgetFamily == .systemSmall ? 3 : 5)
                         .multilineTextAlignment(.center)
                         .fixedSize(horizontal: false, vertical: true)
@@ -122,6 +127,22 @@ struct MyHomeWidgetEntryView : View {
                 .padding(widgetFamily == .systemSmall ? 8 : 12)
             }
         }
+    }
+    
+    private var backgroundColor: Color {
+        isDarkMode ? Color.black : Color.white
+    }
+    
+    private var primaryTextColor: Color {
+        isDarkMode ? Color.white : Color.black
+    }
+    
+    private var secondaryTextColor: Color {
+        isDarkMode ? Color.white.opacity(0.7) : Color.black.opacity(0.87)
+    }
+    
+    private var bodyTextColor: Color {
+        isDarkMode ? Color.white.opacity(0.6) : Color.black.opacity(0.54)
     }
     
     private func getShortType(_ type: String) -> String {
@@ -146,9 +167,12 @@ struct MyHomeWidget: Widget {
         AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
             MyHomeWidgetEntryView(entry: entry)
                 .containerBackground(for: .widget) {
-                    Color.black
+                    ContainerRelativeShape()
+                        .fill(Color.clear)
                 }
         }
+        .configurationDisplayName("Eloquence Widget")
+        .description("Affiche le mot du jour de l'application Eloquence.")
     }
 }
 
