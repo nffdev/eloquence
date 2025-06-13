@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/theme/theme_provider.dart';
 import '../../../../core/localization/language_provider.dart';
 import '../../../../core/localization/app_translations.dart';
@@ -223,6 +224,21 @@ class SettingsPage extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             leading: const Icon(Icons.code),
+            trailing: const Icon(Icons.open_in_new),
+            onTap: () async {
+              final Uri url = Uri.parse('https://github.com/nffdev/Eloquence');
+              if (await canLaunchUrl(url)) {
+                await launchUrl(url, mode: LaunchMode.externalApplication);
+              } else {
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Failed to open link'),
+                    ),
+                  );
+                }
+              }
+            },
           ),
         ],
       ),
