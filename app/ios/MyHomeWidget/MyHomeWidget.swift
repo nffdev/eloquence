@@ -19,10 +19,10 @@ struct WordOfTheDay: Codable {
     
     static let placeholder = WordOfTheDay(
         word: "Éthéré",
-        type: "Adjectif",
-        definition: "Qui a une légèreté, une délicatesse extrême, qui semble immatériel.",
-        example: "Une musique éthérée qui transporte l'auditeur dans un autre monde.",
-        date: "2025-05-28",
+        type: "Adj",
+        definition: "D'une beauté irréelle, presque céleste",
+        example: "Son regard était d'une beauté éthérée, comme s'il appartenait à un rêve.",
+        date: "2023-04-06",
         isFavorite: false
     )
 }
@@ -56,13 +56,20 @@ struct Provider: AppIntentTimelineProvider {
     
     private func getWordOfTheDay() -> WordOfTheDay? {
         let sharedDefaults = UserDefaults(suiteName: "group.com.eloquence.widget")
-        guard let data = sharedDefaults?.data(forKey: "word_of_the_day") else {
+        guard let jsonString = sharedDefaults?.string(forKey: "word_of_the_day") else {
+            print("No word_of_the_day found in UserDefaults")
+            return nil
+        }
+        
+        guard let data = jsonString.data(using: .utf8) else {
+            print("Failed to convert JSON string to data")
             return nil
         }
         
         do {
             let decoder = JSONDecoder()
             let wordOfTheDay = try decoder.decode(WordOfTheDay.self, from: data)
+            print("Successfully decoded word of the day: \(wordOfTheDay.word)")
             return wordOfTheDay
         } catch {
             print("Error decoding word of the day: \(error)")
