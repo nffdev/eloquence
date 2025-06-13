@@ -167,8 +167,10 @@ struct MyHomeWidget: Widget {
         AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
             MyHomeWidgetEntryView(entry: entry)
                 .containerBackground(for: .widget) {
+                    let sharedDefaults = UserDefaults(suiteName: "group.com.eloquence.widget")
+                    let isDarkMode = sharedDefaults?.bool(forKey: "theme_preference") ?? true
                     ContainerRelativeShape()
-                        .fill(Color.clear)
+                        .fill(isDarkMode ? Color.black : Color.white)
                 }
         }
         .configurationDisplayName("Eloquence Widget")
