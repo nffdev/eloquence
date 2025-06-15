@@ -240,6 +240,33 @@ class SettingsPage extends StatelessWidget {
               }
             },
           ),
+          
+          ListTile(
+            title: Consumer<LanguageProvider>(
+              builder: (context, languageProvider, _) {
+                return Text(
+                  AppTranslations.translate('preferences', languageProvider.currentLanguage),
+                  style: Theme.of(context).textTheme.bodyLarge,
+                );
+              },
+            ),
+            leading: const Icon(Icons.settings),
+            trailing: const Icon(Icons.arrow_forward_ios),
+            onTap: () {
+              // TODO: Navigate to preferences page
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Consumer<LanguageProvider>(
+                    builder: (context, languageProvider, _) {
+                      return Text(
+                        AppTranslations.translate('preferences', languageProvider.currentLanguage),
+                      );
+                    },
+                  ),
+                ),
+              );
+            },
+          ),
         ],
       ),
     );
