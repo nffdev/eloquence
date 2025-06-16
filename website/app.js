@@ -79,6 +79,40 @@ function updateLanguage(lang) {
     });
 }
 
+async function fetchAppStoreRating() {
+    try {
+        const appId = '6746582572';
+        
+        const ratingElement = document.querySelector('.stat-item:nth-child(3) .stat-value');
+        if (ratingElement) {
+            ratingElement.textContent = "Loading...";
+        }
+        
+        fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https://itunes.apple.com/lookup?id=${appId}&country=fr`)}`)
+            .then(response => response.json())
+            .then(data => {
+                const text = data.contents;
+                const match = text.match(/"averageUserRating":(\d+(\.\d+)?)/);
+                if (match && match[1]) {
+                    const rating = parseFloat(match[1]);
+                    
+                    if (ratingElement) {
+                        ratingElement.setAttribute('data-target', rating);
+                        animateCounter(ratingElement, rating, '/5');
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error while getting data:', error);
+                if (ratingElement) {
+                    ratingElement.textContent = "5/5";
+                }
+            });
+    } catch (error) {
+        console.error('Errror while getting review data:', error);
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const animatedElements = document.querySelectorAll('.animate-fade-in-up, .animate-zoom-in, .stat-item');
     
@@ -97,6 +131,8 @@ document.addEventListener('DOMContentLoaded', () => {
             updateLanguage(langSelector.value);
         });
     }
+    
+    fetchAppStoreRating();
 });
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
