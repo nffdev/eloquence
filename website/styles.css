@@ -634,11 +634,11 @@ body {
 }
 
 .animate-fade-in-up {
-    animation: fadeInUp 0.5s ease-out both;
+    animation: fadeInUp 0.3s ease-out both;
 }
 
 .animate-zoom-in {
-    animation: zoomIn 0.7s ease-out both;
+    animation: zoomIn 0.4s ease-out both;
 }
 
 ::-webkit-scrollbar {

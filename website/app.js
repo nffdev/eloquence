@@ -12,7 +12,7 @@ themeToggle.addEventListener('click', () => {
     localStorage.setItem('theme', newTheme);
 });
 
-function animateCounter(element, target, suffix = '', duration = 2000) {
+function animateCounter(element, target, suffix = '', duration = 1000) {
     const start = 0;
     const startTime = performance.now();
     
