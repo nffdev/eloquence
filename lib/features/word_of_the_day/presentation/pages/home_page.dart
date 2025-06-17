@@ -170,6 +170,21 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                   case 'Quintessence':
                                     translatedWord = 'Quintessence';
                                     break;
+                                  case 'Pérégrin':
+                                    translatedWord = 'Peregrine';
+                                    break;
+                                  case 'Sibyllin':
+                                    translatedWord = 'Sibylline';
+                                    break;
+                                  case 'Palimpseste':
+                                    translatedWord = 'Palimpsest';
+                                    break;
+                                  case 'Apophtegme':
+                                    translatedWord = 'Apophthegm';
+                                    break;
+                                  case 'Conciliabule':
+                                    translatedWord = 'Conciliabule';
+                                    break;
                                 }
                               }
                               
