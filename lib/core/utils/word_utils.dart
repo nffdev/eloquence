@@ -26,6 +26,11 @@ class WordUtils {
   }
 
   static List<Word> get fallbackWords {
-    return getWordsByLanguage('fr');
+    List<Word> allWords = [];
+    for (var translation in WordConstants.wordTranslations) {
+      allWords.add(translation.french);
+      allWords.add(translation.english);
+    }
+    return allWords;
   }
 }
