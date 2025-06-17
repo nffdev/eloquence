@@ -10,7 +10,7 @@ import '../../../../core/theme/theme_provider.dart';
 import '../../../../core/localization/language_provider.dart';
 import '../../../../core/localization/widgets/language_selector.dart';
 import '../../../../core/localization/app_translations.dart';
-import '../../../../core/constants/word_constants.dart';
+import '../../../../core/utils/word_utils.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -155,7 +155,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                               String translatedWord = wordProvider.currentWord.word;
                               
                               if (languageProvider.currentLanguage == AppLanguage.english) {
-                                final translation = WordConstants.getTranslation(wordProvider.currentWord, 'en');
+                                final translation = WordUtils.getTranslation(wordProvider.currentWord, 'en');
                                 if (translation != null) {
                                   translatedWord = translation.word;
                                 }

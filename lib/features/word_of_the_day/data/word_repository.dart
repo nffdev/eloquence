@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import '../domain/models/word.dart';
 import '../../../core/constants/api_constants.dart';
-import '../../../core/constants/word_constants.dart';
+import '../../../core/utils/word_utils.dart';
 
 class WordRepository {
 
@@ -44,7 +44,7 @@ class WordRepository {
       }
     }
     
-    final filteredWords = WordConstants.fallbackWords.where((w) => w.language == language).toList();
+    final filteredWords = WordUtils.fallbackWords.where((w) => w.language == language).toList();
     
     if (filteredWords.isEmpty && language != 'fr') {
       debugPrint('No fallback words found for language $language, using French instead');
@@ -52,7 +52,7 @@ class WordRepository {
     }
     
     if (filteredWords.isEmpty) {
-      final randomWord = WordConstants.fallbackWords.first;
+      final randomWord = WordUtils.fallbackWords.first;
       debugPrint('Using generic fallback word: ${randomWord.word}');
       await prefs.setString('word_${today}_${randomWord.language}', json.encode(randomWord.toJson()));
       return randomWord;
@@ -158,7 +158,7 @@ class WordRepository {
     
     for (final wordName in favorites) {
       if (!favoriteWordsMap.containsKey(wordName)) {
-        final matchingWords = WordConstants.fallbackWords.where((w) => w.word == wordName).toList();
+        final matchingWords = WordUtils.fallbackWords.where((w) => w.word == wordName).toList();
         if (matchingWords.isNotEmpty) {
           final word = matchingWords.first;
           word.isFavorite = true;
