@@ -70,6 +70,31 @@ class FavoriteWordCard extends StatelessWidget {
           translatedDefinition = 'The most perfect embodiment of something';
           translatedExample = 'This dish represents the quintessence of traditional French cuisine.';
           break;
+        case 'Pérégrin':
+          translatedWord = 'Peregrine';
+          translatedDefinition = 'Traveling or migrating, especially on foot; foreign or wandering';
+          translatedExample = 'This peregrine bird had traveled thousands of kilometers before arriving on our shores.';
+          break;
+        case 'Sibyllin':
+          translatedWord = 'Sibylline';
+          translatedDefinition = 'Obscure, enigmatic, difficult to understand but seeming to hide a deep meaning';
+          translatedExample = 'His sibylline responses did not allow me to understand his true intentions.';
+          break;
+        case 'Palimpseste':
+          translatedWord = 'Palimpsest';
+          translatedDefinition = 'A manuscript on which the original writing has been effaced to make room for later writing; something reused or altered but still bearing visible traces of its earlier form';
+          translatedExample = 'His latest work is a literary palimpsest where one can recognize the influence of several classical authors.';
+          break;
+        case 'Apophtegme':
+          translatedWord = 'Apophthegm';
+          translatedDefinition = 'A terse, pithy saying or maxim; a memorable saying embodying an important fact or general truth';
+          translatedExample = 'He always ended his speeches with an apophthegm that perfectly summarized his thoughts.';
+          break;
+        case 'Conciliabule':
+          translatedWord = 'Conciliabule';
+          translatedDefinition = 'A secret meeting or conference, especially one for plotting or conspiracy';
+          translatedExample = 'After an hour of conciliabule in the director\'s office, the decision was announced to all staff.';
+          break;
         default:
           translatedWord = word.word;
           translatedDefinition = word.definition;
