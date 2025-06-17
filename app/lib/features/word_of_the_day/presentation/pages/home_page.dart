@@ -42,7 +42,10 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     _animationController.forward();
     
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<WordProvider>(context, listen: false).loadTodaysWord();
+      final languageProvider = Provider.of<LanguageProvider>(context, listen: false);
+      final wordProvider = Provider.of<WordProvider>(context, listen: false);
+      final languageCode = languageProvider.currentLanguage == AppLanguage.french ? 'fr' : 'en';
+      wordProvider.setLanguage(languageCode);
     });
   }
   
@@ -56,8 +59,14 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      body: Consumer<WordProvider>(
-        builder: (context, wordProvider, child) {
+      body: Consumer2<WordProvider, LanguageProvider>(
+        builder: (context, wordProvider, languageProvider, child) {
+          final languageCode = languageProvider.currentLanguage == AppLanguage.french ? 'fr' : 'en';
+          if (wordProvider.currentLanguage != languageCode) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              wordProvider.setLanguage(languageCode);
+            });
+          }
           if (wordProvider.isLoading) {
             return const Center(child: CircularProgressIndicator());
           }
