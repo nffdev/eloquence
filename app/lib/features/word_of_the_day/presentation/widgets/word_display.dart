@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import '../../domain/models/word.dart';
 import '../../../../core/localization/language_provider.dart';
 import '../../../../core/localization/app_translations.dart';
-import '../../../../core/constants/word_constants.dart';
+import '../../../../core/utils/word_utils.dart';
 
 class WordDisplay extends StatelessWidget {
   final Word word;
@@ -39,7 +39,7 @@ class WordDisplay extends StatelessWidget {
     String translatedDefinition;
     
     if (currentLanguage == AppLanguage.english) {
-      final translation = WordConstants.getTranslation(word, 'en');
+      final translation = WordUtils.getTranslation(word, 'en');
       if (translation != null) {
         translatedWord = translation.word;
         translatedDefinition = translation.definition;

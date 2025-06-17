@@ -4,7 +4,7 @@ import '../../../word_of_the_day/domain/models/word.dart';
 import '../../../../core/services/tts_service.dart';
 import '../../../../core/localization/language_provider.dart';
 import '../../../../core/localization/app_translations.dart';
-import '../../../../core/constants/word_constants.dart';
+import '../../../../core/utils/word_utils.dart';
 
 class FavoriteWordCard extends StatelessWidget {
   final Word word;
@@ -45,7 +45,7 @@ class FavoriteWordCard extends StatelessWidget {
     String translatedExample;
     
     if (currentLanguage == AppLanguage.english) {
-      final translation = WordConstants.getTranslation(word, 'en');
+      final translation = WordUtils.getTranslation(word, 'en');
       if (translation != null) {
         translatedWord = translation.word;
         translatedDefinition = translation.definition;
