@@ -1,167 +1,200 @@
-import '../../features/word_of_the_day/domain/models/word.dart';
+import '../../../features/word_of_the_day/domain/models/word.dart';
+
+class WordTranslation {
+  final Word french;
+  final Word english;
+
+  WordTranslation({required this.french, required this.english});
+}
 
 class WordConstants {
-  static final List<Word> fallbackWords = [
-    Word(
-      word: 'Éthéré',
-      type: 'Adj',
-      definition: 'D\'une beauté irréelle, presque céleste',
-      example: 'Son regard était d\'une beauté éthérée, comme s\'il appartenait à un rêve.',
-      date: '2023-04-06',
-      language: 'fr',
+  static final List<WordTranslation> wordTranslations = [
+    WordTranslation(
+      french: Word(
+        word: 'Éthéré',
+        type: 'Adj',
+        definition: 'D\'une beauté irréelle, presque céleste',
+        example: 'Son regard était d\'une beauté éthérée, comme s\'il appartenait à un rêve.',
+        language: 'fr',
+      ),
+      english: Word(
+        word: 'Ethereal',
+        type: 'Adj',
+        definition: 'Of unearthly, almost celestial beauty',
+        example: 'Her gaze was of ethereal beauty, as if it belonged to a dream.',
+        language: 'en',
+      ),
     ),
-    Word(
-      word: 'Sérendipité',
-      type: 'Nom',
-      definition: 'Le fait de découvrir quelque chose par hasard alors qu\'on cherchait autre chose',
-      example: 'C\'est par sérendipité qu\'il a trouvé sa vocation en se perdant dans ce musée.',
-      date: '2023-04-07',
-      language: 'fr',
+    WordTranslation(
+      french: Word(
+        word: 'Sérendipité',
+        type: 'Nom',
+        definition: 'Le fait de découvrir quelque chose par hasard alors qu\'on cherchait autre chose',
+        example: 'C\'est par sérendipité qu\'il a trouvé sa vocation en se perdant dans ce musée.',
+        language: 'fr',
+      ),
+      english: Word(
+        word: 'Serendipity',
+        type: 'Noun',
+        definition: 'The fact of discovering something by chance while looking for something else',
+        example: 'It was by serendipity that he found his calling while getting lost in this museum.',
+        language: 'en',
+      ),
     ),
-    Word(
-      word: 'Ineffable',
-      type: 'Adj',
-      definition: 'Qui ne peut être exprimé par des paroles tant c\'est intense',
-      example: 'Face à ce paysage grandiose, il ressentit une joie ineffable.',
-      date: '2023-04-08',
-      language: 'fr',
+    WordTranslation(
+      french: Word(
+        word: 'Ineffable',
+        type: 'Adj',
+        definition: 'Qui ne peut être exprimé par des paroles tant c\'est intense',
+        example: 'Face à ce paysage grandiose, il ressentit une joie ineffable.',
+        language: 'fr',
+      ),
+      english: Word(
+        word: 'Ineffable',
+        type: 'Adj',
+        definition: 'Too great or extreme to be expressed in words',
+        example: 'Faced with this grandiose landscape, he felt ineffable joy.',
+        language: 'en',
+      ),
     ),
-    Word(
-      word: 'Acrimonie',
-      type: 'Nom',
-      definition: 'Aigreur, amertume qui se manifeste dans les paroles ou le comportement',
-      example: 'Il a répondu avec acrimonie aux critiques formulées contre son projet.',
-      date: '2023-04-09',
-      language: 'fr',
+    WordTranslation(
+      french: Word(
+        word: 'Acrimonie',
+        type: 'Nom',
+        definition: 'Aigreur, amertume qui se manifeste dans les paroles ou le comportement',
+        example: 'Il a répondu avec acrimonie aux critiques formulées contre son projet.',
+        language: 'fr',
+      ),
+      english: Word(
+        word: 'Acrimony',
+        type: 'Noun',
+        definition: 'Bitterness or harshness in speech, manner, or temper',
+        example: 'He responded with acrimony to the criticisms made against his project.',
+        language: 'en',
+      ),
     ),
-    Word(
-      word: 'Quintessence',
-      type: 'Nom',
-      definition: 'Ce qu\'il y a de plus raffiné, de plus pur, l\'essence parfaite d\'une chose',
-      example: 'Ce plat représente la quintessence de la cuisine française traditionnelle.',
-      date: '2023-04-10',
-      language: 'fr',
+    WordTranslation(
+      french: Word(
+        word: 'Quintessence',
+        type: 'Nom',
+        definition: 'Ce qu\'il y a de plus raffiné, de plus pur, l\'essence parfaite d\'une chose',
+        example: 'Ce plat représente la quintessence de la cuisine française traditionnelle.',
+        language: 'fr',
+      ),
+      english: Word(
+        word: 'Quintessence',
+        type: 'Noun',
+        definition: 'The most perfect or typical example of a quality or class',
+        example: 'This dish represents the quintessence of traditional French cuisine.',
+        language: 'en',
+      ),
     ),
-    Word(
-      word: 'Pérégrin',
-      type: 'Adj',
-      definition: 'Qui voyage, qui vient de loin, étranger ou voyageur',
-      example: 'Cet oiseau pérégrin avait parcouru des milliers de kilomètres avant d\'arriver sur nos côtes.',
-      date: '2023-04-11',
-      language: 'fr',
+    WordTranslation(
+      french: Word(
+        word: 'Pérégrin',
+        type: 'Adj',
+        definition: 'Qui voyage, qui vient de loin, étranger ou voyageur',
+        example: 'Cet oiseau pérégrin avait parcouru des milliers de kilomètres avant d\'arriver sur nos côtes.',
+        language: 'fr',
+      ),
+      english: Word(
+        word: 'Peregrine',
+        type: 'Adj',
+        definition: 'Traveling or migrating; foreign',
+        example: 'This peregrine bird had traveled thousands of kilometers before arriving on our shores.',
+        language: 'en',
+      ),
     ),
-    Word(
-      word: 'Sibyllin',
-      type: 'Adj',
-      definition: 'Obscur, énigmatique, difficile à comprendre mais semblant cacher un sens profond',
-      example: 'Ses réponses sibyllines ne m\'ont pas permis de comprendre ses véritables intentions.',
-      date: '2023-04-12',
-      language: 'fr',
+    WordTranslation(
+      french: Word(
+        word: 'Sibyllin',
+        type: 'Adj',
+        definition: 'Mystérieux, énigmatique, difficile à comprendre',
+        example: 'Ses paroles sibyllines laissaient tout le monde perplexe.',
+        language: 'fr',
+      ),
+      english: Word(
+        word: 'Sibylline',
+        type: 'Adj',
+        definition: 'Mysterious, enigmatic, difficult to understand',
+        example: 'His sibylline words left everyone perplexed.',
+        language: 'en',
+      ),
     ),
-    Word(
-      word: 'Palimpseste',
-      type: 'Nom',
-      definition: 'Manuscrit dont on a effacé le texte primitif pour y écrire un nouveau texte; par extension, œuvre qui se superpose à une autre en la laissant transparaître',
-      example: 'Sa dernière œuvre est un palimpseste littéraire où l\'on reconnaît l\'influence de plusieurs auteurs classiques.',
-      date: '2023-04-13',
-      language: 'fr',
+    WordTranslation(
+      french: Word(
+        word: 'Palimpseste',
+        type: 'Nom',
+        definition: 'Manuscrit sur parchemin dont on a effacé la première écriture pour en tracer une nouvelle',
+        example: 'Ce palimpseste révèle les traces d\'un texte antique sous l\'écriture moderne.',
+        language: 'fr',
+      ),
+      english: Word(
+        word: 'Palimpsest',
+        type: 'Noun',
+        definition: 'A manuscript on which the original writing has been effaced to make room for later writing',
+        example: 'This palimpsest reveals traces of an ancient text beneath the modern writing.',
+        language: 'en',
+      ),
     ),
-    Word(
-      word: 'Apophtegme',
-      type: 'Nom',
-      definition: 'Parole mémorable ayant valeur de maxime, sentence exprimant une vérité générale',
-      example: 'Il terminait toujours ses discours par un apophtegme qui résumait parfaitement sa pensée.',
-      date: '2023-04-14',
-      language: 'fr',
+    WordTranslation(
+      french: Word(
+        word: 'Apophtegme',
+        type: 'Nom',
+        definition: 'Parole mémorable, sentence exprimée en peu de mots',
+        example: 'Cet apophtegme de Socrate est resté gravé dans les mémoires.',
+        language: 'fr',
+      ),
+      english: Word(
+        word: 'Apophthegm',
+        type: 'Noun',
+        definition: 'A terse saying embodying a general truth or astute observation',
+        example: 'This apophthegm by Socrates has remained engraved in memory.',
+        language: 'en',
+      ),
     ),
-    Word(
-      word: 'Conciliabule',
-      type: 'Nom',
-      definition: 'Entretien secret entre plusieurs personnes, généralement pour préparer un complot ou une action commune',
-      example: 'Après une heure de conciliabule dans le bureau du directeur, la décision fut annoncée à l\'ensemble du personnel.',
-      date: '2023-04-15',
-      language: 'fr',
-    ),
-    
-    Word(
-      word: 'Ethereal',
-      type: 'Adj',
-      definition: 'Extremely delicate and light in a way that seems too perfect for this world',
-      example: 'The ethereal beauty of the mountains at sunrise took her breath away.',
-      date: '2023-04-06',
-      language: 'en',
-    ),
-    Word(
-      word: 'Serendipity',
-      type: 'Noun',
-      definition: 'The occurrence and development of events by chance in a happy or beneficial way',
-      example: 'It was pure serendipity that he met his future business partner on that flight.',
-      date: '2023-04-07',
-      language: 'en',
-    ),
-    Word(
-      word: 'Ineffable',
-      type: 'Adj',
-      definition: 'Too great or extreme to be expressed or described in words',
-      example: 'The ineffable joy of becoming a parent for the first time cannot be adequately described.',
-      date: '2023-04-08',
-      language: 'en',
-    ),
-    Word(
-      word: 'Acrimony',
-      type: 'Noun',
-      definition: 'Bitterness or ill feeling',
-      example: 'The divorce was filled with acrimony, making it difficult for them to co-parent effectively.',
-      date: '2023-04-09',
-      language: 'en',
-    ),
-    Word(
-      word: 'Quintessence',
-      type: 'Noun',
-      definition: 'The most perfect or typical example of a quality or class',
-      example: 'This dish is the quintessence of traditional Italian cooking.',
-      date: '2023-04-10',
-      language: 'en',
-    ),
-    Word(
-      word: 'Peregrination',
-      type: 'Noun',
-      definition: 'A journey, especially a long or meandering one',
-      example: 'His peregrination across Europe lasted three months and took him through twelve different countries.',
-      date: '2023-04-11',
-      language: 'en',
-    ),
-    Word(
-      word: 'Perspicacious',
-      type: 'Adj',
-      definition: 'Having a ready insight into and understanding of things',
-      example: 'Her perspicacious comments during the meeting revealed she had already anticipated the problem.',
-      date: '2023-04-12',
-      language: 'en',
-    ),
-    Word(
-      word: 'Mellifluous',
-      type: 'Adj',
-      definition: 'Sweet or musical; pleasant to hear',
-      example: 'The speaker\'s mellifluous voice made even the most mundane topic seem fascinating.',
-      date: '2023-04-13',
-      language: 'en',
-    ),
-    Word(
-      word: 'Obfuscate',
-      type: 'Verb',
-      definition: 'To make obscure, unclear, or unintelligible',
-      example: 'The politician tried to obfuscate the issue by using complex technical jargon.',
-      date: '2023-04-14',
-      language: 'en',
-    ),
-    Word(
-      word: 'Supercilious',
-      type: 'Adj',
-      definition: 'Behaving or looking as though one is superior to others',
-      example: 'The supercilious waiter looked down his nose at customers who didn\'t know about wine.',
-      date: '2023-04-15',
-      language: 'en',
+    WordTranslation(
+      french: Word(
+        word: 'Conciliabule',
+        type: 'Nom',
+        definition: 'Conversation secrète et suspecte entre plusieurs personnes',
+        example: 'Ils tenaient un conciliabule dans le coin de la salle.',
+        language: 'fr',
+      ),
+      english: Word(
+        word: 'Conciliabule',
+        type: 'Noun',
+        definition: 'A secret or private meeting, especially one with a sinister purpose',
+        example: 'They were holding a conciliabule in the corner of the room.',
+        language: 'en',
+      ),
     ),
   ];
+
+  static List<Word> getWordsByLanguage(String language) {
+    return wordTranslations
+        .map((translation) => language == 'fr' ? translation.french : translation.english)
+        .toList();
+  }
+
+  static Word? getTranslation(Word word, String targetLanguage) {
+    for (var translation in wordTranslations) {
+      if (word.language == 'fr' && translation.french.word == word.word && targetLanguage == 'en') {
+        return translation.english;
+      } else if (word.language == 'en' && translation.english.word == word.word && targetLanguage == 'fr') {
+        return translation.french;
+      }
+    }
+    return null;
+  }
+
+  static Word getTodaysWord(String language, int dayIndex) {
+    final words = getWordsByLanguage(language);
+    if (words.isEmpty) return getWordsByLanguage('fr').first;
+    return words[dayIndex % words.length];
+  }
+
+  static List<Word> get fallbackWords {
+    return getWordsByLanguage('fr');
+  }
 }

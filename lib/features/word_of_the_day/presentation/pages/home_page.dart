@@ -10,6 +10,7 @@ import '../../../../core/theme/theme_provider.dart';
 import '../../../../core/localization/language_provider.dart';
 import '../../../../core/localization/widgets/language_selector.dart';
 import '../../../../core/localization/app_translations.dart';
+import '../../../../core/constants/word_constants.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -154,37 +155,9 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                               String translatedWord = wordProvider.currentWord.word;
                               
                               if (languageProvider.currentLanguage == AppLanguage.english) {
-                                switch (wordProvider.currentWord.word) {
-                                  case 'Éthéré':
-                                    translatedWord = 'Ethereal';
-                                    break;
-                                  case 'Sérendipité':
-                                    translatedWord = 'Serendipity';
-                                    break;
-                                  case 'Ineffable':
-                                    translatedWord = 'Ineffable';
-                                    break;
-                                  case 'Acrimonie':
-                                    translatedWord = 'Acrimony';
-                                    break;
-                                  case 'Quintessence':
-                                    translatedWord = 'Quintessence';
-                                    break;
-                                  case 'Pérégrin':
-                                    translatedWord = 'Peregrine';
-                                    break;
-                                  case 'Sibyllin':
-                                    translatedWord = 'Sibylline';
-                                    break;
-                                  case 'Palimpseste':
-                                    translatedWord = 'Palimpsest';
-                                    break;
-                                  case 'Apophtegme':
-                                    translatedWord = 'Apophthegm';
-                                    break;
-                                  case 'Conciliabule':
-                                    translatedWord = 'Conciliabule';
-                                    break;
+                                final translation = WordConstants.getTranslation(wordProvider.currentWord, 'en');
+                                if (translation != null) {
+                                  translatedWord = translation.word;
                                 }
                               }
                               

@@ -4,6 +4,7 @@ import '../../../word_of_the_day/domain/models/word.dart';
 import '../../../../core/services/tts_service.dart';
 import '../../../../core/localization/language_provider.dart';
 import '../../../../core/localization/app_translations.dart';
+import '../../../../core/constants/word_constants.dart';
 
 class FavoriteWordCard extends StatelessWidget {
   final Word word;
@@ -44,61 +45,15 @@ class FavoriteWordCard extends StatelessWidget {
     String translatedExample;
     
     if (currentLanguage == AppLanguage.english) {
-      switch (word.word) {
-        case 'Éthéré':
-          translatedWord = 'Ethereal';
-          translatedDefinition = 'Of unearthly delicacy and lightness, almost celestial';
-          translatedExample = 'Her gaze had an ethereal beauty, as if it belonged to a dream.';
-          break;
-        case 'Sérendipité':
-          translatedWord = 'Serendipity';
-          translatedDefinition = 'The occurrence of finding valuable things not sought for';
-          translatedExample = 'It was by serendipity that he found his calling when getting lost in that museum.';
-          break;
-        case 'Ineffable':
-          translatedWord = 'Ineffable';
-          translatedDefinition = 'Too great to be expressed in words';
-          translatedExample = 'Facing this magnificent landscape, he felt an ineffable joy.';
-          break;
-        case 'Acrimonie':
-          translatedWord = 'Acrimony';
-          translatedDefinition = 'Bitterness or ill feeling that is displayed in speech or behavior';
-          translatedExample = 'He responded with acrimony to the criticisms made against his project.';
-          break;
-        case 'Quintessence':
-          translatedWord = 'Quintessence';
-          translatedDefinition = 'The most perfect embodiment of something';
-          translatedExample = 'This dish represents the quintessence of traditional French cuisine.';
-          break;
-        case 'Pérégrin':
-          translatedWord = 'Peregrine';
-          translatedDefinition = 'Traveling or migrating, especially on foot; foreign or wandering';
-          translatedExample = 'This peregrine bird had traveled thousands of kilometers before arriving on our shores.';
-          break;
-        case 'Sibyllin':
-          translatedWord = 'Sibylline';
-          translatedDefinition = 'Obscure, enigmatic, difficult to understand but seeming to hide a deep meaning';
-          translatedExample = 'His sibylline responses did not allow me to understand his true intentions.';
-          break;
-        case 'Palimpseste':
-          translatedWord = 'Palimpsest';
-          translatedDefinition = 'A manuscript on which the original writing has been effaced to make room for later writing; something reused or altered but still bearing visible traces of its earlier form';
-          translatedExample = 'His latest work is a literary palimpsest where one can recognize the influence of several classical authors.';
-          break;
-        case 'Apophtegme':
-          translatedWord = 'Apophthegm';
-          translatedDefinition = 'A terse, pithy saying or maxim; a memorable saying embodying an important fact or general truth';
-          translatedExample = 'He always ended his speeches with an apophthegm that perfectly summarized his thoughts.';
-          break;
-        case 'Conciliabule':
-          translatedWord = 'Conciliabule';
-          translatedDefinition = 'A secret meeting or conference, especially one for plotting or conspiracy';
-          translatedExample = 'After an hour of conciliabule in the director\'s office, the decision was announced to all staff.';
-          break;
-        default:
-          translatedWord = word.word;
-          translatedDefinition = word.definition;
-          translatedExample = word.example;
+      final translation = WordConstants.getTranslation(word, 'en');
+      if (translation != null) {
+        translatedWord = translation.word;
+        translatedDefinition = translation.definition;
+        translatedExample = translation.example;
+      } else {
+        translatedWord = word.word;
+        translatedDefinition = word.definition;
+        translatedExample = word.example;
       }
     } else {
       translatedWord = word.word;

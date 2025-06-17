@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../domain/models/word.dart';
 import '../../../../core/localization/language_provider.dart';
 import '../../../../core/localization/app_translations.dart';
+import '../../../../core/constants/word_constants.dart';
 
 class WordDisplay extends StatelessWidget {
   final Word word;
@@ -38,30 +39,13 @@ class WordDisplay extends StatelessWidget {
     String translatedDefinition;
     
     if (currentLanguage == AppLanguage.english) {
-      switch (word.word) {
-        case 'Éthéré':
-          translatedWord = 'Ethereal';
-          translatedDefinition = 'Of unearthly delicacy and lightness, almost celestial';
-          break;
-        case 'Sérendipité':
-          translatedWord = 'Serendipity';
-          translatedDefinition = 'The occurrence of finding valuable things not sought for';
-          break;
-        case 'Ineffable':
-          translatedWord = 'Ineffable';
-          translatedDefinition = 'Too great to be expressed in words';
-          break;
-        case 'Acrimonie':
-          translatedWord = 'Acrimony';
-          translatedDefinition = 'Bitterness or ill feeling that is displayed in speech or behavior';
-          break;
-        case 'Quintessence':
-          translatedWord = 'Quintessence';
-          translatedDefinition = 'The most perfect embodiment of something';
-          break;
-        default:
-          translatedWord = word.word;
-          translatedDefinition = word.definition;
+      final translation = WordConstants.getTranslation(word, 'en');
+      if (translation != null) {
+        translatedWord = translation.word;
+        translatedDefinition = translation.definition;
+      } else {
+        translatedWord = word.word;
+        translatedDefinition = word.definition;
       }
     } else {
       translatedWord = word.word;
