@@ -29,7 +29,7 @@ class ActionButtons extends StatelessWidget {
     final typeLabel = isEnglish ? 'Type' : 'Type';
     final definitionLabel = isEnglish ? 'Definition' : 'Définition';
     final exampleLabel = isEnglish ? 'Example' : 'Exemple';
-    final appName = isEnglish ? 'Eloquence App' : 'Application Eloquence';
+    final appName = 'https://apps.apple.com/fr/app/eloquence/id6746582572';
     
     final shareText = '''
 $title: $wordToSpeak
