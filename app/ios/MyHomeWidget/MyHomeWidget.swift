@@ -14,16 +14,16 @@ struct WordOfTheDay: Codable {
     let type: String
     let definition: String
     let example: String
-    let date: String
     let isFavorite: Bool
+    let language: String
     
     static let placeholder = WordOfTheDay(
         word: "Éthéré",
         type: "Adj",
         definition: "D'une beauté irréelle, presque céleste",
         example: "Son regard était d'une beauté éthérée, comme s'il appartenait à un rêve.",
-        date: "2023-04-06",
-        isFavorite: false
+        isFavorite: false,
+        language: "fr"
     )
 }
 
@@ -38,43 +38,42 @@ struct Provider: AppIntentTimelineProvider {
     }
     
     func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
-        var entries: [SimpleEntry] = []
-
-        // Generate a timeline consisting of entries every 6 hours, starting from the current date.
         let currentDate = Date()
-        let wordOfTheDay = getWordOfTheDay() ?? WordOfTheDay.placeholder
         
-        for hourOffset in stride(from: 0, to: 24, by: 6) {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, configuration: configuration, wordOfTheDay: wordOfTheDay)
-            entries.append(entry)
-        }
-
-        // Update at midnight for new word of the day
-        return Timeline(entries: entries, policy: .atEnd)
+        let wordOfTheDay = getWordOfTheDay() ?? WordOfTheDay.placeholder
+        let entry = SimpleEntry(date: currentDate, configuration: configuration, wordOfTheDay: wordOfTheDay)
+        
+        let nextUpdate = Calendar.current.date(byAdding: .minute, value: 15, to: currentDate)!
+        
+        return Timeline(entries: [entry], policy: .after(nextUpdate))
     }
     
     private func getWordOfTheDay() -> WordOfTheDay? {
         let sharedDefaults = UserDefaults(suiteName: "group.com.eloquence.widget")
-        guard let jsonString = sharedDefaults?.string(forKey: "word_of_the_day") else {
-            print("No word_of_the_day found in UserDefaults")
-            return nil
+        
+        if let allKeys = sharedDefaults?.dictionaryRepresentation().keys {
+            print("MyHomeWidget: Available UserDefaults keys: \(Array(allKeys))")
         }
         
-        guard let data = jsonString.data(using: .utf8) else {
-            print("Failed to convert JSON string to data")
-            return nil
+        if let jsonString = sharedDefaults?.string(forKey: "word_of_the_day") {
+            print("MyHomeWidget: Found word_of_the_day key with value: \(jsonString)")
+            if let data = jsonString.data(using: .utf8) {
+                do {
+                    let decoder = JSONDecoder()
+                    let wordOfTheDay = try decoder.decode(WordOfTheDay.self, from: data)
+                    print("MyHomeWidget: Successfully decoded word of the day: \(wordOfTheDay.word)")
+                    return wordOfTheDay
+                } catch {
+                    print("MyHomeWidget: Error decoding word of the day: \(error)")
+                    print("MyHomeWidget: JSON string was: \(jsonString)")
+                }
+            }
+        } else {
+            print("MyHomeWidget: No word_of_the_day key found")
         }
         
-        do {
-            let decoder = JSONDecoder()
-            let wordOfTheDay = try decoder.decode(WordOfTheDay.self, from: data)
-            print("Successfully decoded word of the day: \(wordOfTheDay.word)")
-            return wordOfTheDay
-        } catch {
-            print("Error decoding word of the day: \(error)")
-            return nil
-        }
+        print("MyHomeWidget: No word_of_the_day found in UserDefaults, using placeholder")
+        return nil
     }
 
 //    func relevances() async -> WidgetRelevances<ConfigurationAppIntent> {
