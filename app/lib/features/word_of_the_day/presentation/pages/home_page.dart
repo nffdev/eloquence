@@ -22,6 +22,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
+  LanguageProvider? _languageProvider;
   
   @override
   void initState() {
@@ -42,15 +43,20 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     _animationController.forward();
     
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final languageProvider = Provider.of<LanguageProvider>(context, listen: false);
-      final wordProvider = Provider.of<WordProvider>(context, listen: false);
-      final languageCode = languageProvider.currentLanguage == AppLanguage.french ? 'fr' : 'en';
-      wordProvider.setLanguage(languageCode);
+      _languageProvider = Provider.of<LanguageProvider>(context, listen: false);
+      _languageProvider!.addListener(_onLanguageChanged);
     });
+  }
+  
+  void _onLanguageChanged() {
+    final wordProvider = Provider.of<WordProvider>(context, listen: false);
+    final languageCode = _languageProvider!.currentLanguage == AppLanguage.french ? 'fr' : 'en';
+    wordProvider.setLanguage(languageCode);
   }
   
   @override
   void dispose() {
+    _languageProvider?.removeListener(_onLanguageChanged);
     _animationController.dispose();
     super.dispose();
   }
@@ -59,14 +65,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      body: Consumer2<WordProvider, LanguageProvider>(
-        builder: (context, wordProvider, languageProvider, child) {
-          final languageCode = languageProvider.currentLanguage == AppLanguage.french ? 'fr' : 'en';
-          if (wordProvider.currentLanguage != languageCode) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              wordProvider.setLanguage(languageCode);
-            });
-          }
+      body: Consumer<WordProvider>(
+        builder: (context, wordProvider, child) {
           if (wordProvider.isLoading) {
             return const Center(child: CircularProgressIndicator());
           }
