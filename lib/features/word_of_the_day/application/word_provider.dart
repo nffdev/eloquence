@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import '../data/word_repository.dart';
 import '../domain/models/word.dart';
 import 'widget_service.dart';
+import '../../../core/utils/word_utils.dart';
 
 class WordProvider extends ChangeNotifier {
   final WordRepository _repository = WordRepository();
@@ -47,7 +48,11 @@ class WordProvider extends ChangeNotifier {
     
     try {
       _currentWord = await _repository.getTodaysWord(language: _currentLanguage);
-      _isFavorite = _currentWord.isFavorite;
+      final prefs = await SharedPreferences.getInstance();
+       List<String> favorites = prefs.getStringList('favorites') ?? [];
+       String wordId = WordUtils.getWordPairId(_currentWord);
+      _isFavorite = favorites.contains(wordId);
+      _currentWord.isFavorite = _isFavorite;
       await _updateStreak();
       
       await WidgetService.updateWordOfTheDay(_currentWord);
@@ -91,7 +96,9 @@ class WordProvider extends ChangeNotifier {
       try {
         await _repository.saveWordFavoriteStatus(word, newStatus);
         
-        if (_currentWord.word == word.word) {
+        String currentWordId = WordUtils.getWordPairId(_currentWord);
+        String toggledWordId = WordUtils.getWordPairId(word);
+        if (currentWordId == toggledWordId) {
           _isFavorite = newStatus;
           _currentWord.isFavorite = newStatus;
         }

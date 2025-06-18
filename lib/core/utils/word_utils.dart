@@ -33,4 +33,13 @@ class WordUtils {
     }
     return allWords;
   }
+  
+  static String getWordPairId(Word word) {
+    for (var translation in WordConstants.wordTranslations) {
+      if (translation.french.word == word.word || translation.english.word == word.word) {
+        return translation.french.word; 
+      }
+    }
+    return word.word; 
+  }
 }
