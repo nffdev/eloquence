@@ -122,12 +122,14 @@ class WordRepository {
     
     List<String> favorites = prefs.getStringList('favorites') ?? [];
     
+    String wordId = WordUtils.getWordPairId(word);
+    
     if (isFavorite) {
-      if (!favorites.contains(word.word)) {
-        favorites.add(word.word);
+      if (!favorites.contains(wordId)) {
+        favorites.add(wordId);
       }
     } else {
-      favorites.removeWhere((w) => w == word.word);
+      favorites.removeWhere((w) => w == wordId);
     }
     
     await prefs.setStringList('favorites', favorites);
@@ -146,8 +148,9 @@ class WordRepository {
           if (wordJson != null) {
             final wordData = json.decode(wordJson);
             final word = Word.fromJson(wordData);
-            if (favorites.contains(word.word)) {
-              favoriteWordsMap[word.word] = word;
+            String wordId = WordUtils.getWordPairId(word);
+            if (favorites.contains(wordId)) {
+              favoriteWordsMap[wordId] = word;
             }
           }
         } catch (e) {
