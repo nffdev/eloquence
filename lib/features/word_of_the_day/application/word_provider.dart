@@ -23,6 +23,17 @@ class WordProvider extends ChangeNotifier {
   String _currentLanguage = 'fr';
   String get currentLanguage => _currentLanguage;
   
+  WordProvider() {
+    _currentWord = Word(
+      word: 'Chargement...',
+      type: '',
+      definition: 'Chargement en cours...',
+      example: '',
+      language: 'fr',
+    );
+    loadTodaysWord();
+  }
+  
   void setLanguage(String languageCode) {
     if (_currentLanguage != languageCode) {
       _currentLanguage = languageCode;
