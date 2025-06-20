@@ -106,6 +106,14 @@ class AppTranslations {
     'remove_from_favorites': {
       AppLanguage.french: 'Retirer des favoris',
       AppLanguage.english: 'Remove from favorites',
+    },
+    'app_initial': {
+      AppLanguage.french: 'É',
+      AppLanguage.english: 'E',
+    },
+    'app_tagline': {
+      AppLanguage.french: 'Enrichissez votre vocabulaire',
+      AppLanguage.english: 'Enrich your vocabulary',
     },    
   };
   

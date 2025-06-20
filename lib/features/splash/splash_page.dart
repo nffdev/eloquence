@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../core/theme/theme_provider.dart';
+import '../../core/localization/language_provider.dart';
+import '../../core/localization/app_translations.dart';
 import '../../features/word_of_the_day/presentation/pages/home_page.dart';
 
 class SplashPage extends StatefulWidget {
@@ -73,6 +75,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final languageProvider = Provider.of<LanguageProvider>(context);
     final isDarkMode = themeProvider.isDarkMode;
     
     final backgroundColor = isDarkMode ? Colors.black : Colors.white;
@@ -94,7 +97,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'É',
+                      AppTranslations.translate('app_initial', languageProvider.currentLanguage),
                       style: GoogleFonts.playfairDisplay(
                         fontSize: 80,
                         fontWeight: FontWeight.bold,
@@ -104,7 +107,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                     ),
                     const SizedBox(height: 20),
                     Text(
-                      'ÉLOQUENCE',
+                      AppTranslations.translate('app_name', languageProvider.currentLanguage).toUpperCase(),
                       style: GoogleFonts.playfairDisplay(
                         fontSize: 24,
                         fontWeight: FontWeight.w500,
@@ -114,7 +117,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                     ),
                     const SizedBox(height: 40),
                     Text(
-                      'Enrichissez votre vocabulaire',
+                      AppTranslations.translate('app_tagline', languageProvider.currentLanguage),
                       style: GoogleFonts.lato(
                         fontSize: 16,
                         fontWeight: FontWeight.w300,
