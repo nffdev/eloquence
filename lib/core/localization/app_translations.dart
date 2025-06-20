@@ -106,73 +106,7 @@ class AppTranslations {
     'remove_from_favorites': {
       AppLanguage.french: 'Retirer des favoris',
       AppLanguage.english: 'Remove from favorites',
-    },
-    
-    // Word translations (sample)
-    'word_éthéré': {
-      AppLanguage.french: 'Éthéré',
-      AppLanguage.english: 'Ethereal',
-    },
-    'def_éthéré': {
-      AppLanguage.french: 'D\'une beauté irréelle, presque céleste',
-      AppLanguage.english: 'Of unearthly delicacy and lightness, almost celestial',
-    },
-    'example_éthéré': {
-      AppLanguage.french: 'Son regard était d\'une beauté éthérée, comme s\'il appartenait à un rêve.',
-      AppLanguage.english: 'Her gaze had an ethereal beauty, as if it belonged to a dream.',
-    },
-    
-    'word_sérendipité': {
-      AppLanguage.french: 'Sérendipité',
-      AppLanguage.english: 'Serendipity',
-    },
-    'def_sérendipité': {
-      AppLanguage.french: 'Le fait de découvrir quelque chose par hasard alors qu\'on cherchait autre chose',
-      AppLanguage.english: 'The occurrence of finding valuable things not sought for',
-    },
-    'example_sérendipité': {
-      AppLanguage.french: 'C\'est par sérendipité qu\'il a trouvé sa vocation en se perdant dans ce musée.',
-      AppLanguage.english: 'It was by serendipity that he found his calling when getting lost in that museum.',
-    },
-    
-    'word_ineffable': {
-      AppLanguage.french: 'Ineffable',
-      AppLanguage.english: 'Ineffable',
-    },
-    'def_ineffable': {
-      AppLanguage.french: 'Qui ne peut être exprimé par des paroles tant c\'est intense',
-      AppLanguage.english: 'Too great to be expressed in words',
-    },
-    'example_ineffable': {
-      AppLanguage.french: 'Face à ce paysage grandiose, il ressentit une joie ineffable.',
-      AppLanguage.english: 'Facing this magnificent landscape, he felt an ineffable joy.',
-    },
-    
-    'word_acrimonie': {
-      AppLanguage.french: 'Acrimonie',
-      AppLanguage.english: 'Acrimony',
-    },
-    'def_acrimonie': {
-      AppLanguage.french: 'Aigreur, amertume qui se manifeste dans les paroles ou le comportement',
-      AppLanguage.english: 'Bitterness or ill feeling that is displayed in speech or behavior',
-    },
-    'example_acrimonie': {
-      AppLanguage.french: 'Il a répondu avec acrimonie aux critiques formulées contre son projet.',
-      AppLanguage.english: 'He responded with acrimony to the criticisms made against his project.',
-    },
-    
-    'word_quintessence': {
-      AppLanguage.french: 'Quintessence',
-      AppLanguage.english: 'Quintessence',
-    },
-    'def_quintessence': {
-      AppLanguage.french: 'Ce qu\'il y a de plus raffiné, de plus pur, l\'essence parfaite d\'une chose',
-      AppLanguage.english: 'The most perfect embodiment of something',
-    },
-    'example_quintessence': {
-      AppLanguage.french: 'Ce plat représente la quintessence de la cuisine française traditionnelle.',
-      AppLanguage.english: 'This dish represents the quintessence of traditional French cuisine.',
-    },
+    },    
   };
   
   static String translate(String key, AppLanguage language) {
