@@ -118,7 +118,31 @@ class AppTranslations {
     'app_tagline': {
       AppLanguage.french: 'Enrichissez votre vocabulaire',
       AppLanguage.english: 'Enrich your vocabulary',
-    },    
+    },
+    'icon': {
+      AppLanguage.french: 'Icône',
+      AppLanguage.english: 'Icon',
+    },
+    'app_icon': {
+      AppLanguage.french: 'Icône de l\'application',
+      AppLanguage.english: 'App icon',
+    },
+    'choose_icon': {
+      AppLanguage.french: 'Choisir une icône',
+      AppLanguage.english: 'Choose an icon',
+    },
+    'default_icon': {
+      AppLanguage.french: 'Icône par défaut',
+      AppLanguage.english: 'Default icon',
+    },
+    'classic_icon': {
+      AppLanguage.french: 'Icône classique',
+      AppLanguage.english: 'Classic icon',
+    },
+    'dark_icon': {
+      AppLanguage.french: 'Icône sombre',
+      AppLanguage.english: 'Dark icon',
+    },
   };
   
   static String translate(String key, AppLanguage language) {
