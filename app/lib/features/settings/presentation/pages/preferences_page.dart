@@ -177,6 +177,133 @@ class PreferencesPage extends StatelessWidget {
               );
             },
           ),
+          
+          const Divider(),
+          
+          // Icon section
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Consumer<LanguageProvider>(
+              builder: (context, languageProvider, _) {
+                return Text(
+                  AppTranslations.translate('icon', languageProvider.currentLanguage),
+                  style: Theme.of(context).textTheme.displayMedium,
+                );
+              },
+            ),
+          ),
+          
+          // App icon selector
+          Consumer<LanguageProvider>(
+            builder: (context, languageProvider, _) {
+              return ListTile(
+                title: Text(
+                  AppTranslations.translate('app_icon', languageProvider.currentLanguage),
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                subtitle: Text(
+                  AppTranslations.translate('default_icon', languageProvider.currentLanguage),
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                leading: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  child: const Icon(
+                    Icons.apps,
+                    color: Colors.white,
+                    size: 24,
+                  ),
+                ),
+                trailing: PopupMenuButton<String>(
+                  icon: const Icon(Icons.arrow_drop_down),
+                  onSelected: (String iconType) {
+                    // TODO: Implement icon change functionality
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          '${AppTranslations.translate('choose_icon', languageProvider.currentLanguage)}: $iconType'
+                        ),
+                      ),
+                    );
+                  },
+                  itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                    PopupMenuItem<String>(
+                      value: 'default',
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 30,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              color: Theme.of(context).primaryColor,
+                            ),
+                            child: const Icon(
+                              Icons.apps,
+                              color: Colors.white,
+                              size: 18,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Text(AppTranslations.translate('default_icon', languageProvider.currentLanguage)),
+                          const Spacer(),
+                          const Icon(Icons.check, size: 16),
+                        ],
+                      ),
+                    ),
+                    PopupMenuItem<String>(
+                      value: 'classic',
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 30,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              color: Colors.blue,
+                            ),
+                            child: const Icon(
+                              Icons.book,
+                              color: Colors.white,
+                              size: 18,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Text(AppTranslations.translate('classic_icon', languageProvider.currentLanguage)),
+                        ],
+                      ),
+                    ),
+                    PopupMenuItem<String>(
+                      value: 'dark',
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 30,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              color: Colors.black87,
+                            ),
+                            child: const Icon(
+                              Icons.dark_mode,
+                              color: Colors.white,
+                              size: 18,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Text(AppTranslations.translate('dark_icon', languageProvider.currentLanguage)),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
         ],
       ),
     );
