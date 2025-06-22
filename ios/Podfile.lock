@@ -1,5 +1,7 @@
 PODS:
   - Flutter (1.0.0)
+  - flutter_dynamic_icon (0.0.1):
+    - Flutter
   - flutter_tts (0.0.1):
     - Flutter
   - home_widget (0.0.1):
@@ -17,6 +19,7 @@ PODS:
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
+  - flutter_dynamic_icon (from `.symlinks/plugins/flutter_dynamic_icon/ios`)
   - flutter_tts (from `.symlinks/plugins/flutter_tts/ios`)
   - home_widget (from `.symlinks/plugins/home_widget/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
@@ -27,6 +30,8 @@ DEPENDENCIES:
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
+  flutter_dynamic_icon:
+    :path: ".symlinks/plugins/flutter_dynamic_icon/ios"
   flutter_tts:
     :path: ".symlinks/plugins/flutter_tts/ios"
   home_widget:
@@ -42,6 +47,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  flutter_dynamic_icon: 9b73b8d673f589e913991cc025c007823c59ed19
   flutter_tts: b88dbc8655d3dc961bc4a796e4e16a4cc1795833
   home_widget: f169fc41fd807b4d46ab6615dc44d62adbf9f64f
   path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
