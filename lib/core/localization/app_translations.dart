@@ -131,9 +131,9 @@ class AppTranslations {
       AppLanguage.french: 'Choisir une icône',
       AppLanguage.english: 'Choose an icon',
     },
-    'default_icon': {
-      AppLanguage.french: 'Icône par défaut',
-      AppLanguage.english: 'Default icon',
+    'light_icon': {
+      AppLanguage.french: 'Icône claire',
+      AppLanguage.english: 'Light icon',
     },
     'classic_icon': {
       AppLanguage.french: 'Icône classique',

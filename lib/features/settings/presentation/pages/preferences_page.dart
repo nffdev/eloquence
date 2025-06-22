@@ -205,34 +205,44 @@ class PreferencesPage extends StatelessWidget {
                   AppTranslations.translate('default_icon', languageProvider.currentLanguage),
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
-                leading: Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  child: const Icon(
-                    Icons.apps,
-                    color: Colors.white,
-                    size: 24,
-                  ),
+                leading: Consumer<ThemeProvider>(
+                  builder: (context, themeProvider, _) {
+                    return Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.transparent,
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.asset(
+                          themeProvider.isDarkMode 
+                              ? 'assets/images/logo-dark.png'
+                              : 'assets/images/logo-light.png',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    );
+                  },
                 ),
                 trailing: PopupMenuButton<String>(
                   icon: const Icon(Icons.arrow_drop_down),
-                  onSelected: (String iconType) {
-                    // TODO: Implement icon change functionality
+                  onSelected: (String value) {
+                    String iconType = value == 'light' 
+                        ? AppTranslations.translate('light_icon', languageProvider.currentLanguage)
+                        : AppTranslations.translate('dark_icon', languageProvider.currentLanguage);
+                    
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text(
-                          '${AppTranslations.translate('choose_icon', languageProvider.currentLanguage)}: $iconType'
-                        ),
+                        content: Text('${AppTranslations.translate('app_icon', languageProvider.currentLanguage)}: $iconType'),
+                        duration: const Duration(seconds: 2),
                       ),
                     );
                   },
                   itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
                     PopupMenuItem<String>(
-                      value: 'default',
+                      value: 'light',
                       child: Row(
                         children: [
                           Container(
@@ -240,40 +250,26 @@ class PreferencesPage extends StatelessWidget {
                             height: 30,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(6),
-                              color: Theme.of(context).primaryColor,
+                              color: Colors.transparent,
                             ),
-                            child: const Icon(
-                              Icons.apps,
-                              color: Colors.white,
-                              size: 18,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(6),
+                              child: Image.asset(
+                                'assets/images/logo-light.png',
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                           const SizedBox(width: 10),
-                          Text(AppTranslations.translate('default_icon', languageProvider.currentLanguage)),
+                          Text(AppTranslations.translate('light_icon', languageProvider.currentLanguage)),
                           const Spacer(),
-                          const Icon(Icons.check, size: 16),
-                        ],
-                      ),
-                    ),
-                    PopupMenuItem<String>(
-                      value: 'classic',
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 30,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(6),
-                              color: Colors.blue,
-                            ),
-                            child: const Icon(
-                              Icons.book,
-                              color: Colors.white,
-                              size: 18,
-                            ),
+                          Consumer<ThemeProvider>(
+                            builder: (context, themeProvider, _) {
+                              return !themeProvider.isDarkMode
+                                  ? const Icon(Icons.check, size: 16)
+                                  : const SizedBox.shrink();
+                            },
                           ),
-                          const SizedBox(width: 10),
-                          Text(AppTranslations.translate('classic_icon', languageProvider.currentLanguage)),
                         ],
                       ),
                     ),
@@ -286,16 +282,26 @@ class PreferencesPage extends StatelessWidget {
                             height: 30,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(6),
-                              color: Colors.black87,
+                              color: Colors.transparent,
                             ),
-                            child: const Icon(
-                              Icons.dark_mode,
-                              color: Colors.white,
-                              size: 18,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(6),
+                              child: Image.asset(
+                                'assets/images/logo-dark.png',
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                           const SizedBox(width: 10),
                           Text(AppTranslations.translate('dark_icon', languageProvider.currentLanguage)),
+                          const Spacer(),
+                          Consumer<ThemeProvider>(
+                            builder: (context, themeProvider, _) {
+                              return themeProvider.isDarkMode
+                                  ? const Icon(Icons.check, size: 16)
+                                  : const SizedBox.shrink();
+                            },
+                          ),
                         ],
                       ),
                     ),
