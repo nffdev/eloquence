@@ -79,6 +79,10 @@ class AppTranslations {
       AppLanguage.french: 'Préférences',
       AppLanguage.english: 'Preferences',
     },
+    'preferences_subtitle': {
+      AppLanguage.french: 'Thème, langue et autres paramètres',
+      AppLanguage.english: 'Theme, language and other settings',
+    },
     
     // Favorites Page
     'favorite_words': {
