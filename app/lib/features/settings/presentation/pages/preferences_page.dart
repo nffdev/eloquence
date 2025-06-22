@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import '../../../../core/theme/theme_provider.dart';
 import '../../../../core/localization/language_provider.dart';
 import '../../../../core/localization/app_translations.dart';
+import '../../../../core/services/app_icon_service.dart';
+import '../../../../core/providers/app_icon_provider.dart';
 
 class PreferencesPage extends StatelessWidget {
   const PreferencesPage({super.key});
@@ -227,19 +229,43 @@ class PreferencesPage extends StatelessWidget {
                   },
                 ),
                 trailing: PopupMenuButton<String>(
-                  icon: const Icon(Icons.arrow_drop_down),
-                  onSelected: (String value) {
-                    String iconType = value == 'light' 
-                        ? AppTranslations.translate('light_icon', languageProvider.currentLanguage)
-                        : AppTranslations.translate('dark_icon', languageProvider.currentLanguage);
-                    
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('${AppTranslations.translate('app_icon', languageProvider.currentLanguage)}: $iconType'),
-                        duration: const Duration(seconds: 2),
-                      ),
-                    );
-                  },
+                   icon: const Icon(Icons.arrow_drop_down),
+                   onSelected: (String value) async {
+                      final iconProvider = Provider.of<AppIconProvider>(context, listen: false);
+                      
+                      // Handle icon selection
+                      String iconName = value == 'light' ? AppIconService.defaultIcon : AppIconService.darkIcon;
+                      String iconType = value == 'light' 
+                          ? AppTranslations.translate('light_icon', languageProvider.currentLanguage)
+                          : AppTranslations.translate('dark_icon', languageProvider.currentLanguage);
+                      
+                      // Show loading indicator
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('${AppTranslations.translate('app_icon', languageProvider.currentLanguage)}...'),
+                          duration: const Duration(seconds: 1),
+                        ),
+                      );
+                      
+                      // Change the app icon
+                      bool success = await iconProvider.setIcon(iconName);
+                      
+                      // Show result
+                      if (context.mounted) {
+                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              success 
+                                  ? '${AppTranslations.translate('app_icon', languageProvider.currentLanguage)}: $iconType'
+                                  : 'Erreur lors du changement d\'icône',
+                            ),
+                            duration: const Duration(seconds: 2),
+                            backgroundColor: success ? null : Colors.red,
+                          ),
+                        );
+                      }
+                    },
                   itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
                     PopupMenuItem<String>(
                       value: 'light',
@@ -263,9 +289,9 @@ class PreferencesPage extends StatelessWidget {
                           const SizedBox(width: 10),
                           Text(AppTranslations.translate('light_icon', languageProvider.currentLanguage)),
                           const Spacer(),
-                          Consumer<ThemeProvider>(
-                            builder: (context, themeProvider, _) {
-                              return !themeProvider.isDarkMode
+                          Consumer<AppIconProvider>(
+                            builder: (context, iconProvider, _) {
+                              return iconProvider.isIconSelected(AppIconService.defaultIcon)
                                   ? const Icon(Icons.check, size: 16)
                                   : const SizedBox.shrink();
                             },
@@ -295,13 +321,13 @@ class PreferencesPage extends StatelessWidget {
                           const SizedBox(width: 10),
                           Text(AppTranslations.translate('dark_icon', languageProvider.currentLanguage)),
                           const Spacer(),
-                          Consumer<ThemeProvider>(
-                            builder: (context, themeProvider, _) {
-                              return themeProvider.isDarkMode
-                                  ? const Icon(Icons.check, size: 16)
-                                  : const SizedBox.shrink();
-                            },
-                          ),
+                           Consumer<AppIconProvider>(
+                             builder: (context, iconProvider, _) {
+                               return iconProvider.isIconSelected(AppIconService.darkIcon)
+                                   ? const Icon(Icons.check, size: 16)
+                                   : const SizedBox.shrink();
+                             },
+                           ),
                         ],
                       ),
                     ),
