@@ -332,26 +332,27 @@ class WidgetPage extends StatelessWidget {
   ) {
     return GestureDetector(
       onTap: () async {
-        final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
-        if (isDarkTheme != themeProvider.isDarkMode) {
-          await themeProvider.toggleTheme();
-          await WidgetService.updateTheme(isDarkTheme);
+        // final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+        // if (isDarkTheme != themeProvider.isDarkMode) {
+        //   await themeProvider.toggleTheme();
           
-          if (context.mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  isDarkTheme 
-                    ? 'Thème sombre appliqué au widget'
-                    : 'Thème clair appliqué au widget',
-                  style: const TextStyle(color: Colors.white),
-                ),
-                backgroundColor: currentThemeProvider.isDarkMode ? const Color(0xFF1A1A1A) : const Color(0xFF000000),
-                duration: const Duration(seconds: 2),
+        await WidgetService.updateTheme(isDarkTheme);
+          
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                isDarkTheme 
+                  ? 'Thème sombre appliqué au widget'
+                  : 'Thème clair appliqué au widget',
+                style: const TextStyle(color: Colors.white),
               ),
-            );
-          }
+              backgroundColor: currentThemeProvider.isDarkMode ? const Color(0xFF1A1A1A) : const Color(0xFF000000),
+              duration: const Duration(seconds: 2),
+            ),
+          );
         }
+        // }
       },
       child: Container(
         padding: const EdgeInsets.all(16),
