@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../features/word_of_the_day/application/widget_service.dart';
 
 class ThemeProvider extends ChangeNotifier {
   static const String _themePreferenceKey = 'theme_preference';
