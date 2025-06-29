@@ -5,6 +5,7 @@ import '../../../../core/localization/language_provider.dart';
 import '../../../../core/localization/app_translations.dart';
 import '../../../../core/services/app_icon_service.dart';
 import '../../../../core/providers/app_icon_provider.dart';
+import 'widget_page.dart';
 
 class PreferencesPage extends StatelessWidget {
   const PreferencesPage({super.key});
@@ -231,42 +232,38 @@ class PreferencesPage extends StatelessWidget {
                 trailing: PopupMenuButton<String>(
                    icon: const Icon(Icons.arrow_drop_down),
                    onSelected: (String value) async {
-                      final iconProvider = Provider.of<AppIconProvider>(context, listen: false);
-                      
-                      // Handle icon selection
-                      String iconName = value == 'light' ? AppIconService.defaultIcon : AppIconService.darkIcon;
-                      String iconType = value == 'light' 
-                          ? AppTranslations.translate('light_icon', languageProvider.currentLanguage)
-                          : AppTranslations.translate('dark_icon', languageProvider.currentLanguage);
-                      
-                      // Show loading indicator
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('${AppTranslations.translate('app_icon', languageProvider.currentLanguage)}...'),
-                          duration: const Duration(seconds: 1),
-                        ),
-                      );
-                      
-                      // Change the app icon
-                      bool success = await iconProvider.setIcon(iconName);
-                      
-                      // Show result
-                      if (context.mounted) {
-                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              success 
-                                  ? '${AppTranslations.translate('app_icon', languageProvider.currentLanguage)}: $iconType'
-                                  : 'Erreur lors du changement d\'icône',
-                            ),
-                            duration: const Duration(seconds: 2),
-                            backgroundColor: success ? null : Colors.red,
-                          ),
-                        );
-                      }
-                    },
-                  itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                     final iconProvider = Provider.of<AppIconProvider>(context, listen: false);
+                     
+                     String iconName = value == 'light' ? AppIconService.defaultIcon : AppIconService.darkIcon;
+                     String iconType = value == 'light' 
+                         ? AppTranslations.translate('light_icon', languageProvider.currentLanguage)
+                         : AppTranslations.translate('dark_icon', languageProvider.currentLanguage);
+                     
+                     ScaffoldMessenger.of(context).showSnackBar(
+                       SnackBar(
+                         content: Text('${AppTranslations.translate('app_icon', languageProvider.currentLanguage)}...'),
+                         duration: const Duration(seconds: 1),
+                       ),
+                     );
+                     
+                     bool success = await iconProvider.setIcon(iconName);
+                     
+                     if (context.mounted) {
+                       ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                       ScaffoldMessenger.of(context).showSnackBar(
+                         SnackBar(
+                           content: Text(
+                             success 
+                                 ? '${AppTranslations.translate('app_icon', languageProvider.currentLanguage)}: $iconType'
+                                 : 'Error: ${AppTranslations.translate('app_icon', languageProvider.currentLanguage)}',
+                           ),
+                           duration: const Duration(seconds: 2),
+                           backgroundColor: success ? null : Colors.red,
+                         ),
+                       );
+                     }
+                   },
+                   itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
                     PopupMenuItem<String>(
                       value: 'light',
                       child: Row(
@@ -333,6 +330,45 @@ class PreferencesPage extends StatelessWidget {
                     ),
                   ],
                 ),
+              );
+            },
+          ),
+          
+          const Divider(),
+          
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Consumer<LanguageProvider>(
+              builder: (context, languageProvider, _) {
+                return Text(
+                  AppTranslations.translate('widget', languageProvider.currentLanguage),
+                  style: Theme.of(context).textTheme.displayMedium,
+                );
+              },
+            ),
+          ),
+          
+          // Widget configuration
+          Consumer<LanguageProvider>(
+            builder: (context, languageProvider, _) {
+              return ListTile(
+                title: Text(
+                  AppTranslations.translate('home_screen_widget', languageProvider.currentLanguage),
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                subtitle: Text(
+                  AppTranslations.translate('widget_subtitle', languageProvider.currentLanguage),
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                leading: const Icon(Icons.widgets),
+                trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const WidgetPage(),
+                    ),
+                  );
+                },
               );
             },
           ),
