@@ -143,6 +143,55 @@ class AppTranslations {
       AppLanguage.french: 'Icône sombre',
       AppLanguage.english: 'Dark icon',
     },
+    'select_widget_size': {
+      AppLanguage.french: 'Sélectionnez la taille du widget',
+      AppLanguage.english: 'Select widget size',
+    },
+    'ok': {
+      AppLanguage.french: 'OK',
+      AppLanguage.english: 'OK',
+    },
+    'home_screen_widget': {
+      AppLanguage.french: 'Widget d\'écran d\'accueil',
+      AppLanguage.english: 'Home screen widget',
+    },
+    'widget': {
+      AppLanguage.french: 'Widget',
+      AppLanguage.english: 'Widget',
+    },
+    'widget_subtitle': {
+      AppLanguage.french: 'Ajoutez Eloquence à votre écran d\'accueil',
+      AppLanguage.english: 'Add Eloquence to your home screen',
+    },
+    'widget_preview': {
+      AppLanguage.french: 'Aperçu du widget',
+      AppLanguage.english: 'Widget preview',
+    },
+    'widget_management': {
+      AppLanguage.french: 'Gestion du widget',
+      AppLanguage.english: 'Widget management',
+    },
+    'how_to_add_widget': {
+      AppLanguage.french: 'Comment ajouter le widget',
+      AppLanguage.english: 'How to add widget',
+    },
+    'widget_instructions': {
+      AppLanguage.french: 'Suivez ces étapes pour ajouter le widget à votre écran d\'accueil :',
+      AppLanguage.english: 'Follow these steps to add the widget to your home screen:',
+    },
+    'long_press_home': {
+      AppLanguage.french: 'Appuyez longuement sur l\'écran d\'accueil',
+      AppLanguage.english: 'Long press on home screen',
+    },
+    'tap_plus_icon': {
+      AppLanguage.french: 'Appuyez sur l\'icône +',
+      AppLanguage.english: 'Tap the + icon',
+    },
+    'search_eloquence': {
+      AppLanguage.french: 'Recherchez "Eloquence"',
+      AppLanguage.english: 'Search for "Eloquence"',
+    },
+
   };
   
   static String translate(String key, AppLanguage language) {
