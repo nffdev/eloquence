@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../../../core/localization/language_provider.dart';
 import '../../../../core/localization/app_translations.dart';
 import '../../../../core/theme/theme_provider.dart';
+import '../../../word_of_the_day/application/widget_service.dart';
 
 class WidgetPage extends StatelessWidget {
   const WidgetPage({super.key});
@@ -112,6 +113,69 @@ class WidgetPage extends StatelessWidget {
                               ),
                             ],
                           ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                
+                const SizedBox(height: 24),
+                
+                Card(
+                  elevation: 2,
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.palette,
+                              color: Colors.black,
+                              size: 24,
+                            ),
+                            const SizedBox(width: 12),
+                            Text(
+                              AppTranslations.translate('appearance', languageProvider.currentLanguage),
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                        Consumer<ThemeProvider>(
+                          builder: (context, themeProvider, _) {
+                            return Row(
+                              children: [
+                                Expanded(
+                                  child: _buildThemeOption(
+                                    context,
+                                    languageProvider,
+                                    AppTranslations.translate('light_theme', languageProvider.currentLanguage),
+                                    Icons.light_mode,
+                                    false,
+                                    !themeProvider.isDarkMode,
+                                  ),
+                                ),
+                                const SizedBox(width: 12),
+                                Expanded(
+                                  child: _buildThemeOption(
+                                    context,
+                                    languageProvider,
+                                    AppTranslations.translate('dark_theme', languageProvider.currentLanguage),
+                                    Icons.dark_mode,
+                                    true,
+                                    themeProvider.isDarkMode,
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -235,6 +299,70 @@ class WidgetPage extends StatelessWidget {
     );
   }
   
+  Widget _buildThemeOption(
+    BuildContext context,
+    LanguageProvider languageProvider,
+    String title,
+    IconData icon,
+    bool isDarkTheme,
+    bool isSelected,
+  ) {
+    return GestureDetector(
+      onTap: () async {
+        final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+        if (isDarkTheme != themeProvider.isDarkMode) {
+          await themeProvider.toggleTheme();
+          await WidgetService.updateTheme(isDarkTheme);
+          
+          if (context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  isDarkTheme 
+                    ? 'Thème sombre appliqué au widget'
+                    : 'Thème clair appliqué au widget',
+                  style: const TextStyle(color: Colors.white),
+                ),
+                backgroundColor: Colors.black,
+                duration: const Duration(seconds: 2),
+              ),
+            );
+          }
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: isSelected ? Colors.black.withOpacity(0.1) : Colors.transparent,
+          border: Border.all(
+            color: isSelected ? Colors.black : Colors.black.withOpacity(0.3),
+            width: isSelected ? 2 : 1,
+          ),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          children: [
+            Icon(
+              icon,
+              color: isSelected ? Colors.black : Colors.black.withOpacity(0.6),
+              size: 32,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              title,
+              style: TextStyle(
+                color: isSelected ? Colors.black : Colors.black.withOpacity(0.6),
+                fontSize: 14,
+                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _buildBenefitItem(BuildContext context, String text, IconData icon) {
     return Row(
       children: [
