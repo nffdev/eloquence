@@ -51,6 +51,10 @@ class AppTranslations {
       AppLanguage.french: 'Thème sombre',
       AppLanguage.english: 'Dark theme',
     },
+    'light_theme': {
+      AppLanguage.french: 'Thème clair',
+      AppLanguage.english: 'Light theme',
+    },
     'enabled': {
       AppLanguage.french: 'Activé',
       AppLanguage.english: 'Enabled',
