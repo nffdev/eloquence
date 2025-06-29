@@ -10,16 +10,20 @@ class WidgetPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
         title: Consumer<LanguageProvider>(
           builder: (context, languageProvider, _) {
             return Text(
-              AppTranslations.translate('widget_management', languageProvider.currentLanguage)
+              AppTranslations.translate('widget_management', languageProvider.currentLanguage),
+              style: const TextStyle(color: Colors.black),
             );
           },
         ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
@@ -32,6 +36,7 @@ class WidgetPage extends StatelessWidget {
               children: [
                 Card(
                   elevation: 4,
+                  color: Colors.white,
                   child: Padding(
                     padding: const EdgeInsets.all(16),
                     child: Column(
@@ -39,15 +44,19 @@ class WidgetPage extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.widgets,
-                              color: Theme.of(context).primaryColor,
+                              color: Colors.black,
                               size: 24,
                             ),
                             const SizedBox(width: 12),
                             Text(
                               AppTranslations.translate('widget_preview', languageProvider.currentLanguage),
-                              style: Theme.of(context).textTheme.headlineSmall,
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ],
                         ),
@@ -57,16 +66,9 @@ class WidgetPage extends StatelessWidget {
                           height: 120,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
-                            gradient: LinearGradient(
-                              colors: [
-                                Theme.of(context).primaryColor.withOpacity(0.1),
-                                Theme.of(context).primaryColor.withOpacity(0.05),
-                              ],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            ),
+                            color: Colors.white,
                             border: Border.all(
-                              color: Theme.of(context).primaryColor.withOpacity(0.3),
+                              color: Colors.black.withOpacity(0.3),
                               width: 1,
                             ),
                           ),
@@ -85,9 +87,7 @@ class WidgetPage extends StatelessWidget {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(8),
                                       child: Image.asset(
-                                        themeProvider.isDarkMode 
-                                            ? 'assets/images/logo-dark.png'
-                                            : 'assets/images/logo-light.png',
+                                        'assets/images/logo-dark.png',
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -97,13 +97,18 @@ class WidgetPage extends StatelessWidget {
                               const SizedBox(height: 8),
                               Text(
                                 AppTranslations.translate('app_name', languageProvider.currentLanguage),
-                                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               Text(
                                 AppTranslations.translate('word_of_the_day', languageProvider.currentLanguage),
-                                style: Theme.of(context).textTheme.bodySmall,
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 12,
+                                ),
                               ),
                             ],
                           ),
@@ -118,6 +123,7 @@ class WidgetPage extends StatelessWidget {
                 // Instructions section
                 Card(
                   elevation: 2,
+                  color: Colors.white,
                   child: Padding(
                     padding: const EdgeInsets.all(16),
                     child: Column(
@@ -125,22 +131,29 @@ class WidgetPage extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.info_outline,
-                              color: Theme.of(context).primaryColor,
+                              color: Colors.black,
                               size: 24,
                             ),
                             const SizedBox(width: 12),
                             Text(
                               AppTranslations.translate('how_to_add_widget', languageProvider.currentLanguage),
-                              style: Theme.of(context).textTheme.headlineSmall,
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ],
                         ),
                         const SizedBox(height: 16),
                         Text(
                           AppTranslations.translate('widget_instructions', languageProvider.currentLanguage),
-                          style: Theme.of(context).textTheme.bodyMedium,
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                          ),
                         ),
                         const SizedBox(height: 16),
                         _buildInstructionStep(
@@ -189,7 +202,7 @@ class WidgetPage extends StatelessWidget {
           width: 32,
           height: 32,
           decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
+            color: Colors.black,
             borderRadius: BorderRadius.circular(16),
           ),
           child: Center(
@@ -205,14 +218,17 @@ class WidgetPage extends StatelessWidget {
         const SizedBox(width: 12),
         Icon(
           icon,
-          color: Theme.of(context).primaryColor,
+          color: Colors.black,
           size: 20,
         ),
         const SizedBox(width: 8),
         Expanded(
           child: Text(
             text,
-            style: Theme.of(context).textTheme.bodyMedium,
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 14,
+            ),
           ),
         ),
       ],
