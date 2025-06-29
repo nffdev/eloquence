@@ -105,6 +105,7 @@ class PreferencesPage extends StatelessWidget {
                   languageProvider.currentLanguage == AppLanguage.french ? 'FR' : 'EN-US',
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
+                leading: const Icon(Icons.language),
                 trailing: PopupMenuButton<AppLanguage>(
                   icon: const Icon(Icons.arrow_drop_down),
                   onSelected: (AppLanguage language) {
