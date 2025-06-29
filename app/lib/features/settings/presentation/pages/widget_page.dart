@@ -1,12 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:home_widget/home_widget.dart';
 import '../../../../core/localization/language_provider.dart';
 import '../../../../core/localization/app_translations.dart';
 import '../../../../core/theme/theme_provider.dart';
 import '../../../word_of_the_day/application/widget_service.dart';
 
-class WidgetPage extends StatelessWidget {
+class WidgetPage extends StatefulWidget {
   const WidgetPage({super.key});
+
+  @override
+  State<WidgetPage> createState() => _WidgetPageState();
+}
+
+class _WidgetPageState extends State<WidgetPage> {
+  bool _isWidgetDarkMode = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadWidgetTheme();
+  }
+
+  Future<void> _loadWidgetTheme() async {
+    await HomeWidget.setAppGroupId(WidgetService.appGroupId);
+    final isDarkMode = await HomeWidget.getWidgetData<bool>(WidgetService.themeKey) ?? true;
+    
+    if (mounted) {
+      setState(() {
+        _isWidgetDarkMode = isDarkMode;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -173,7 +198,7 @@ class WidgetPage extends StatelessWidget {
                                     AppTranslations.translate('light_theme', languageProvider.currentLanguage),
                                     Icons.light_mode,
                                     false,
-                                    !themeProvider.isDarkMode,
+                                    !_isWidgetDarkMode,
                                   ),
                                 ),
                                 const SizedBox(width: 12),
@@ -185,7 +210,7 @@ class WidgetPage extends StatelessWidget {
                                     AppTranslations.translate('dark_theme', languageProvider.currentLanguage),
                                     Icons.dark_mode,
                                     true,
-                                    themeProvider.isDarkMode,
+                                    _isWidgetDarkMode,
                                   ),
                                 ),
                               ],
@@ -337,6 +362,10 @@ class WidgetPage extends StatelessWidget {
         //   await themeProvider.toggleTheme();
           
         await WidgetService.updateTheme(isDarkTheme);
+        
+        setState(() {
+          _isWidgetDarkMode = isDarkTheme;
+        });
           
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
