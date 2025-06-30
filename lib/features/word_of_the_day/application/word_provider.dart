@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
@@ -47,10 +48,21 @@ class WordProvider extends ChangeNotifier {
     notifyListeners();
     
     try {
-      _currentWord = await _repository.getTodaysWord(language: _currentLanguage);
       final prefs = await SharedPreferences.getInstance();
-       List<String> favorites = prefs.getStringList('favorites') ?? [];
-       String wordId = WordUtils.getWordPairId(_currentWord);
+      final today = DateFormat('yyyy-MM-dd').format(DateTime.now());
+      
+      final rerolledWordJson = prefs.getString('rerolled_word_${today}_$_currentLanguage');
+      
+      if (rerolledWordJson != null) {
+        final wordData = json.decode(rerolledWordJson);
+        _currentWord = Word.fromJson(wordData);
+        debugPrint('Loaded rerolled word: ${_currentWord.word}');
+      } else {
+        _currentWord = await _repository.getTodaysWord(language: _currentLanguage);
+      }
+      
+      List<String> favorites = prefs.getStringList('favorites') ?? [];
+      String wordId = WordUtils.getWordPairId(_currentWord);
       _isFavorite = favorites.contains(wordId);
       _currentWord.isFavorite = _isFavorite;
       await _updateStreak();
@@ -129,6 +141,40 @@ class WordProvider extends ChangeNotifier {
     } catch (e) {
       debugPrint('Error loading favorite words: $e');
       return [];
+    }
+  }
+
+  Future<void> rerollWord() async {
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final today = DateFormat('yyyy-MM-dd').format(DateTime.now());
+      
+      int rerollCount = prefs.getInt('reroll_count_$today') ?? 0;
+      rerollCount++;
+      
+      await prefs.setInt('reroll_count_$today', rerollCount);
+      
+      _currentWord = await _repository.getRandomWord(
+        language: _currentLanguage, 
+        seed: rerollCount
+      );
+      
+      await prefs.setString('rerolled_word_${today}_$_currentLanguage', json.encode(_currentWord.toJson()));
+      
+      final favorites = prefs.getStringList('favorites') ?? [];
+      String wordId = WordUtils.getWordPairId(_currentWord);
+      _isFavorite = favorites.contains(wordId);
+      _currentWord.isFavorite = _isFavorite;
+      
+      await WidgetService.updateWordOfTheDay(_currentWord);
+    } catch (e) {
+      debugPrint('Error rerolling word: $e');
+    } finally {
+      _isLoading = false;
+      notifyListeners();
     }
   }
 }

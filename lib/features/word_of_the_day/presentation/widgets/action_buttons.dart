@@ -12,6 +12,7 @@ class ActionButtons extends StatelessWidget {
   final String definition;
   final String example;
   final String wordType;
+  final VoidCallback? onReroll;
 
   const ActionButtons({
     super.key,
@@ -21,6 +22,7 @@ class ActionButtons extends StatelessWidget {
     required this.definition,
     required this.example,
     required this.wordType,
+    this.onReroll,
   });
 
   void _shareWord(BuildContext context, AppLanguage language) {
@@ -64,7 +66,17 @@ $appName
           },
           tooltip: AppTranslations.translate('listen_pronunciation', currentLanguage),
         ),
-        const SizedBox(width: 30),
+        const SizedBox(width: 20),
+        if (onReroll != null)
+          IconButton(
+            icon: Icon(
+              Icons.refresh_outlined,
+              color: isDarkMode ? Colors.white70 : Colors.black54,
+            ),
+            onPressed: onReroll,
+            tooltip: currentLanguage == AppLanguage.french ? 'Nouveau mot' : 'New word',
+          ),
+        if (onReroll != null) const SizedBox(width: 20),
         IconButton(
           icon: Icon(
             Icons.share_outlined,
@@ -75,7 +87,7 @@ $appName
           },
           tooltip: currentLanguage == AppLanguage.french ? 'Partager' : 'Share',
         ),
-        const SizedBox(width: 30),
+        const SizedBox(width: 20),
         IconButton(
           icon: Icon(
             isFavorite ? Icons.favorite : Icons.favorite_border_outlined,
