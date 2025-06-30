@@ -195,6 +195,10 @@ class AppTranslations {
       AppLanguage.french: 'Recherchez "Eloquence"',
       AppLanguage.english: 'Search for "Eloquence"',
     },
+    'default_icon': {
+      AppLanguage.french: 'Icône par défaut',
+      AppLanguage.english: 'Default icon',
+    },
 
   };
   
