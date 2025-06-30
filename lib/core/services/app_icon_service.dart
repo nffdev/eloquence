@@ -4,8 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AppIconService {
   static const String _iconPreferenceKey = 'app_icon_preference';
   
-  static const String defaultIcon = 'AppIcon';
-  static const String darkIcon = 'AppIcon-Dark';
+  static const String defaultIcon = 'AppIcon-Dark';
+  static const String lightIcon = 'AppIcon';
   
   static Future<String> getCurrentIcon() async {
     final prefs = await SharedPreferences.getInstance();
@@ -48,13 +48,13 @@ class AppIconService {
     return [
       AppIconOption(
         name: defaultIcon,
-        displayName: 'Light Icon',
-        description: 'Default light theme icon',
+        displayName: 'Dark Icon',
+        description: 'Default dark theme icon',
       ),
       AppIconOption(
-        name: darkIcon,
-        displayName: 'Dark Icon',
-        description: 'Dark theme icon',
+        name: lightIcon,
+        displayName: 'Light Icon',
+        description: 'Light theme icon',
       ),
     ];
   }

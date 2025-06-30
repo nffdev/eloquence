@@ -205,9 +205,19 @@ class PreferencesPage extends StatelessWidget {
                   AppTranslations.translate('app_icon', languageProvider.currentLanguage),
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
-                subtitle: Text(
-                  AppTranslations.translate('default_icon', languageProvider.currentLanguage),
-                  style: Theme.of(context).textTheme.bodyMedium,
+                subtitle: Consumer<AppIconProvider>(
+                  builder: (context, iconProvider, _) {
+                    String currentIconName;
+                    if (iconProvider.currentIcon == AppIconService.lightIcon) {
+                      currentIconName = AppTranslations.translate('light_icon', languageProvider.currentLanguage);
+                    } else {
+                      currentIconName = AppTranslations.translate('dark_icon', languageProvider.currentLanguage);
+                    }
+                    return Text(
+                      currentIconName,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    );
+                  },
                 ),
                 leading: Consumer<ThemeProvider>(
                   builder: (context, themeProvider, _) {
@@ -235,7 +245,7 @@ class PreferencesPage extends StatelessWidget {
                    onSelected: (String value) async {
                      final iconProvider = Provider.of<AppIconProvider>(context, listen: false);
                      
-                     String iconName = value == 'light' ? AppIconService.defaultIcon : AppIconService.darkIcon;
+                     String iconName = value == 'light' ? AppIconService.lightIcon : AppIconService.defaultIcon;
                      String iconType = value == 'light' 
                          ? AppTranslations.translate('light_icon', languageProvider.currentLanguage)
                          : AppTranslations.translate('dark_icon', languageProvider.currentLanguage);
@@ -289,7 +299,7 @@ class PreferencesPage extends StatelessWidget {
                           const Spacer(),
                           Consumer<AppIconProvider>(
                             builder: (context, iconProvider, _) {
-                              return iconProvider.isIconSelected(AppIconService.defaultIcon)
+                              return iconProvider.isIconSelected(AppIconService.lightIcon)
                                   ? const Icon(Icons.check, size: 16)
                                   : const SizedBox.shrink();
                             },
@@ -321,7 +331,7 @@ class PreferencesPage extends StatelessWidget {
                           const Spacer(),
                            Consumer<AppIconProvider>(
                              builder: (context, iconProvider, _) {
-                               return iconProvider.isIconSelected(AppIconService.darkIcon)
+                               return iconProvider.isIconSelected(AppIconService.defaultIcon)
                                    ? const Icon(Icons.check, size: 16)
                                    : const SizedBox.shrink();
                              },
