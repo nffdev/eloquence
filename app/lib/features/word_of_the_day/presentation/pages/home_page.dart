@@ -177,6 +177,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                                 definition: wordProvider.currentWord.definition,
                                 example: wordProvider.currentWord.example,
                                 wordType: wordProvider.currentWord.type,
+                                onReroll: () => wordProvider.rerollWord(),
                               );
                             },
                           ),

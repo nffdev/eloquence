@@ -178,4 +178,23 @@ class WordRepository {
     List<String> favorites = prefs.getStringList('favorites') ?? [];
     return favorites.contains(word);
   }
+
+  Future<Word> getRandomWord({String language = 'fr', int seed = 0}) async {
+    final filteredWords = WordUtils.fallbackWords.where((w) => w.language == language).toList();
+    
+    if (filteredWords.isEmpty && language != 'fr') {
+      debugPrint('No words found for language $language, using French instead');
+      return getRandomWord(language: 'fr', seed: seed);
+    }
+    
+    if (filteredWords.isEmpty) {
+      return WordUtils.fallbackWords.first;
+    }
+    
+    final randomIndex = (DateTime.now().millisecondsSinceEpoch + seed) % filteredWords.length;
+    final randomWord = filteredWords[randomIndex];
+    
+    debugPrint('Random word generated for language $language with seed $seed: ${randomWord.word}');
+    return randomWord;
+  }
 }
