@@ -14,6 +14,7 @@ Une application élégante pour élargir votre vocabulaire français, un mot à 
 - 🌍 **Traduction** : Traduisez le mot dans d’autres langues.
 - 📱 **Widget** : Affichez le mot du jour directement sur votre écran d’accueil.
 - 🚀 **Splash screen** : Démarrage fluide et stylé.
+- 🎲 **Reroll** : Générez un nouveau mot du jour localement à tout moment.
 
 ---
 
@@ -59,6 +60,9 @@ lib/
 - [x] 🚀 Ajouter un **splash screen personnalisé**.
 - [x] 🌍 Intégrer un **système de traduction** multilingue.
 - [x] 🌐 Utiliser une **API externe** pour récupérer les mots, définitions et exemples.
+- [x] 🎲 Ajouter un **système de reroll** pour générer un nouveau mot du jour localement.
+
+📋 **Suivi du projet** : Consultez l'avancement détaillé sur [GitHub Projects](https://github.com/users/nffdev/projects/8/views/2).
 
 ---
 
