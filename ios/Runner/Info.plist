@@ -53,11 +53,11 @@
 		</dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
-			<key>AppIcon</key>
+			<key>AppIcon-Light</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
-					<string>AppIcon</string>
+					<string>AppIcon-Light</string>
 				</array>
 			</dict>
 			<key>AppIcon-Dark</key>
