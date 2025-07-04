@@ -166,6 +166,166 @@ class WordRepository {
         'The supercilious waiter looked down his nose at customers who didn\'t know about wine.',
         false,
         'en'
+      ),
+      new Word(
+        'Séraphique',
+        'Adj',
+        'Qui évoque la pureté, la béatitude des séraphins; d\'une douceur angélique',
+        'Son sourire séraphique apaisait instantanément les tensions dans la pièce.',
+        false,
+        'fr'
+      ),
+      new Word(
+        'Pérennité',
+        'Nom',
+        'Caractère de ce qui dure toujours ou très longtemps',
+        'La pérennité de cette tradition familiale se transmet depuis des générations.',
+        false,
+        'fr'
+      ),
+      new Word(
+        'Mélopée',
+        'Nom',
+        'Chant monotone et plaintif; suite de sons répétitifs et mélancoliques',
+        'La mélopée du vent dans les arbres berçait doucement les voyageurs épuisés.',
+        false,
+        'fr'
+      ),
+      new Word(
+        'Indicible',
+        'Adj',
+        'Qui ne peut être exprimé par des paroles, inexprimable',
+        'Une joie indicible l\'envahit lorsqu\'il aperçut enfin sa terre natale à l\'horizon.',
+        false,
+        'fr'
+      ),
+      new Word(
+        'Alacrité',
+        'Nom',
+        'Vivacité joyeuse, entrain, enthousiasme',
+        'Elle abordait chaque journée avec une alacrité contagieuse qui inspirait son entourage.',
+        false,
+        'fr'
+      ),
+      new Word(
+        'Diapré',
+        'Adj',
+        'Qui présente des couleurs variées et chatoyantes',
+        'Le ciel diapré du crépuscule offrait un spectacle d\'une beauté saisissante.',
+        false,
+        'fr'
+      ),
+      new Word(
+        'Acuité',
+        'Nom',
+        'Caractère de ce qui est aigu, pénétrant; finesse de perception',
+        'Son acuité intellectuelle lui permettait de résoudre des problèmes complexes avec une facilité déconcertante.',
+        false,
+        'fr'
+      ),
+      new Word(
+        'Déliquescent',
+        'Adj',
+        'Qui se dissout, se désagrège progressivement; en état de décomposition',
+        'L\'atmosphère déliquescente du vieux manoir évoquait la splendeur passée d\'une époque révolue.',
+        false,
+        'fr'
+      ),
+      new Word(
+        'Équanimité',
+        'Nom',
+        'Égalité d\'humeur, sérénité face aux événements, bons ou mauvais',
+        'Le sage accueillait les nouvelles, bonnes ou mauvaises, avec une parfaite équanimité.',
+        false,
+        'fr'
+      ),
+      new Word(
+        'Sempiternel',
+        'Adj',
+        'Qui dure toujours, qui se répète sans cesse, éternel',
+        'Il reprenait son sempiternelle complainte sur les difficultés de la vie moderne.',
+        false,
+        'fr'
+      ),
+      new Word(
+        'Ephemeral',
+        'Adj',
+        'Lasting for a very short time',
+        'The ephemeral beauty of cherry blossoms makes their annual appearance all the more precious.',
+        false,
+        'en'
+      ),
+      new Word(
+        'Limerence',
+        'Noun',
+        'The state of being infatuated or obsessed with another person',
+        'His limerence for her clouded his judgment and consumed his every thought.',
+        false,
+        'en'
+      ),
+      new Word(
+        'Petrichor',
+        'Noun',
+        'The pleasant smell that accompanies the first rain after a long period of dry weather',
+        'After months of drought, the petrichor rising from the damp earth was intoxicating.',
+        false,
+        'en'
+      ),
+      new Word(
+        'Sonder',
+        'Verb',
+        'The realization that each random passerby is living a life as vivid and complex as your own',
+        'Walking through the crowded city streets, she was overcome with a feeling of sonder.',
+        false,
+        'en'
+      ),
+      new Word(
+        'Halcyon',
+        'Adj',
+        'Denoting a period of time in the past that was idyllically happy and peaceful',
+        'He often reminisced about those halcyon days of his youth spent by the seaside.',
+        false,
+        'en'
+      ),
+      new Word(
+        'Vellichor',
+        'Noun',
+        'The strange wistfulness of used bookstores',
+        'The vellichor of the ancient bookshop transported him to countless other worlds and times.',
+        false,
+        'en'
+      ),
+      new Word(
+        'Eloquent',
+        'Adj',
+        'Fluent or persuasive in speaking or writing',
+        'Her eloquent speech moved the audience to tears and inspired them to action.',
+        false,
+        'en'
+      ),
+      new Word(
+        'Luminous',
+        'Adj',
+        'Full of or shedding light; bright or shining',
+        'Her luminous smile lit up the entire room when she entered.',
+        false,
+        'en'
+      ),
+      new Word(
+        'Mellifluous',
+        'Adj',
+        'Sweet or musical; pleasant to hear',
+        'The mellifluous tones of the cello filled the concert hall with warmth.',
+        false,
+        'en'
+      ),
+      new Word(
+        'Serenity',
+        'Noun',
+        'The state of being calm, peaceful, and untroubled',
+        'The serenity of the mountain lake at dawn restored his sense of inner peace.',
+        false,
+        'en'
       )
     ];
   }
