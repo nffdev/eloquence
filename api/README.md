@@ -1,6 +1,6 @@
 # Eloquence API
 
-API for the Eloquence application allowing to list words with their descriptions, types, examples and dates.
+API for the Eloquence application allowing to list words with their descriptions, types and examples.
 
 ## Installation
 
@@ -87,7 +87,6 @@ api/
   "type": "Adj",
   "definition": "D'une beauté irréelle, presque céleste",
   "example": "Son regard était d'une beauté éthérée, comme s'il appartenait à un rêve.",
-  "date": "2023-04-06",
   "isFavorite": false
 }
 ```

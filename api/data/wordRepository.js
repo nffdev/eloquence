@@ -11,7 +11,6 @@ class WordRepository {
         'Adj',
         'D\'une beauté irréelle, presque céleste',
         'Son regard était d\'une beauté éthérée, comme s\'il appartenait à un rêve.',
-        '2023-04-06',
         false,
         'fr'
       ),
@@ -20,7 +19,6 @@ class WordRepository {
         'Nom',
         'Le fait de découvrir quelque chose par hasard alors qu\'on cherchait autre chose',
         'C\'est par sérendipité qu\'il a trouvé sa vocation en se perdant dans ce musée.',
-        '2023-04-07',
         false,
         'fr'
       ),
@@ -29,7 +27,6 @@ class WordRepository {
         'Adj',
         'Qui ne peut être exprimé par des paroles tant c\'est intense',
         'Face à ce paysage grandiose, il ressentit une joie ineffable.',
-        '2023-04-08',
         false,
         'fr'
       ),
@@ -38,7 +35,6 @@ class WordRepository {
         'Nom',
         'Aigreur, amertume qui se manifeste dans les paroles ou le comportement',
         'Il a répondu avec acrimonie aux critiques formulées contre son projet.',
-        '2023-04-09',
         false,
         'fr'
       ),
@@ -47,7 +43,6 @@ class WordRepository {
         'Nom',
         'Ce qu\'il y a de plus raffiné, de plus pur, l\'essence parfaite d\'une chose',
         'Ce plat représente la quintessence de la cuisine française traditionnelle.',
-        '2023-04-10',
         false,
         'fr'
       ),
@@ -56,7 +51,6 @@ class WordRepository {
         'Adj',
         'Qui voyage, qui vient de loin, étranger ou voyageur',
         'Cet oiseau pérégrin avait parcouru des milliers de kilomètres avant d\'arriver sur nos côtes.',
-        '2023-04-11',
         false,
         'fr'
       ),
@@ -65,7 +59,6 @@ class WordRepository {
         'Adj',
         'Obscur, énigmatique, difficile à comprendre mais semblant cacher un sens profond',
         'Ses réponses sibyllines ne m\'ont pas permis de comprendre ses véritables intentions.',
-        '2023-04-12',
         false,
         'fr'
       ),
@@ -74,7 +67,6 @@ class WordRepository {
         'Nom',
         'Manuscrit dont on a effacé le texte primitif pour y écrire un nouveau texte; par extension, œuvre qui se superpose à une autre en la laissant transparaître',
         'Sa dernière œuvre est un palimpseste littéraire où l\'on reconnaît l\'influence de plusieurs auteurs classiques.',
-        '2023-04-13',
         false,
         'fr'
       ),
@@ -83,7 +75,6 @@ class WordRepository {
         'Nom',
         'Parole mémorable ayant valeur de maxime, sentence exprimant une vérité générale',
         'Il terminait toujours ses discours par un apophtegme qui résumait parfaitement sa pensée.',
-        '2023-04-14',
         false,
         'fr'
       ),
@@ -92,7 +83,6 @@ class WordRepository {
         'Nom',
         'Entretien secret entre plusieurs personnes, généralement pour préparer un complot ou une action commune',
         'Après une heure de conciliabule dans le bureau du directeur, la décision fut annoncée à l\'ensemble du personnel.',
-        '2023-04-15',
         false,
         'fr'
       ),
@@ -102,7 +92,6 @@ class WordRepository {
         'Adj',
         'Extremely delicate and light in a way that seems too perfect for this world',
         'The ethereal beauty of the mountains at sunrise took her breath away.',
-        '2023-04-06',
         false,
         'en'
       ),
@@ -111,7 +100,6 @@ class WordRepository {
         'Noun',
         'The occurrence and development of events by chance in a happy or beneficial way',
         'It was pure serendipity that he met his future business partner on that flight.',
-        '2023-04-07',
         false,
         'en'
       ),
@@ -120,7 +108,6 @@ class WordRepository {
         'Adj',
         'Too great or extreme to be expressed or described in words',
         'The ineffable joy of becoming a parent for the first time cannot be adequately described.',
-        '2023-04-08',
         false,
         'en'
       ),
@@ -129,7 +116,6 @@ class WordRepository {
         'Noun',
         'Bitterness or ill feeling',
         'The divorce was filled with acrimony, making it difficult for them to co-parent effectively.',
-        '2023-04-09',
         false,
         'en'
       ),
@@ -138,7 +124,6 @@ class WordRepository {
         'Noun',
         'The most perfect or typical example of a quality or class',
         'This dish is the quintessence of traditional Italian cooking.',
-        '2023-04-10',
         false,
         'en'
       ),
@@ -147,7 +132,6 @@ class WordRepository {
         'Noun',
         'A journey, especially a long or meandering one',
         'His peregrination across Europe lasted three months and took him through twelve different countries.',
-        '2023-04-11',
         false,
         'en'
       ),
@@ -156,7 +140,6 @@ class WordRepository {
         'Adj',
         'Having a ready insight into and understanding of things',
         'Her perspicacious comments during the meeting revealed she had already anticipated the problem.',
-        '2023-04-12',
         false,
         'en'
       ),
@@ -165,7 +148,6 @@ class WordRepository {
         'Adj',
         'Sweet or musical; pleasant to hear',
         'The speaker\'s mellifluous voice made even the most mundane topic seem fascinating.',
-        '2023-04-13',
         false,
         'en'
       ),
@@ -174,7 +156,6 @@ class WordRepository {
         'Verb',
         'To make obscure, unclear, or unintelligible',
         'The politician tried to obfuscate the issue by using complex technical jargon.',
-        '2023-04-14',
         false,
         'en'
       ),
@@ -183,7 +164,6 @@ class WordRepository {
         'Adj',
         'Behaving or looking as though one is superior to others',
         'The supercilious waiter looked down his nose at customers who didn\'t know about wine.',
-        '2023-04-15',
         false,
         'en'
       )
@@ -225,8 +205,6 @@ class WordRepository {
    * @returns {Word} A word for today in the specified language
    */
   getWordOfTheDay(language = 'fr') {
-    const today = new Date();
-    
     const filteredWords = this.words.filter(word => word.language === language);
     
     if (filteredWords.length === 0 && language !== 'fr') {
@@ -237,7 +215,7 @@ class WordRepository {
       return this.words[0];
     }
     
-    const random = today.getDate() % filteredWords.length;
+    const random = Math.floor(Math.random() * filteredWords.length);
     return filteredWords[random];
   }
 

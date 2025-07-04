@@ -114,8 +114,7 @@ const wordController = {
         });
       }
 
-      const date = new Date().toISOString().split('T')[0];
-      const newWord = new Word(word, type, definition, example || '', date, false, language);
+      const newWord = new Word(word, type, definition, example || '', false, language);
       
       const addedWord = wordRepository.addWord(newWord);
       
