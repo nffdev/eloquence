@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/localization/language_provider.dart';
+import '../../../../core/utils/word_utils.dart';
+import '../../domain/models/word.dart';
 
 class WordExample extends StatelessWidget {
   final String example;
@@ -19,30 +21,21 @@ class WordExample extends StatelessWidget {
     
     final exampleTitle = currentLanguage == AppLanguage.french ? 'Exemple :' : 'Example :';
     
-    String translatedExample;
+    String translatedExample = example;
+    
+    final tempWord = Word(
+      word: word,
+      type: '',
+      definition: '',
+      example: example,
+      language: 'fr',
+    );
     
     if (currentLanguage == AppLanguage.english) {
-      switch (word) {
-        case 'Éthéré':
-          translatedExample = 'Her gaze had an ethereal beauty, as if it belonged to a dream.';
-          break;
-        case 'Sérendipité':
-          translatedExample = 'It was by serendipity that he found his calling when getting lost in that museum.';
-          break;
-        case 'Ineffable':
-          translatedExample = 'Facing this magnificent landscape, he felt an ineffable joy.';
-          break;
-        case 'Acrimonie':
-          translatedExample = 'He responded with acrimony to the criticisms made against his project.';
-          break;
-        case 'Quintessence':
-          translatedExample = 'This dish represents the quintessence of traditional French cuisine.';
-          break;
-        default:
-          translatedExample = example;
+      final translation = WordUtils.getTranslation(tempWord, 'en');
+      if (translation != null) {
+        translatedExample = translation.example;
       }
-    } else {
-      translatedExample = example;
     }
     
     return Column(
