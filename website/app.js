@@ -79,6 +79,36 @@ function updateLanguage(lang) {
     });
 }
 
+async function fetchWordCount() {
+    try {
+        const wordCountElement = document.querySelector('.stat-item:nth-child(2) .stat-value');
+        if (wordCountElement) {
+            wordCountElement.textContent = "Loading...";
+        }
+        
+        fetch('http://127.0.0.1:8080/api/words')
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.count) {
+                    const wordCount = data.count;
+                    
+                    if (wordCountElement) {
+                        wordCountElement.setAttribute('data-target', wordCount);
+                        animateCounter(wordCountElement, wordCount, '+');
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error while fetching word count:', error);
+                if (wordCountElement) {
+                    wordCountElement.textContent = "100+";
+                }
+            });
+    } catch (error) {
+        console.error('Error while fetching word count:', error);
+    }
+}
+
 async function fetchAppStoreRating() {
     try {
         const appId = '6746582572';
@@ -88,7 +118,7 @@ async function fetchAppStoreRating() {
             ratingElement.textContent = "Loading...";
         }
         
-        fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https://itunes.apple.com/lookup?id=${appId}&country=fr`)}`)
+        fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https://itunes.apple.com/lookup?id=${appId}&country=fr`)}`) 
             .then(response => response.json())
             .then(data => {
                 const text = data.contents;
@@ -97,7 +127,6 @@ async function fetchAppStoreRating() {
                     const rating = parseFloat(match[1]);
                     
                     if (ratingElement) {
-                        ratingElement.setAttribute('data-target', rating);
                         animateCounter(ratingElement, rating, '/5');
                     }
                 }
@@ -131,6 +160,8 @@ document.addEventListener('DOMContentLoaded', () => {
             updateLanguage(langSelector.value);
         });
     }
+    
+    fetchWordCount();
     
     fetchAppStoreRating();
 });
