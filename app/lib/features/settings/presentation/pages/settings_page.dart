@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:in_app_review/in_app_review.dart';
 import '../../../../core/localization/language_provider.dart';
 import '../../../../core/localization/app_translations.dart';
 import 'preferences_page.dart';
@@ -108,16 +109,24 @@ class SettingsPage extends StatelessWidget {
             leading: const Icon(Icons.star_outline),
             trailing: const Icon(Icons.open_in_new),
             onTap: () async {
-              final Uri url = Uri.parse('https://apps.apple.com/fr/app/eloquence/id6746582572');
-              if (await canLaunchUrl(url)) {
-                await launchUrl(url, mode: LaunchMode.externalApplication);
+              final InAppReview inAppReview = InAppReview.instance;
+              
+              if (await inAppReview.isAvailable()) {
+                await inAppReview.openStoreListing(
+                  appStoreId: '6746582572',
+                );
               } else {
-                if (context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Failed to open link'),
-                    ),
-                  );
+                final Uri url = Uri.parse('https://apps.apple.com/fr/app/eloquence/id6746582572');
+                if (await canLaunchUrl(url)) {
+                  await launchUrl(url, mode: LaunchMode.externalApplication);
+                } else {
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Failed to open link'),
+                      ),
+                    );
+                  }
                 }
               }
             },
