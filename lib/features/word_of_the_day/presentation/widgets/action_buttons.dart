@@ -4,6 +4,8 @@ import 'package:share_plus/share_plus.dart';
 import '../../../../core/services/tts_service.dart';
 import '../../../../core/localization/language_provider.dart';
 import '../../../../core/localization/app_translations.dart';
+import '../../../../core/utils/word_utils.dart';
+import '../../domain/models/word.dart';
 
 class ActionButtons extends StatelessWidget {
   final bool isFavorite;
@@ -13,6 +15,7 @@ class ActionButtons extends StatelessWidget {
   final String example;
   final String wordType;
   final VoidCallback? onReroll;
+  final Word currentWord;
 
   const ActionButtons({
     super.key,
@@ -23,6 +26,7 @@ class ActionButtons extends StatelessWidget {
     required this.example,
     required this.wordType,
     this.onReroll,
+    required this.currentWord,
   });
 
   void _shareWord(BuildContext context, AppLanguage language) {
@@ -33,11 +37,19 @@ class ActionButtons extends StatelessWidget {
     final exampleLabel = isEnglish ? 'Example' : 'Exemple';
     final appName = 'https://apps.apple.com/fr/app/eloquence/id6746582572';
     
+    final targetLanguage = isEnglish ? 'en' : 'fr';
+    final translatedWord = WordUtils.getTranslation(currentWord, targetLanguage);
+    
+    final wordToShare = translatedWord?.word ?? wordToSpeak;
+    final typeToShare = translatedWord?.type ?? wordType;
+    final definitionToShare = translatedWord?.definition ?? definition;
+    final exampleToShare = translatedWord?.example ?? example;
+    
     final shareText = '''
-$title: $wordToSpeak
-$typeLabel: $wordType
-$definitionLabel: $definition
-$exampleLabel: "$example"
+$title: $wordToShare
+$typeLabel: $typeToShare
+$definitionLabel: $definitionToShare
+$exampleLabel: "$exampleToShare"
 
 $appName
 ''';
