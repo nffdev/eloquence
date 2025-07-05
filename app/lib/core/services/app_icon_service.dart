@@ -5,7 +5,7 @@ class AppIconService {
   static const String _iconPreferenceKey = 'app_icon_preference';
   
   static const String defaultIcon = 'AppIcon-Dark';
-  static const String lightIcon = 'AppIcon';
+  static const String lightIcon = 'AppIcon-Light';
   
   static Future<String> getCurrentIcon() async {
     final prefs = await SharedPreferences.getInstance();
