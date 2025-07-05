@@ -48,7 +48,7 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
-				<string>AppIcon-Dark</string>
+				<string>AppIcon</string>
 			</array>
 		</dict>
 		<key>CFBundleAlternateIcons</key>
