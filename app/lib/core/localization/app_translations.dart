@@ -71,6 +71,14 @@ class AppTranslations {
       AppLanguage.french: 'Version',
       AppLanguage.english: 'Version',
     },
+    'rate_app': {
+      AppLanguage.french: 'Noter l\'application',
+      AppLanguage.english: 'Rate the app',
+    },
+    'rate_app_subtitle': {
+      AppLanguage.french: 'Donnez votre avis sur l\'App Store',
+      AppLanguage.english: 'Share your feedback on the App Store',
+    },
     'developer': {
       AppLanguage.french: 'Développeur',
       AppLanguage.english: 'Developer',
