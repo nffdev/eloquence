@@ -92,6 +92,41 @@ class SettingsPage extends StatelessWidget {
             title: Consumer<LanguageProvider>(
               builder: (context, languageProvider, _) {
                 return Text(
+                  AppTranslations.translate('rate_app', languageProvider.currentLanguage),
+                  style: Theme.of(context).textTheme.bodyLarge,
+                );
+              },
+            ),
+            subtitle: Consumer<LanguageProvider>(
+              builder: (context, languageProvider, _) {
+                return Text(
+                  AppTranslations.translate('rate_app_subtitle', languageProvider.currentLanguage),
+                  style: Theme.of(context).textTheme.bodyMedium,
+                );
+              },
+            ),
+            leading: const Icon(Icons.star_outline),
+            trailing: const Icon(Icons.open_in_new),
+            onTap: () async {
+              final Uri url = Uri.parse('https://apps.apple.com/fr/app/eloquence/id6746582572');
+              if (await canLaunchUrl(url)) {
+                await launchUrl(url, mode: LaunchMode.externalApplication);
+              } else {
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Failed to open link'),
+                    ),
+                  );
+                }
+              }
+            },
+          ),
+
+          ListTile(
+            title: Consumer<LanguageProvider>(
+              builder: (context, languageProvider, _) {
+                return Text(
                   AppTranslations.translate('developer', languageProvider.currentLanguage),
                   style: Theme.of(context).textTheme.bodyLarge,
                 );
