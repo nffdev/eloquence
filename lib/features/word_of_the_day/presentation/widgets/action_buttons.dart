@@ -35,7 +35,7 @@ class ActionButtons extends StatelessWidget {
     final typeLabel = isEnglish ? 'Type' : 'Type';
     final definitionLabel = isEnglish ? 'Definition' : 'Définition';
     final exampleLabel = isEnglish ? 'Example' : 'Exemple';
-    final appName = 'https://apps.apple.com/fr/app/eloquence/id6746582572';
+    final appName = 'https://apps.apple.com/app/eloquence/id6746582572';
     
     final targetLanguage = isEnglish ? 'en' : 'fr';
     final translatedWord = WordUtils.getTranslation(currentWord, targetLanguage);
