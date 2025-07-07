@@ -375,8 +375,11 @@ class WordRepository {
       return this.words[0];
     }
     
-    const random = Math.floor(Math.random() * filteredWords.length);
-    return filteredWords[random];
+    const today = new Date();
+    const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+    const index = dayOfYear % filteredWords.length;
+    
+    return filteredWords[index];
   }
 
   /**
