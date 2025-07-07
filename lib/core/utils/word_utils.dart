@@ -36,10 +36,12 @@ class WordUtils {
   
   static String getWordPairId(Word word) {
     for (var translation in WordConstants.wordTranslations) {
-      if (translation.french.word == word.word || translation.english.word == word.word) {
+      if (translation.french.word.toLowerCase() == word.word.toLowerCase() || 
+          translation.english.word.toLowerCase() == word.word.toLowerCase()) {
         return translation.french.word; 
       }
     }
-    return word.word; 
+    
+    return word.word.toLowerCase();
   }
 }

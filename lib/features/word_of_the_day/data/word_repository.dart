@@ -66,9 +66,18 @@ class WordRepository {
     return todaysWord;
   }
   
-  Future<Word?> _fetchWordFromApi({String language = 'fr'}) async {
+  Future<Word?> _fetchWordFromApi({String language = 'fr', String? wordName}) async {
     try {
-      final url = '${ApiConstants.wordOfTheDayUrl}?lang=$language';
+      final String url;
+      
+      if (wordName != null) {
+        url = ApiConstants.getWordByNameUrl(wordName) + '?lang=$language';
+        debugPrint('Fetching specific word from API: $wordName (language: $language)');
+      } else {
+        url = '${ApiConstants.wordOfTheDayUrl}?lang=$language';
+        debugPrint('Fetching word of the day from API (language: $language)');
+      }
+      
       final response = await http.get(Uri.parse(url))
           .timeout(Duration(seconds: ApiConstants.apiTimeoutSeconds));
       
@@ -80,7 +89,7 @@ class WordRepository {
           }
           
           final jsonResponse = json.decode(response.body);
-          debugPrint('API response received: $jsonResponse');
+          debugPrint('API response received');
           
           Map<String, dynamic> wordData;
           if (jsonResponse is Map && jsonResponse.containsKey('data')) {
@@ -111,6 +120,34 @@ class WordRepository {
       return null;
     }
   }
+  
+  Future<Word?> getWordByName(String wordName, {String language = 'fr'}) async {
+    try {
+      final apiWord = await _fetchWordFromApi(language: language, wordName: wordName);
+      if (apiWord != null) {
+        debugPrint('Word retrieved from API: ${apiWord.word}');
+        return apiWord;
+      }
+    } catch (e) {
+      debugPrint('Error retrieving word from API: $e');
+    }
+    
+    final matchingWords = WordUtils.fallbackWords
+        .where((w) => w.word.toLowerCase() == wordName.toLowerCase() && w.language == language)
+        .toList();
+    
+    if (matchingWords.isNotEmpty) {
+      debugPrint('Word found in fallback words: ${matchingWords.first.word}');
+      return matchingWords.first;
+    }
+    
+    if (language != 'fr') {
+      return getWordByName(wordName, language: 'fr');
+    }
+    
+    debugPrint('Word not found: $wordName');
+    return null;
+  }
 
   Future<void> saveWordFavoriteStatus(Word word, bool isFavorite) async {
     final prefs = await SharedPreferences.getInstance();
@@ -139,6 +176,11 @@ class WordRepository {
     final prefs = await SharedPreferences.getInstance();
     List<String> favorites = prefs.getStringList('favorites') ?? [];
     
+    if (favorites.isEmpty) {
+      debugPrint('No favorite words found');
+      return [];
+    }
+    
     Map<String, Word> favoriteWordsMap = {};
     
     prefs.getKeys().forEach((key) {
@@ -151,21 +193,50 @@ class WordRepository {
             String wordId = WordUtils.getWordPairId(word);
             if (favorites.contains(wordId)) {
               favoriteWordsMap[wordId] = word;
+              debugPrint('Loaded favorite word from cache: ${word.word}');
             }
           }
         } catch (e) {
-          debugPrint('Error loading word: $e');
+          debugPrint('Error loading word from cache: $e');
         }
       }
     });
     
-    for (final wordName in favorites) {
-      if (!favoriteWordsMap.containsKey(wordName)) {
-        final matchingWords = WordUtils.fallbackWords.where((w) => w.word == wordName).toList();
+    List<String> missingWords = favorites.where((wordId) => !favoriteWordsMap.containsKey(wordId)).toList();
+    
+    if (missingWords.isNotEmpty) {
+      debugPrint('Trying to fetch ${missingWords.length} missing favorite words from API');
+      
+      try {
+        final allWords = await getAllWords();
+        
+        for (final wordName in missingWords) {
+          final matchingApiWords = allWords.where((w) => WordUtils.getWordPairId(w) == wordName).toList();
+          
+          if (matchingApiWords.isNotEmpty) {
+            final word = matchingApiWords.first;
+            word.isFavorite = true;
+            favoriteWordsMap[wordName] = word;
+            debugPrint('Found favorite word from API: ${word.word}');
+          }
+        }
+      } catch (e) {
+        debugPrint('Error fetching favorite words from API: $e');
+      }
+    }
+    
+    missingWords = favorites.where((wordId) => !favoriteWordsMap.containsKey(wordId)).toList();
+    
+    if (missingWords.isNotEmpty) {
+      debugPrint('Using fallback for ${missingWords.length} remaining favorite words');
+      
+      for (final wordName in missingWords) {
+        final matchingWords = WordUtils.fallbackWords.where((w) => WordUtils.getWordPairId(w) == wordName).toList();
         if (matchingWords.isNotEmpty) {
           final word = matchingWords.first;
           word.isFavorite = true;
           favoriteWordsMap[wordName] = word;
+          debugPrint('Using fallback word: ${word.word}');
         }
       }
     }
@@ -179,22 +250,92 @@ class WordRepository {
     return favorites.contains(word);
   }
 
-  Future<Word> getRandomWord({String language = 'fr', int seed = 0}) async {
+  Future<List<Word>> getAllWords({String language = 'fr'}) async {
+    try {
+      final url = '${ApiConstants.allWordsUrl}?lang=$language';
+      final response = await http.get(Uri.parse(url))
+          .timeout(Duration(seconds: ApiConstants.apiTimeoutSeconds));
+      
+      if (response.statusCode == 200) {
+        try {
+          if (response.body.isEmpty) {
+            debugPrint('API returned empty response for getAllWords');
+            return _getFallbackWords(language);
+          }
+          
+          final jsonResponse = json.decode(response.body);
+          debugPrint('API response received for getAllWords');
+          
+          List<dynamic> wordsData;
+          if (jsonResponse is Map && jsonResponse.containsKey('data')) {
+            wordsData = jsonResponse['data'];
+          } else if (jsonResponse is List) {
+            wordsData = jsonResponse;
+          } else {
+            debugPrint('API response has unexpected format');
+            return _getFallbackWords(language);
+          }
+          
+          final words = wordsData.map((wordData) => Word.fromJson(wordData)).toList();
+          debugPrint('Successfully parsed ${words.length} words from API');
+          return words;
+        } catch (parseError) {
+          debugPrint('Error parsing API response for getAllWords: $parseError');
+          return _getFallbackWords(language);
+        }
+      } else {
+        debugPrint('API error for getAllWords: ${response.statusCode}');
+        return _getFallbackWords(language);
+      }
+    } catch (e) {
+      debugPrint('Execution failed for getAllWords: $e');
+      return _getFallbackWords(language);
+    }
+  }
+  
+  List<Word> _getFallbackWords(String language) {
     final filteredWords = WordUtils.fallbackWords.where((w) => w.language == language).toList();
-    
-    if (filteredWords.isEmpty && language != 'fr') {
-      debugPrint('No words found for language $language, using French instead');
-      return getRandomWord(language: 'fr', seed: seed);
+    debugPrint('Using ${filteredWords.length} fallback words for language $language');
+    return filteredWords;
+  }
+  
+  Future<Word> getRandomWord({String language = 'fr', int seed = 0}) async {
+    try {
+      final words = await getAllWords(language: language);
+      
+      if (words.isEmpty && language != 'fr') {
+        debugPrint('No words found for language $language, using French instead');
+        return getRandomWord(language: 'fr', seed: seed);
+      }
+      
+      if (words.isEmpty) {
+        debugPrint('No words available, using first fallback word');
+        return WordUtils.fallbackWords.first;
+      }
+      
+      final randomIndex = (DateTime.now().millisecondsSinceEpoch + seed) % words.length;
+      final randomWord = words[randomIndex];
+      
+      debugPrint('Random word selected for language $language with seed $seed: ${randomWord.word}');
+      return randomWord;
+    } catch (e) {
+      debugPrint('Error getting random word: $e, falling back to local words');
+      
+      final filteredWords = WordUtils.fallbackWords.where((w) => w.language == language).toList();
+      
+      if (filteredWords.isEmpty && language != 'fr') {
+        return getRandomWord(language: 'fr', seed: seed);
+      }
+      
+      if (filteredWords.isEmpty) {
+        return WordUtils.fallbackWords.first;
+      }
+      
+      final randomIndex = (DateTime.now().millisecondsSinceEpoch + seed) % filteredWords.length;
+      final randomWord = filteredWords[randomIndex];
+      
+      debugPrint('Random word generated locally for language $language with seed $seed: ${randomWord.word}');
+      return randomWord;
     }
-    
-    if (filteredWords.isEmpty) {
-      return WordUtils.fallbackWords.first;
-    }
-    
-    final randomIndex = (DateTime.now().millisecondsSinceEpoch + seed) % filteredWords.length;
-    final randomWord = filteredWords[randomIndex];
-    
-    debugPrint('Random word generated for language $language with seed $seed: ${randomWord.word}');
-    return randomWord;
   }
 }
