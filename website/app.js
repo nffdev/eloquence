@@ -86,7 +86,7 @@ async function fetchWordCount() {
             wordCountElement.textContent = "Loading...";
         }
         
-        fetch('http://127.0.0.1:8080/api/words')
+        fetch('https://api.eloquence.social/words')
             .then(response => response.json())
             .then(data => {
                 if (data && data.count) {

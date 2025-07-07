@@ -19,22 +19,22 @@ npm start
 
 ### Get all words
 ```
-GET /api/words
+GET /words
 ```
 
 ### Get word of the day
 ```
-GET /api/words/today
+GET /words/today
 ```
 
 ### Get a word by name
 ```
-GET /api/words/:name
+GET /words/:name
 ```
 
 ### Create a new word
 ```
-POST /api/words
+POST /words
 ```
 Request body:
 ```json
@@ -48,7 +48,7 @@ Request body:
 
 ### Update a word
 ```
-PUT /api/words/:name
+PUT /words/:name
 ```
 Request body:
 ```json
@@ -61,7 +61,7 @@ Request body:
 
 ### Delete a word
 ```
-DELETE /api/words/:name
+DELETE /words/:name
 ```
 
 ## Project structure

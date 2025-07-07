@@ -17,15 +17,15 @@ app.get('/', (req, res) => {
     message: 'Welcome to the API Eloquence',
     version: '1.0.0',
     endpoints: {
-      words: '/api/words',
-      wordOfTheDay: '/api/words/today',
-      wordByName: '/api/words/:name'
+      words: '/words',
+      wordOfTheDay: '/words/today',
+      wordByName: '/words/:name'
     }
   });
 });
 
 // Routes
-app.use('/api/words', wordRoutes);
+app.use('/words', wordRoutes);
 
 app.use((req, res, next) => {
   const error = new Error('Route not found');
