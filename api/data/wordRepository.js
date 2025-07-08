@@ -6,6 +6,7 @@ const Word = require('../models/Word');
 class WordRepository {
   constructor() {
     this.words = [
+      // Mot 1: Éthéré / Ethereal
       new Word(
         'Éthéré',
         'Adj',
@@ -15,85 +16,22 @@ class WordRepository {
         'fr'
       ),
       new Word(
-        'Sérendipité',
-        'Nom',
-        'Le fait de découvrir quelque chose par hasard alors qu\'on cherchait autre chose',
-        'C\'est par sérendipité qu\'il a trouvé sa vocation en se perdant dans ce musée.',
-        false,
-        'fr'
-      ),
-      new Word(
-        'Ineffable',
-        'Adj',
-        'Qui ne peut être exprimé par des paroles tant c\'est intense',
-        'Face à ce paysage grandiose, il ressentit une joie ineffable.',
-        false,
-        'fr'
-      ),
-      new Word(
-        'Acrimonie',
-        'Nom',
-        'Aigreur, amertume qui se manifeste dans les paroles ou le comportement',
-        'Il a répondu avec acrimonie aux critiques formulées contre son projet.',
-        false,
-        'fr'
-      ),
-      new Word(
-        'Quintessence',
-        'Nom',
-        'Ce qu\'il y a de plus raffiné, de plus pur, l\'essence parfaite d\'une chose',
-        'Ce plat représente la quintessence de la cuisine française traditionnelle.',
-        false,
-        'fr'
-      ),
-      new Word(
-        'Pérégrin',
-        'Adj',
-        'Qui voyage, qui vient de loin, étranger ou voyageur',
-        'Cet oiseau pérégrin avait parcouru des milliers de kilomètres avant d\'arriver sur nos côtes.',
-        false,
-        'fr'
-      ),
-      new Word(
-        'Sibyllin',
-        'Adj',
-        'Obscur, énigmatique, difficile à comprendre mais semblant cacher un sens profond',
-        'Ses réponses sibyllines ne m\'ont pas permis de comprendre ses véritables intentions.',
-        false,
-        'fr'
-      ),
-      new Word(
-        'Palimpseste',
-        'Nom',
-        'Manuscrit dont on a effacé le texte primitif pour y écrire un nouveau texte; par extension, œuvre qui se superpose à une autre en la laissant transparaître',
-        'Sa dernière œuvre est un palimpseste littéraire où l\'on reconnaît l\'influence de plusieurs auteurs classiques.',
-        false,
-        'fr'
-      ),
-      new Word(
-        'Apophtegme',
-        'Nom',
-        'Parole mémorable ayant valeur de maxime, sentence exprimant une vérité générale',
-        'Il terminait toujours ses discours par un apophtegme qui résumait parfaitement sa pensée.',
-        false,
-        'fr'
-      ),
-      new Word(
-        'Conciliabule',
-        'Nom',
-        'Entretien secret entre plusieurs personnes, généralement pour préparer un complot ou une action commune',
-        'Après une heure de conciliabule dans le bureau du directeur, la décision fut annoncée à l\'ensemble du personnel.',
-        false,
-        'fr'
-      ),
-      
-      new Word(
         'Ethereal',
         'Adj',
         'Extremely delicate and light in a way that seems too perfect for this world',
         'The ethereal beauty of the mountains at sunrise took her breath away.',
         false,
         'en'
+      ),
+      
+      // Mot 2: Sérendipité / Serendipity
+      new Word(
+        'Sérendipité',
+        'Nom',
+        'Le fait de découvrir quelque chose par hasard alors qu\'on cherchait autre chose',
+        'C\'est par sérendipité qu\'il a trouvé sa vocation en se perdant dans ce musée.',
+        false,
+        'fr'
       ),
       new Word(
         'Serendipity',
@@ -103,6 +41,16 @@ class WordRepository {
         false,
         'en'
       ),
+      
+      // Mot 3: Ineffable / Ineffable
+      new Word(
+        'Ineffable',
+        'Adj',
+        'Qui ne peut être exprimé par des paroles tant c\'est intense',
+        'Face à ce paysage grandiose, il ressentit une joie ineffable.',
+        false,
+        'fr'
+      ),
       new Word(
         'Ineffable',
         'Adj',
@@ -110,6 +58,16 @@ class WordRepository {
         'The ineffable joy of becoming a parent for the first time cannot be adequately described.',
         false,
         'en'
+      ),
+      
+      // Mot 4: Acrimonie / Acrimony
+      new Word(
+        'Acrimonie',
+        'Nom',
+        'Aigreur, amertume qui se manifeste dans les paroles ou le comportement',
+        'Il a répondu avec acrimonie aux critiques formulées contre son projet.',
+        false,
+        'fr'
       ),
       new Word(
         'Acrimony',
@@ -119,6 +77,16 @@ class WordRepository {
         false,
         'en'
       ),
+      
+      // Mot 5: Quintessence / Quintessence
+      new Word(
+        'Quintessence',
+        'Nom',
+        'Ce qu\'il y a de plus raffiné, de plus pur, l\'essence parfaite d\'une chose',
+        'Ce plat représente la quintessence de la cuisine française traditionnelle.',
+        false,
+        'fr'
+      ),
       new Word(
         'Quintessence',
         'Noun',
@@ -127,46 +95,97 @@ class WordRepository {
         false,
         'en'
       ),
+      
+      // Mot 6: Pérégrin / Peregrine
       new Word(
-        'Peregrination',
+        'Pérégrin',
+        'Adj',
+        'Qui voyage, qui vient de loin, étranger ou voyageur',
+        'Cet oiseau pérégrin avait parcouru des milliers de kilomètres avant d\'arriver sur nos côtes.',
+        false,
+        'fr'
+      ),
+      new Word(
+        'Peregrine',
+        'Adj',
+        'Traveling or migrating; foreign',
+        'This peregrine bird had traveled thousands of kilometers before arriving on our shores.',
+        false,
+        'en'
+      ),
+      
+      // Mot 7: Sibyllin / Sibylline
+      new Word(
+        'Sibyllin',
+        'Adj',
+        'Obscur, énigmatique, difficile à comprendre mais semblant cacher un sens profond',
+        'Ses réponses sibyllines ne m\'ont pas permis de comprendre ses véritables intentions.',
+        false,
+        'fr'
+      ),
+      new Word(
+        'Sibylline',
+        'Adj',
+        'Mysterious, enigmatic, difficult to understand',
+        'His sibylline words left everyone perplexed.',
+        false,
+        'en'
+      ),
+      
+      // Mot 8: Palimpseste / Palimpsest
+      new Word(
+        'Palimpseste',
+        'Nom',
+        'Manuscrit dont on a effacé le texte primitif pour y écrire un nouveau texte; par extension, œuvre qui se superpose à une autre en la laissant transparaître',
+        'Sa dernière œuvre est un palimpseste littéraire où l\'on reconnaît l\'influence de plusieurs auteurs classiques.',
+        false,
+        'fr'
+      ),
+      new Word(
+        'Palimpsest',
         'Noun',
-        'A journey, especially a long or meandering one',
-        'His peregrination across Europe lasted three months and took him through twelve different countries.',
+        'A manuscript on which the original writing has been effaced to make room for later writing',
+        'This palimpsest reveals traces of an ancient text beneath the modern writing.',
         false,
         'en'
+      ),
+      
+      // Mot 9: Apophtegme / Apophthegm
+      new Word(
+        'Apophtegme',
+        'Nom',
+        'Parole mémorable ayant valeur de maxime, sentence exprimant une vérité générale',
+        'Il terminait toujours ses discours par un apophtegme qui résumait parfaitement sa pensée.',
+        false,
+        'fr'
       ),
       new Word(
-        'Perspicacious',
-        'Adj',
-        'Having a ready insight into and understanding of things',
-        'Her perspicacious comments during the meeting revealed she had already anticipated the problem.',
+        'Apophthegm',
+        'Noun',
+        'A terse saying embodying a general truth or astute observation',
+        'This apophthegm by Socrates has remained engraved in memory.',
         false,
         'en'
+      ),
+      
+      // Mot 10: Conciliabule / Conciliabule
+      new Word(
+        'Conciliabule',
+        'Nom',
+        'Entretien secret entre plusieurs personnes, généralement pour préparer un complot ou une action commune',
+        'Après une heure de conciliabule dans le bureau du directeur, la décision fut annoncée à l\'ensemble du personnel.',
+        false,
+        'fr'
       ),
       new Word(
-        'Mellifluous',
-        'Adj',
-        'Sweet or musical; pleasant to hear',
-        'The speaker\'s mellifluous voice made even the most mundane topic seem fascinating.',
+        'Conciliabule',
+        'Noun',
+        'A secret or private meeting, especially one with a sinister purpose',
+        'They were holding a conciliabule in the corner of the room.',
         false,
         'en'
       ),
-      new Word(
-        'Obfuscate',
-        'Verb',
-        'To make obscure, unclear, or unintelligible',
-        'The politician tried to obfuscate the issue by using complex technical jargon.',
-        false,
-        'en'
-      ),
-      new Word(
-        'Supercilious',
-        'Adj',
-        'Behaving or looking as though one is superior to others',
-        'The supercilious waiter looked down his nose at customers who didn\'t know about wine.',
-        false,
-        'en'
-      ),
+      // Mot 11: Séraphique / Seraphic
       new Word(
         'Séraphique',
         'Adj',
@@ -176,6 +195,16 @@ class WordRepository {
         'fr'
       ),
       new Word(
+        'Seraphic',
+        'Adj',
+        'Characteristic of or resembling a seraph or seraphim; angelic',
+        'Her seraphic smile instantly eased the tensions in the room.',
+        false,
+        'en'
+      ),
+      
+      // Mot 12: Pérennité / Perpetuity
+      new Word(
         'Pérennité',
         'Nom',
         'Caractère de ce qui dure toujours ou très longtemps',
@@ -183,6 +212,16 @@ class WordRepository {
         false,
         'fr'
       ),
+      new Word(
+        'Perpetuity',
+        'Noun',
+        'The state or quality of lasting forever',
+        'The perpetuity of this family tradition has been passed down for generations.',
+        false,
+        'en'
+      ),
+      
+      // Mot 13: Mélopée / Dirge
       new Word(
         'Mélopée',
         'Nom',
@@ -192,6 +231,16 @@ class WordRepository {
         'fr'
       ),
       new Word(
+        'Dirge',
+        'Noun',
+        'A mournful song, piece of music, or sound; a lament',
+        'The dirge of the wind through the trees gently lulled the exhausted travelers.',
+        false,
+        'en'
+      ),
+      
+      // Mot 14: Indicible / Unspeakable
+      new Word(
         'Indicible',
         'Adj',
         'Qui ne peut être exprimé par des paroles, inexprimable',
@@ -199,6 +248,16 @@ class WordRepository {
         false,
         'fr'
       ),
+      new Word(
+        'Unspeakable',
+        'Adj',
+        'Too extreme to be expressed in words',
+        'An unspeakable joy overwhelmed him when he finally glimpsed his homeland on the horizon.',
+        false,
+        'en'
+      ),
+      
+      // Mot 15: Alacrité / Alacrity
       new Word(
         'Alacrité',
         'Nom',
@@ -208,6 +267,16 @@ class WordRepository {
         'fr'
       ),
       new Word(
+        'Alacrity',
+        'Noun',
+        'Brisk and cheerful readiness',
+        'She approached each day with a contagious alacrity that inspired those around her.',
+        false,
+        'en'
+      ),
+      
+      // Mot 16: Diapré / Dappled
+      new Word(
         'Diapré',
         'Adj',
         'Qui présente des couleurs variées et chatoyantes',
@@ -215,6 +284,16 @@ class WordRepository {
         false,
         'fr'
       ),
+      new Word(
+        'Dappled',
+        'Adj',
+        'Marked with spots or patches of color; variegated',
+        'The dappled twilight sky offered a spectacle of striking beauty.',
+        false,
+        'en'
+      ),
+      
+      // Mot 17: Acuité / Acuity
       new Word(
         'Acuité',
         'Nom',
@@ -224,6 +303,16 @@ class WordRepository {
         'fr'
       ),
       new Word(
+        'Acuity',
+        'Noun',
+        'Sharpness or keenness of thought, vision, or hearing',
+        'His intellectual acuity allowed him to solve complex problems with disconcerting ease.',
+        false,
+        'en'
+      ),
+      
+      // Mot 18: Déliquescent / Deliquescent
+      new Word(
         'Déliquescent',
         'Adj',
         'Qui se dissout, se désagrège progressivement; en état de décomposition',
@@ -231,6 +320,16 @@ class WordRepository {
         false,
         'fr'
       ),
+      new Word(
+        'Deliquescent',
+        'Adj',
+        'Becoming liquid, or having a tendency to become liquid; melting away',
+        'The deliquescent atmosphere of the old manor evoked the past splendor of a bygone era.',
+        false,
+        'en'
+      ),
+      
+      // Mot 19: Équanimité / Equanimity
       new Word(
         'Équanimité',
         'Nom',
@@ -240,10 +339,38 @@ class WordRepository {
         'fr'
       ),
       new Word(
+        'Equanimity',
+        'Noun',
+        'Mental calmness, composure, and evenness of temper, especially in a difficult situation',
+        'The sage received the news, good or bad, with perfect equanimity.',
+        false,
+        'en'
+      ),
+      
+      // Mot 20: Sempiternel / Sempiternal
+      new Word(
         'Sempiternel',
         'Adj',
         'Qui dure toujours, qui se répète sans cesse, éternel',
         'Il reprenait son sempiternelle complainte sur les difficultés de la vie moderne.',
+        false,
+        'fr'
+      ),
+      new Word(
+        'Sempiternal',
+        'Adj',
+        'Eternal and unchanging; everlasting',
+        'He resumed his sempiternal complaint about the difficulties of modern life.',
+        false,
+        'en'
+      ),
+      
+      // Mot 21: Éphémère / Ephemeral
+      new Word(
+        'Éphémère',
+        'Adj',
+        'Qui ne dure qu\'un temps très court, passager, fugitif',
+        'La beauté éphémère des fleurs de cerisier rend leur apparition annuelle d\'autant plus précieuse.',
         false,
         'fr'
       ),
@@ -255,6 +382,16 @@ class WordRepository {
         false,
         'en'
       ),
+      
+      // Mot 22: Limerence / Limerence
+      new Word(
+        'Limerence',
+        'Nom',
+        'État d\'être infatué ou obsédé par une autre personne',
+        'Sa limerence pour elle obscurcissait son jugement et consumait chacune de ses pensées.',
+        false,
+        'fr'
+      ),
       new Word(
         'Limerence',
         'Noun',
@@ -262,6 +399,16 @@ class WordRepository {
         'His limerence for her clouded his judgment and consumed his every thought.',
         false,
         'en'
+      ),
+      
+      // Mot 23: Pétrichor / Petrichor
+      new Word(
+        'Pétrichor',
+        'Nom',
+        'L\'odeur agréable qui accompagne la première pluie après une longue période de temps sec',
+        'Après des mois de sécheresse, le pétrichor s\'élevant de la terre humide était enivrant.',
+        false,
+        'fr'
       ),
       new Word(
         'Petrichor',
@@ -271,6 +418,16 @@ class WordRepository {
         false,
         'en'
       ),
+      
+      // Mot 24: Sonder / Sonder
+      new Word(
+        'Sonder',
+        'Verbe',
+        'La prise de conscience que chaque passant vit une vie aussi intense et complexe que la vôtre',
+        'En marchant dans les rues bondées de la ville, elle fut submergée par un sentiment de sonder.',
+        false,
+        'fr'
+      ),
       new Word(
         'Sonder',
         'Verb',
@@ -278,6 +435,16 @@ class WordRepository {
         'Walking through the crowded city streets, she was overcome with a feeling of sonder.',
         false,
         'en'
+      ),
+      
+      // Mot 25: Alcyon / Halcyon
+      new Word(
+        'Alcyon',
+        'Adj',
+        'Qui désigne une période du passé idylliquement heureuse et paisible',
+        'Il se remémorait souvent ces jours alcyoniens de sa jeunesse passés au bord de la mer.',
+        false,
+        'fr'
       ),
       new Word(
         'Halcyon',
@@ -287,6 +454,16 @@ class WordRepository {
         false,
         'en'
       ),
+      
+      // Mot 26: Vellichor / Vellichor
+      new Word(
+        'Vellichor',
+        'Nom',
+        'L\'étrange mélancolie des librairies d\'occasion',
+        'Le vellichor de l\'ancienne librairie le transportait vers d\'innombrables autres mondes et époques.',
+        false,
+        'fr'
+      ),
       new Word(
         'Vellichor',
         'Noun',
@@ -294,6 +471,16 @@ class WordRepository {
         'The vellichor of the ancient bookshop transported him to countless other worlds and times.',
         false,
         'en'
+      ),
+      
+      // Mot 27: Éloquent / Eloquent
+      new Word(
+        'Éloquent',
+        'Adj',
+        'Qui s\'exprime avec aisance et de façon persuasive',
+        'Son discours éloquent a ému l\'auditoire aux larmes et les a inspirés à agir.',
+        false,
+        'fr'
       ),
       new Word(
         'Eloquent',
@@ -303,6 +490,16 @@ class WordRepository {
         false,
         'en'
       ),
+      
+      // Mot 28: Lumineux / Luminous
+      new Word(
+        'Lumineux',
+        'Adj',
+        'Qui émet ou réfléchit la lumière; brillant ou éclatant',
+        'Son sourire lumineux illuminait toute la pièce quand elle entrait.',
+        false,
+        'fr'
+      ),
       new Word(
         'Luminous',
         'Adj',
@@ -311,6 +508,16 @@ class WordRepository {
         false,
         'en'
       ),
+      
+      // Mot 29: Mélodieux / Mellifluous
+      new Word(
+        'Mélodieux',
+        'Adj',
+        'Qui produit une succession agréable de sons; harmonieux',
+        'Les tons mélodieux du violoncelle remplissaient la salle de concert de chaleur.',
+        false,
+        'fr'
+      ),
       new Word(
         'Mellifluous',
         'Adj',
@@ -318,6 +525,16 @@ class WordRepository {
         'The mellifluous tones of the cello filled the concert hall with warmth.',
         false,
         'en'
+      ),
+      
+      // Mot 30: Sérénité / Serenity
+      new Word(
+        'Sérénité',
+        'Nom',
+        'État de calme, de paix et de tranquillité',
+        'La sérénité du lac de montagne à l\'aube restaurait son sentiment de paix intérieure.',
+        false,
+        'fr'
       ),
       new Word(
         'Serenity',
