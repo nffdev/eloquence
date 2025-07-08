@@ -136,6 +136,41 @@ class SettingsPage extends StatelessWidget {
             title: Consumer<LanguageProvider>(
               builder: (context, languageProvider, _) {
                 return Text(
+                  AppTranslations.translate('report_bug', languageProvider.currentLanguage),
+                  style: Theme.of(context).textTheme.bodyLarge,
+                );
+              },
+            ),
+            subtitle: Consumer<LanguageProvider>(
+              builder: (context, languageProvider, _) {
+                return Text(
+                  AppTranslations.translate('report_bug_subtitle', languageProvider.currentLanguage),
+                  style: Theme.of(context).textTheme.bodyMedium,
+                );
+              },
+            ),
+            leading: const Icon(Icons.bug_report),
+            trailing: const Icon(Icons.open_in_new),
+            onTap: () async {
+              final Uri url = Uri.parse('https://github.com/nffdev/Eloquence/issues/new');
+              if (await canLaunchUrl(url)) {
+                await launchUrl(url, mode: LaunchMode.externalApplication);
+              } else {
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Failed to open link'),
+                    ),
+                  );
+                }
+              }
+            },
+          ),
+
+          ListTile(
+            title: Consumer<LanguageProvider>(
+              builder: (context, languageProvider, _) {
+                return Text(
                   AppTranslations.translate('developer', languageProvider.currentLanguage),
                   style: Theme.of(context).textTheme.bodyLarge,
                 );
