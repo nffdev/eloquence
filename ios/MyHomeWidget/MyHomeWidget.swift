@@ -55,13 +55,21 @@ struct Provider: AppIntentTimelineProvider {
             print("MyHomeWidget: Available UserDefaults keys: \(Array(allKeys))")
         }
         
+        let widgetLanguage = getWidgetLanguage()
+        print("MyHomeWidget: Widget language preference: \(widgetLanguage)")
+        
         if let jsonString = sharedDefaults?.string(forKey: "word_of_the_day") {
             print("MyHomeWidget: Found word_of_the_day key with value: \(jsonString)")
             if let data = jsonString.data(using: .utf8) {
                 do {
                     let decoder = JSONDecoder()
                     let wordOfTheDay = try decoder.decode(WordOfTheDay.self, from: data)
-                    print("MyHomeWidget: Successfully decoded word of the day: \(wordOfTheDay.word)")
+                    print("MyHomeWidget: Successfully decoded word of the day: \(wordOfTheDay.word) (language: \(wordOfTheDay.language))")
+                    
+                    if wordOfTheDay.language != widgetLanguage {
+                        print("MyHomeWidget: Word language (\(wordOfTheDay.language)) doesn't match widget language (\(widgetLanguage))")
+                    }
+                    
                     return wordOfTheDay
                 } catch {
                     print("MyHomeWidget: Error decoding word of the day: \(error)")
@@ -74,6 +82,14 @@ struct Provider: AppIntentTimelineProvider {
         
         print("MyHomeWidget: No word_of_the_day found in UserDefaults, using placeholder")
         return nil
+    }
+    
+    private func getWidgetLanguage() -> String {
+        let sharedDefaults = UserDefaults(suiteName: "group.com.eloquence.widget")
+        if let languageIndex = sharedDefaults?.integer(forKey: "language_preference") {
+            return languageIndex == 0 ? "fr" : "en"
+        }
+        return "fr" 
     }
 
 //    func relevances() async -> WidgetRelevances<ConfigurationAppIntent> {
@@ -94,6 +110,14 @@ struct MyHomeWidgetEntryView : View {
     private var isDarkMode: Bool {
         let sharedDefaults = UserDefaults(suiteName: "group.com.eloquence.widget")
         return sharedDefaults?.bool(forKey: "theme_preference") ?? true
+    }
+    
+    private var widgetLanguage: String {
+        let sharedDefaults = UserDefaults(suiteName: "group.com.eloquence.widget")
+        if let languageIndex = sharedDefaults?.integer(forKey: "language_preference") {
+            return languageIndex == 0 ? "fr" : "en"
+        }
+        return "fr" 
     }
 
     var body: some View {
@@ -152,16 +176,30 @@ struct MyHomeWidgetEntryView : View {
     }
     
     private func getShortType(_ type: String) -> String {
-        switch type.lowercased() {
-        case "adjectif": return "adj"
-        case "nom", "nom commun", "nom propre": return "nom"
-        case "verbe": return "v"
-        case "adverbe": return "adv"
-        case "pronom": return "pron"
-        case "conjonction": return "conj"
-        case "préposition": return "prép"
-        case "interjection": return "interj"
-        default: return type
+        if widgetLanguage == "en" {
+            switch type.lowercased() {
+            case "adjective": return "adj"
+            case "noun": return "noun"
+            case "verb": return "v"
+            case "adverb": return "adv"
+            case "pronoun": return "pron"
+            case "conjunction": return "conj"
+            case "preposition": return "prep"
+            case "interjection": return "interj"
+            default: return type
+            }
+        } else {
+            switch type.lowercased() {
+            case "adjectif": return "adj"
+            case "nom", "nom commun", "nom propre": return "nom"
+            case "verbe": return "v"
+            case "adverbe": return "adv"
+            case "pronom": return "pron"
+            case "conjonction": return "conj"
+            case "préposition": return "prép"
+            case "interjection": return "interj"
+            default: return type
+            }
         }
     }
 }
@@ -180,7 +218,15 @@ struct MyHomeWidget: Widget {
                 }
         }
         .configurationDisplayName("Eloquence Widget")
-        .description("Affiche le mot du jour de l'application Eloquence.")
+        .description({ 
+            let sharedDefaults = UserDefaults(suiteName: "group.com.eloquence.widget")
+            if let languageIndex = sharedDefaults?.integer(forKey: "language_preference"), languageIndex == 1 {
+                return "Shows the word of the day from Eloquence app."
+            } else {
+                return "Affiche le mot du jour de l'application Eloquence."
+            }
+        }())
+        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
     }
 }
 

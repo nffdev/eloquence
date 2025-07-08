@@ -183,6 +183,18 @@ class AppTranslations {
       AppLanguage.french: 'Gestion du widget',
       AppLanguage.english: 'Widget management',
     },
+    'widget_language': {
+      AppLanguage.french: 'Langue du widget',
+      AppLanguage.english: 'Widget language',
+    },
+    'french_language': {
+      AppLanguage.french: 'Français',
+      AppLanguage.english: 'French',
+    },
+    'english_language': {
+      AppLanguage.french: 'Anglais',
+      AppLanguage.english: 'English',
+    },
     'how_to_add_widget': {
       AppLanguage.french: 'Comment ajouter le widget',
       AppLanguage.english: 'How to add widget',

@@ -5,6 +5,7 @@ import '../../../../core/localization/language_provider.dart';
 import '../../../../core/localization/app_translations.dart';
 import '../../../../core/theme/theme_provider.dart';
 import '../../../word_of_the_day/application/widget_service.dart';
+import '../../../word_of_the_day/application/word_provider.dart';
 
 class WidgetPage extends StatefulWidget {
   const WidgetPage({super.key});
@@ -15,11 +16,13 @@ class WidgetPage extends StatefulWidget {
 
 class _WidgetPageState extends State<WidgetPage> {
   bool _isWidgetDarkMode = true;
+  AppLanguage _widgetLanguage = AppLanguage.french;
 
   @override
   void initState() {
     super.initState();
     _loadWidgetTheme();
+    _loadWidgetLanguage();
   }
 
   Future<void> _loadWidgetTheme() async {
@@ -29,6 +32,17 @@ class _WidgetPageState extends State<WidgetPage> {
     if (mounted) {
       setState(() {
         _isWidgetDarkMode = isDarkMode;
+      });
+    }
+  }
+  
+  Future<void> _loadWidgetLanguage() async {
+    await HomeWidget.setAppGroupId(WidgetService.appGroupId);
+    final languageIndex = await HomeWidget.getWidgetData<int>(WidgetService.languageKey) ?? 0;
+    
+    if (mounted) {
+      setState(() {
+        _widgetLanguage = AppLanguage.values[languageIndex];
       });
     }
   }
@@ -211,6 +225,70 @@ class _WidgetPageState extends State<WidgetPage> {
                                     Icons.dark_mode,
                                     true,
                                     _isWidgetDarkMode,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    
+                    const SizedBox(height: 24),
+                    
+                    Card(
+                      elevation: themeProvider.isDarkMode ? 0 : 2,
+                      color: themeProvider.isDarkMode ? const Color(0xFF1A1A1A) : Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.language,
+                                  color: themeProvider.isDarkMode ? Colors.white : const Color(0xFF000000),
+                                  size: 24,
+                                ),
+                                const SizedBox(width: 12),
+                                Text(
+                                  AppTranslations.translate('widget_language', languageProvider.currentLanguage),
+                                  style: TextStyle(
+                                    color: themeProvider.isDarkMode ? Colors.white : const Color(0xFF000000),
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 16),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: _buildLanguageOption(
+                                    context,
+                                    languageProvider,
+                                    themeProvider,
+                                    AppTranslations.translate('french_language', languageProvider.currentLanguage),
+                                    Icons.flag,
+                                    AppLanguage.french,
+                                    _widgetLanguage == AppLanguage.french,
+                                  ),
+                                ),
+                                const SizedBox(width: 12),
+                                Expanded(
+                                  child: _buildLanguageOption(
+                                    context,
+                                    languageProvider,
+                                    themeProvider,
+                                    AppTranslations.translate('english_language', languageProvider.currentLanguage),
+                                    Icons.flag,
+                                    AppLanguage.english,
+                                    _widgetLanguage == AppLanguage.english,
                                   ),
                                 ),
                               ],
@@ -440,6 +518,85 @@ class _WidgetPageState extends State<WidgetPage> {
           ),
         ),
       ],
+    );
+  }
+  
+  Widget _buildLanguageOption(
+    BuildContext context,
+    LanguageProvider languageProvider,
+    ThemeProvider currentThemeProvider,
+    String title,
+    IconData icon,
+    AppLanguage language,
+    bool isSelected,
+  ) {
+    return GestureDetector(
+      onTap: () async {
+        await WidgetService.updateLanguage(language);
+        
+        setState(() {
+          _widgetLanguage = language;
+        });
+        
+        try {
+          final wordProvider = Provider.of<WordProvider>(context, listen: false);
+          final languageCode = language == AppLanguage.french ? 'fr' : 'en';
+          wordProvider.setLanguage(languageCode);
+          debugPrint('Widget language changed to $languageCode, updating word of the day');
+        } catch (e) {
+          debugPrint('Error updating word of the day after widget language change: $e');
+        }
+          
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                language == AppLanguage.french 
+                  ? 'Langue française appliquée au widget'
+                  : 'Langue anglaise appliquée au widget',
+                style: const TextStyle(color: Colors.white),
+              ),
+              backgroundColor: currentThemeProvider.isDarkMode ? const Color(0xFF1A1A1A) : const Color(0xFF000000),
+              duration: const Duration(seconds: 2),
+            ),
+          );
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: isSelected 
+            ? (currentThemeProvider.isDarkMode ? Colors.white.withOpacity(0.1) : const Color(0xFF000000).withOpacity(0.1))
+            : Colors.transparent,
+          border: Border.all(
+            color: isSelected 
+              ? (currentThemeProvider.isDarkMode ? Colors.white : const Color(0xFF000000))
+              : (currentThemeProvider.isDarkMode ? Colors.white.withOpacity(0.3) : const Color(0xFF000000).withOpacity(0.3)),
+            width: isSelected ? 2 : 1,
+          ),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          children: [
+            Text(
+              language == AppLanguage.french ? '🇫🇷' : '🇺🇸',
+              style: const TextStyle(fontSize: 32),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              title,
+              style: TextStyle(
+                color: isSelected 
+                  ? (currentThemeProvider.isDarkMode ? Colors.white : const Color(0xFF000000))
+                  : (currentThemeProvider.isDarkMode ? Colors.white.withOpacity(0.6) : const Color(0xFF000000).withOpacity(0.6)),
+                fontSize: 14,
+                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
