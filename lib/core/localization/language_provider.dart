@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
+import '../../features/word_of_the_day/application/word_provider.dart';
 
 enum AppLanguage {
   french,
@@ -25,13 +27,23 @@ class LanguageProvider extends ChangeNotifier {
     notifyListeners();
   }
   
-  Future<void> setLanguage(AppLanguage language) async {
+  Future<void> setLanguage(AppLanguage language, {BuildContext? context}) async {
     if (_currentLanguage != language) {
       _currentLanguage = language;
       notifyListeners();
       
       final prefs = await SharedPreferences.getInstance();
       await prefs.setInt(_languagePreferenceKey, language.index);
+      
+      if (context != null) {
+        try {
+          final wordProvider = Provider.of<WordProvider>(context, listen: false);
+          wordProvider.setLanguage(languageCode);
+          debugPrint('Language changed to $languageCode, notified WordProvider to reload word');
+        } catch (e) {
+          debugPrint('Error notifying WordProvider of language change: $e');
+        }
+      }
     }
   }
   
