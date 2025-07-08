@@ -2,11 +2,13 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import '../domain/models/word.dart';
 import 'package:home_widget/home_widget.dart';
+import '../../../core/localization/language_provider.dart';
 
 class WidgetService {
   static const String appGroupId = 'group.com.eloquence.widget';
   static const String wordOfTheDayKey = 'word_of_the_day';
   static const String themeKey = 'theme_preference';
+  static const String languageKey = 'language_preference';
 
   static Future<bool> updateWordOfTheDay(Word word) async {
     try {
@@ -42,6 +44,24 @@ class WidgetService {
       return true;
     } catch (e) {
       debugPrint('Error updating widget theme: $e');
+      return false;
+    }
+  }
+  
+  static Future<bool> updateLanguage(AppLanguage language) async {
+    try {
+      await HomeWidget.setAppGroupId(appGroupId);
+      await HomeWidget.saveWidgetData<int>(languageKey, language.index);
+      
+      await HomeWidget.updateWidget(
+        name: 'MyHomeWidget',
+        iOSName: 'MyHomeWidget',
+      );
+      
+      debugPrint('Widget language updated successfully: language=${language.name}');
+      return true;
+    } catch (e) {
+      debugPrint('Error updating widget language: $e');
       return false;
     }
   }

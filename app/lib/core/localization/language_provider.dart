@@ -38,8 +38,9 @@ class LanguageProvider extends ChangeNotifier {
       if (context != null) {
         try {
           final wordProvider = Provider.of<WordProvider>(context, listen: false);
-          wordProvider.setLanguage(languageCode);
-          debugPrint('Language changed to $languageCode, notified WordProvider to reload word');
+          final code = language == AppLanguage.french ? 'fr' : 'en';
+          wordProvider.setLanguage(code);
+          debugPrint('Language changed to $code, notified WordProvider to reload word');
         } catch (e) {
           debugPrint('Error notifying WordProvider of language change: $e');
         }
