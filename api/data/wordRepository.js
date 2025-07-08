@@ -365,21 +365,29 @@ class WordRepository {
    * @returns {Word} A word for today in the specified language
    */
   getWordOfTheDay(language = 'fr') {
-    const filteredWords = this.words.filter(word => word.language === language);
-    
-    if (filteredWords.length === 0 && language !== 'fr') {
-      return this.getWordOfTheDay('fr');
-    }
-    
-    if (filteredWords.length === 0) {
-      return this.words[0];
-    }
+    const frenchWords = this.words.filter(word => word.language === 'fr');
     
     const today = new Date();
     const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
-    const index = dayOfYear % filteredWords.length;
     
-    return filteredWords[index];
+    const frenchWordIndex = dayOfYear % frenchWords.length;
+    const frenchWordOfTheDay = frenchWords[frenchWordIndex];
+    
+    if (language === 'fr') {
+      return frenchWordOfTheDay;
+    }
+    
+    const requestedLangWords = this.words.filter(word => word.language === language);
+    
+    if (requestedLangWords.length === 0) {
+      return frenchWordOfTheDay;
+    }
+    
+    // We assume words are defined in the same order for all languages
+    // So we use the same index as the French word
+    const correspondingWordIndex = frenchWordIndex % requestedLangWords.length;
+    
+    return requestedLangWords[correspondingWordIndex];
   }
 
   /**
