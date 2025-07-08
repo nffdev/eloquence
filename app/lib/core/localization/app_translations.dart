@@ -207,6 +207,14 @@ class AppTranslations {
       AppLanguage.french: 'Icône par défaut',
       AppLanguage.english: 'Default icon',
     },
+    'report_bug': {
+      AppLanguage.french: 'Signaler un bug',
+      AppLanguage.english: 'Report a bug',
+    },
+    'report_bug_subtitle': {
+      AppLanguage.french: 'Aidez-nous à améliorer l\'application',
+      AppLanguage.english: 'Help us improve the app',
+    },
 
   };
   
