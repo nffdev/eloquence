@@ -15,7 +15,7 @@ class LanguageSelector extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
           ),
           onSelected: (AppLanguage language) {
-            languageProvider.setLanguage(language);
+            languageProvider.setLanguage(language, context: context);
           },
           itemBuilder: (BuildContext context) => <PopupMenuEntry<AppLanguage>>[
             _buildLanguageItem(
