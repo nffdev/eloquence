@@ -502,24 +502,7 @@ class _WidgetPageState extends State<WidgetPage> {
     );
   }
 
-  Widget _buildBenefitItem(BuildContext context, String text, IconData icon) {
-    return Row(
-      children: [
-        Icon(
-          icon,
-          color: Colors.green,
-          size: 20,
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Text(
-            text,
-            style: Theme.of(context).textTheme.bodyMedium,
-          ),
-        ),
-      ],
-    );
-  }
+
   
   Widget _buildLanguageOption(
     BuildContext context,

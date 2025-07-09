@@ -50,7 +50,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   
   void _onLanguageChanged() {
     final wordProvider = Provider.of<WordProvider>(context, listen: false);
-    final languageCode = _languageProvider!.currentLanguage == AppLanguage.french ? 'fr' : 'en';
+    final code = _languageProvider!.currentLanguage == AppLanguage.french ? 'fr' : 'en';
+    wordProvider.setLanguage(code);
     setState(() {});
   }
   
