@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
@@ -6,6 +5,7 @@ import '../data/word_repository.dart';
 import '../domain/models/word.dart';
 import 'widget_service.dart';
 import '../../../core/utils/word_utils.dart';
+import '../../../core/constants/word_constants.dart';
 
 class WordProvider extends ChangeNotifier {
   final WordRepository _repository = WordRepository();
@@ -51,12 +51,11 @@ class WordProvider extends ChangeNotifier {
       final prefs = await SharedPreferences.getInstance();
       final today = DateFormat('yyyy-MM-dd').format(DateTime.now());
       
-      final rerolledWordJson = prefs.getString('rerolled_word_${today}_$_currentLanguage');
+      final rerolledWordPairId = prefs.getString('rerolled_word_pair_$today');
       
-      if (rerolledWordJson != null) {
-        final wordData = json.decode(rerolledWordJson);
-        _currentWord = Word.fromJson(wordData);
-        debugPrint('Loaded rerolled word: ${_currentWord.word}');
+      if (rerolledWordPairId != null) {
+        _currentWord = await _getWordFromPairId(rerolledWordPairId, _currentLanguage);
+        debugPrint('Loaded rerolled word from pair ID: ${_currentWord.word}');
       } else {
         _currentWord = await _repository.getTodaysWord(language: _currentLanguage);
       }
@@ -157,16 +156,18 @@ class WordProvider extends ChangeNotifier {
       
       await prefs.setInt('reroll_count_$today', rerollCount);
       
-      _currentWord = await _repository.getRandomWord(
-        language: _currentLanguage, 
+      final randomWord = await _repository.getRandomWord(
+        language: 'fr', 
         seed: rerollCount
       );
       
-      await prefs.setString('rerolled_word_${today}_$_currentLanguage', json.encode(_currentWord.toJson()));
+      String wordPairId = WordUtils.getWordPairId(randomWord);
+      await prefs.setString('rerolled_word_pair_$today', wordPairId);
+      
+      _currentWord = await _getWordFromPairId(wordPairId, _currentLanguage);
       
       final favorites = prefs.getStringList('favorites') ?? [];
-      String wordId = WordUtils.getWordPairId(_currentWord);
-      _isFavorite = favorites.contains(wordId);
+      _isFavorite = favorites.contains(wordPairId);
       _currentWord.isFavorite = _isFavorite;
       
       await WidgetService.updateWordOfTheDay(_currentWord);
@@ -176,5 +177,24 @@ class WordProvider extends ChangeNotifier {
       _isLoading = false;
       notifyListeners();
     }
+  }
+  
+  Future<Word> _getWordFromPairId(String pairId, String language) async {
+    for (var translation in WordConstants.wordTranslations) {
+      if (translation.french.word.toLowerCase() == pairId.toLowerCase()) {
+        return language == 'fr' ? translation.french : translation.english;
+      }
+    }
+    
+    final fallbackWords = WordUtils.fallbackWords.where((w) => 
+      WordUtils.getWordPairId(w).toLowerCase() == pairId.toLowerCase() && 
+      w.language == language
+    ).toList();
+    
+    if (fallbackWords.isNotEmpty) {
+      return fallbackWords.first;
+    }
+    
+    return await _repository.getTodaysWord(language: language);
   }
 }
