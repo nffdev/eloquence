@@ -5,7 +5,6 @@ import '../../../../core/localization/language_provider.dart';
 import '../../../../core/localization/app_translations.dart';
 import '../../../../core/theme/theme_provider.dart';
 import '../../../word_of_the_day/application/widget_service.dart';
-import '../../../word_of_the_day/application/word_provider.dart';
 
 class WidgetPage extends StatefulWidget {
   const WidgetPage({super.key});
@@ -515,20 +514,11 @@ class _WidgetPageState extends State<WidgetPage> {
   ) {
     return GestureDetector(
       onTap: () async {
-        await WidgetService.updateLanguage(language);
+        await WidgetService.updateWidgetLanguageAndWord(language);
         
         setState(() {
           _widgetLanguage = language;
         });
-        
-        try {
-          final wordProvider = Provider.of<WordProvider>(context, listen: false);
-          final languageCode = language == AppLanguage.french ? 'fr' : 'en';
-          wordProvider.setLanguage(languageCode);
-          debugPrint('Widget language changed to $languageCode, updating word of the day');
-        } catch (e) {
-          debugPrint('Error updating word of the day after widget language change: $e');
-        }
           
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
