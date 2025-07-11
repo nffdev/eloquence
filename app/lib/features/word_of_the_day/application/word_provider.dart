@@ -66,7 +66,7 @@ class WordProvider extends ChangeNotifier {
       _currentWord.isFavorite = _isFavorite;
       await _updateStreak();
       
-      await WidgetService.updateWordOfTheDay(_currentWord);
+      await WidgetService.updateWidgetWordOnly();
     } catch (e) {
       debugPrint('Error loading today\'s word: $e');
     } finally {
@@ -170,7 +170,7 @@ class WordProvider extends ChangeNotifier {
       _isFavorite = favorites.contains(wordPairId);
       _currentWord.isFavorite = _isFavorite;
       
-      await WidgetService.updateWordOfTheDay(_currentWord);
+      await WidgetService.updateWidgetWordOnly();
     } catch (e) {
       debugPrint('Error rerolling word: $e');
     } finally {

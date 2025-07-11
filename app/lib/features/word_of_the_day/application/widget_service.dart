@@ -92,4 +92,31 @@ class WidgetService {
       return false;
     }
   }
+  
+  static Future<bool> updateWidgetWordOnly() async {
+    try {
+      await HomeWidget.setAppGroupId(appGroupId);
+      
+      final currentLanguageIndex = await HomeWidget.getWidgetData<int>(languageKey) ?? 0;
+      final widgetLanguage = AppLanguage.values[currentLanguageIndex];
+      
+      final repository = WordRepository();
+      final languageCode = widgetLanguage == AppLanguage.french ? 'fr' : 'en';
+      final word = await repository.getTodaysWord(language: languageCode);
+      
+      final wordJson = jsonEncode(word.toJson());
+      await HomeWidget.saveWidgetData<String>(wordOfTheDayKey, wordJson);
+      
+      await HomeWidget.updateWidget(
+        name: 'MyHomeWidget',
+        iOSName: 'MyHomeWidget',
+      );
+      
+      debugPrint('Widget word updated successfully (language preserved): word=${word.word}, language=${widgetLanguage.name}');
+      return true;
+    } catch (e) {
+      debugPrint('Error updating widget word only: $e');
+      return false;
+    }
+  }
 }
