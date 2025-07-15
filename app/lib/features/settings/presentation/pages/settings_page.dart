@@ -83,7 +83,7 @@ class SettingsPage extends StatelessWidget {
               },
             ),
             subtitle: Text(
-              '1.0.0',
+              '1.0.1',
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             leading: const Icon(Icons.info_outline),
