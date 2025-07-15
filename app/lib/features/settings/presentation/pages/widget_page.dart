@@ -5,6 +5,7 @@ import '../../../../core/localization/language_provider.dart';
 import '../../../../core/localization/app_translations.dart';
 import '../../../../core/theme/theme_provider.dart';
 import '../../../word_of_the_day/application/widget_service.dart';
+import '../../../word_of_the_day/application/word_provider.dart';
 
 class WidgetPage extends StatefulWidget {
   const WidgetPage({super.key});
@@ -514,7 +515,10 @@ class _WidgetPageState extends State<WidgetPage> {
   ) {
     return GestureDetector(
       onTap: () async {
-        await WidgetService.updateWidgetLanguageAndWord(language);
+        final wordProvider = Provider.of<WordProvider>(context, listen: false);
+        final currentWord = wordProvider.currentWord;
+        
+        await WidgetService.updateWidgetLanguageAndWord(language, currentWord: currentWord);
         
         setState(() {
           _widgetLanguage = language;

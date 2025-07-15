@@ -4,6 +4,7 @@ import '../domain/models/word.dart';
 import 'package:home_widget/home_widget.dart';
 import '../../../core/localization/language_provider.dart';
 import '../data/word_repository.dart';
+import '../../../core/utils/word_utils.dart';
 
 class WidgetService {
   static const String appGroupId = 'group.com.eloquence.widget';
@@ -67,18 +68,39 @@ class WidgetService {
     }
   }
   
-  static Future<bool> updateWidgetLanguageAndWord(AppLanguage language) async {
+  static Future<bool> updateWidgetLanguageAndWord(AppLanguage language, {Word? currentWord}) async {
     try {
       await HomeWidget.setAppGroupId(appGroupId);
       
       await HomeWidget.saveWidgetData<int>(languageKey, language.index);
       
-      final repository = WordRepository();
       final languageCode = language == AppLanguage.french ? 'fr' : 'en';
-      final word = await repository.getTodaysWord(language: languageCode);
+      Word word;
+      
+      if (currentWord != null) {
+        if (currentWord.language == languageCode) {
+          word = currentWord;
+        } else {
+          Word? translatedWord = WordUtils.getTranslation(currentWord, languageCode);
+          if (translatedWord != null) {
+            word = translatedWord;
+          } else {
+            final repository = WordRepository();
+            word = await repository.getTodaysWord(language: languageCode);
+          }
+        }
+      } else {
+        final repository = WordRepository();
+        word = await repository.getTodaysWord(language: languageCode);
+      }
       
       final wordJson = jsonEncode(word.toJson());
       await HomeWidget.saveWidgetData<String>(wordOfTheDayKey, wordJson);
+      
+      final savedWordJson = await HomeWidget.getWidgetData<String>(wordOfTheDayKey);
+      if (savedWordJson == null) {
+        debugPrint('Warning: Widget word data was not saved properly');
+      }
       
       await HomeWidget.updateWidget(
         name: 'MyHomeWidget',
@@ -93,19 +115,39 @@ class WidgetService {
     }
   }
   
-  static Future<bool> updateWidgetWordOnly() async {
+  static Future<bool> updateWidgetWordOnly({Word? wordToUse}) async {
     try {
       await HomeWidget.setAppGroupId(appGroupId);
       
       final currentLanguageIndex = await HomeWidget.getWidgetData<int>(languageKey) ?? 0;
       final widgetLanguage = AppLanguage.values[currentLanguageIndex];
-      
-      final repository = WordRepository();
       final languageCode = widgetLanguage == AppLanguage.french ? 'fr' : 'en';
-      final word = await repository.getTodaysWord(language: languageCode);
+      
+      Word word;
+      if (wordToUse != null) {
+        if (wordToUse.language == languageCode) {
+          word = wordToUse;
+        } else {
+           Word? translatedWord = WordUtils.getTranslation(wordToUse, languageCode);
+           if (translatedWord != null) {
+             word = translatedWord;
+           } else {
+             final repository = WordRepository();
+             word = await repository.getTodaysWord(language: languageCode);
+           }
+        }
+      } else {
+        final repository = WordRepository();
+        word = await repository.getTodaysWord(language: languageCode);
+      }
       
       final wordJson = jsonEncode(word.toJson());
       await HomeWidget.saveWidgetData<String>(wordOfTheDayKey, wordJson);
+      
+      final savedWordJson = await HomeWidget.getWidgetData<String>(wordOfTheDayKey);
+      if (savedWordJson == null) {
+        debugPrint('Warning: Widget word data was not saved properly');
+      }
       
       await HomeWidget.updateWidget(
         name: 'MyHomeWidget',
