@@ -202,7 +202,7 @@ const translations = {
         // Footer
         "copyright": "© 2025 Eloquence. All rights reserved.",
         "privacy": "Privacy policy",
-        "terms": "Terms of use",
+        "terms": "Terms of Service",
         "github": "Github (Support)",
         
         // Language selector
