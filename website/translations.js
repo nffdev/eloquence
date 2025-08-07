@@ -1,5 +1,9 @@
 const translations = {
     fr: {
+        // Title 
+        "app-title": "Eloquence - Enrichissez votre vocabulaire",
+        "app-policy": "Eloquence - Politique de Confidentialité",
+
         // Navbar
         "app-name": "Eloquence",
         "home": "Accueil",
@@ -153,6 +157,10 @@ const translations = {
         "terms-contact-email": "Email : contact@eloquence.social"
     },
     en: {
+        // Title 
+        "app-title": "Eloquence - Enrich your vocabulary",
+        "app-policy": "Eloquence - Privacy Policy",
+
         // Navbar
         "app-name": "Eloquence",
         "home": "Home",
