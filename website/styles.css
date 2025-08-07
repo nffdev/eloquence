@@ -351,6 +351,26 @@ body {
     color: var(--bg-color);
 }
 
+.btn-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+    filter: grayscale(100%);
+}
+
+.btn-disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-disabled svg {
+    opacity: 0.6;
+}
+
+.btn-disabled:hover svg {
+    transform: none;
+}
+
 .app-mockup {
     position: relative;
     max-width: 24rem;
