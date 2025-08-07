@@ -49,10 +49,13 @@ const observer = new IntersectionObserver((entries) => {
             
             if (entry.target.classList.contains('stat-item')) {
                 const valueElement = entry.target.querySelector('.stat-value');
-                const target = parseFloat(valueElement.getAttribute('data-target'));
+                const targetAttr = valueElement.getAttribute('data-target');
+                const target = parseFloat(targetAttr);
                 const suffix = valueElement.getAttribute('data-suffix') || '';
                 
-                animateCounter(valueElement, target, suffix);
+                if (targetAttr && !isNaN(target)) {
+                    animateCounter(valueElement, target, suffix);
+                }
             }
             
             observer.unobserve(entry.target);
@@ -115,30 +118,36 @@ async function fetchAppStoreRating() {
         
         const ratingElement = document.querySelector('.stat-item:nth-child(3) .stat-value');
         if (ratingElement) {
-            ratingElement.textContent = "Loading...";
+            ratingElement.textContent = "5.0/5";
         }
         
-        fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https://itunes.apple.com/lookup?id=${appId}&country=fr`)}`) 
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 secondes max
+        
+        fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https://itunes.apple.com/lookup?id=${appId}&country=fr`)}`, {
+            signal: controller.signal
+        })
             .then(response => response.json())
             .then(data => {
+                clearTimeout(timeoutId);
                 const text = data.contents;
                 const match = text.match(/"averageUserRating":(\d+(\.\d+)?)/);
                 if (match && match[1]) {
                     const rating = parseFloat(match[1]);
                     
                     if (ratingElement) {
-                        animateCounter(ratingElement, rating, '/5');
+                        if (rating !== 5.0) {
+                            animateCounter(ratingElement, rating, '/5');
+                        }
                     }
                 }
             })
             .catch(error => {
+                clearTimeout(timeoutId);
                 console.error('Error while getting data:', error);
-                if (ratingElement) {
-                    ratingElement.textContent = "5/5";
-                }
             });
     } catch (error) {
-        console.error('Errror while getting review data:', error);
+        console.error('Error while getting review data:', error);
     }
 }
 
