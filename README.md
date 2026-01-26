@@ -174,6 +174,6 @@ Ce projet est sous licence MIT.
 
 ## 👥 Contributeurs
 
-- [@nffdev](https://github.com/nffdev) - Développeur principal
+- [@nffdev](https://github.com/nffdev) - Développeur & créateur de l'app
 
 ---
